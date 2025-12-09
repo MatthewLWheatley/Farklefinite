@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7180122734216725676}
   - component: {fileID: 702614091839816292}
-  - component: {fileID: 3519182912205222517}
   - component: {fileID: 6494300204436048358}
+  - component: {fileID: 3519182912205222517}
   m_Layer: 7
   m_Name: Dice
   m_TagString: Untagged
@@ -89,36 +89,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3519182912205222517
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2549693032575953095}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c051531bd55bf9a498991a384af6ba4b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ID: 0
-  DiceSprites:
-  - {fileID: -7044660306776900269, guid: 3d3f40c54a04b6547bc28d26216a6aef, type: 3}
-  DiceNames:
-  - Normal
-  pipSprites:
-  - {fileID: 1965599317052140067, guid: 37be34c36ffc4ae41a9198f3fbc46e0a, type: 3}
-  - {fileID: 8211243896810743751, guid: 65c974d0eddda024286c3f5052802ed0, type: 3}
-  - {fileID: 1350188232839117535, guid: 551a995738647cb4796c1ff72fc4bdd1, type: 3}
-  - {fileID: 5123967086785334009, guid: 34498b2fb085acf4895a9bfc3c401f77, type: 3}
-  - {fileID: 2371431799608282939, guid: 012e92c2fa2912d4ea733703882aea92, type: 3}
-  - {fileID: 6470227490501812004, guid: eb27ac6a26037e14aa407f23e410ede0, type: 3}
-  pips: 
-  currentFace: 0
-  currentPip: {fileID: 0}
-  swapSpeed: 0.1
-  swapRounds: 3
-  collider: {fileID: 0}
 --- !u!61 &6494300204436048358
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -149,7 +119,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -165,3 +135,87 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.16, y: 0.16}
   m_EdgeRadius: 0
+--- !u!114 &3519182912205222517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2549693032575953095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c051531bd55bf9a498991a384af6ba4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 0
+  DiceSprites:
+  - {fileID: -7044660306776900269, guid: 3d3f40c54a04b6547bc28d26216a6aef, type: 3}
+  DiceNames:
+  - Normal
+  pipSprites:
+  - {fileID: 1965599317052140067, guid: 37be34c36ffc4ae41a9198f3fbc46e0a, type: 3}
+  - {fileID: 8211243896810743751, guid: 65c974d0eddda024286c3f5052802ed0, type: 3}
+  - {fileID: 1350188232839117535, guid: 551a995738647cb4796c1ff72fc4bdd1, type: 3}
+  - {fileID: 5123967086785334009, guid: 34498b2fb085acf4895a9bfc3c401f77, type: 3}
+  - {fileID: 2371431799608282939, guid: 012e92c2fa2912d4ea733703882aea92, type: 3}
+  - {fileID: 6470227490501812004, guid: eb27ac6a26037e14aa407f23e410ede0, type: 3}
+  pips: 
+  currentFace: 0
+  currentPip: {fileID: 0}
+  swapSpeed: 0.1
+  swapRounds: 3
+  speedCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.004202779
+      value: 0.007897019
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.35507992
+      value: 0.19631468
+      inSlope: 1.6824971
+      outSlope: 1.6824971
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.50496227
+    - serializedVersion: 3
+      time: 0.4971693
+      value: 0.5002798
+      inSlope: 3.0856369
+      outSlope: 3.0856369
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.034980237
+      outWeight: 0.40966314
+    - serializedVersion: 3
+      time: 0.5619904
+      value: 0.6798521
+      inSlope: 2.5266855
+      outSlope: 2.5266855
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.11654902
+    - serializedVersion: 3
+      time: 0.9916381
+      value: 0.9992676
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  fastSpeed: 0.1
+  slowSpeed: 0.45
+  collider: {fileID: 0}
+  rolling: 0

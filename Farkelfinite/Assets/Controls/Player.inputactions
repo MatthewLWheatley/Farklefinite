@@ -6,9 +6,9 @@
             "id": "e4cbc7cf-2e0b-4b66-9b43-552f012581ff",
             "actions": [
                 {
-                    "name": "LeftMouseDown",
+                    "name": "LeftClick",
                     "type": "Button",
-                    "id": "f62bf88e-ce55-486c-923b-bf722323b9d0",
+                    "id": "da6426cc-ce63-4866-aaf1-c7f084a66fda",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -18,12 +18,12 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "eaede7a0-33a4-433d-a2c8-9aad04bb4c88",
+                    "id": "451e88dd-f19f-44a7-9604-9834229a6adf",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "LeftMouseDown",
+                    "action": "LeftClick",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

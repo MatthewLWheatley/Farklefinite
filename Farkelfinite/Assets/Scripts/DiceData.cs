@@ -16,9 +16,15 @@ public class DiceData : MonoBehaviour
     public int currentFace = 0;
     public GameObject currentPip;
     public float swapSpeed = 0.1f;
-    public int swapRounds = 3;
+    public int swapRounds = 5;
+
+    [SerializeField] private AnimationCurve speedCurve;
+    [SerializeField] private float fastSpeed = 0.1f; 
+    [SerializeField] private float slowSpeed = 0.65f;
 
     public BoxCollider2D collider;
+
+    public bool rolling = false;
 
     void Start()
     {
@@ -66,6 +72,12 @@ public class DiceData : MonoBehaviour
 
     public void ChangePip(int Face)
     {
+        if (rolling) 
+        {
+            Debug.Log("no im already rolling");
+            return;
+        }
+        rolling = true;
         int pastFace = currentFace;
         currentFace = Face;
         Debug.Log("Changing pip to face " + Face);
@@ -88,7 +100,7 @@ public class DiceData : MonoBehaviour
     IEnumerator SwapToFace(int Face, int Start)
     {
         int current = Start;
-        int diff = ((Face+6) - Start) % 6;
+        int diff = ((Face + 6) - Start) % 6;
         int totalSteps = (swapRounds * 6) + diff;
 
         for (int step = 0; step < totalSteps; step++)
@@ -98,15 +110,20 @@ public class DiceData : MonoBehaviour
 
             if (currentPip != null)
                 DestroyImmediate(currentPip);
-
             currentPip = Instantiate(pipSprites[pips[current] - 1], transform.position, Quaternion.identity, transform);
-            yield return new WaitForSeconds(swapSpeed);
+
+            float t = (float)step / totalSteps;
+            float curveValue = speedCurve.Evaluate(t);
+            float currentSpeed = Mathf.Lerp(fastSpeed, slowSpeed, curveValue);
+
+            yield return new WaitForSeconds(currentSpeed);
         }
 
         if (currentPip != null)
             DestroyImmediate(currentPip);
+        currentPip = Instantiate(pipSprites[pips[current] - 1], transform.position, Quaternion.identity, transform);
 
-        currentPip = Instantiate(pipSprites[pips[current]], transform.position, Quaternion.identity, transform);
+        rolling = false;
     }
 
     private void OnMouseDown()

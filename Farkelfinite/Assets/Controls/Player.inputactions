@@ -1,0 +1,34 @@
+{
+    "name": "Player",
+    "maps": [
+        {
+            "name": "Player",
+            "id": "e4cbc7cf-2e0b-4b66-9b43-552f012581ff",
+            "actions": [
+                {
+                    "name": "LeftMouseDown",
+                    "type": "Button",
+                    "id": "f62bf88e-ce55-486c-923b-bf722323b9d0",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "eaede7a0-33a4-433d-a2c8-9aad04bb4c88",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LeftMouseDown",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

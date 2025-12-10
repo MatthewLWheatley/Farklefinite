@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -11,14 +12,27 @@ public class GameManager : MonoBehaviour
     public List<DiceData> diceDataList = new List<DiceData>();
 
     public TMP_Text ScoreText;
+    public TMP_Text SetAsideScoreText;
+    public TMP_Text TotalScoreText;
 
     public List<bool> selectedDice = new List<bool>();
+    public List<bool> setAsideDice = new List<bool>();
 
     public LayerMask diceMask;
 
     public int lives = 3;
     public GameObject Game;
     public GameObject Dead;
+
+    public int currentScore = 0;
+    public int setAsideScore = 0;
+    public int totalScore = 0;
+
+    private bool isRolling = false;
+    private bool isMoving = false;
+
+    [SerializeField] private float moveSpeed = 2f;
+    [SerializeField] private float setAsideYOffset = -1f;
 
     void Start()
     {
@@ -30,11 +44,14 @@ public class GameManager : MonoBehaviour
             int pip = Random.Range(0, 6);
             diceDataList[count].ChangePipNow(pip);
             selectedDice.Add(false);
+            setAsideDice.Add(false);
             diceDataList[count].ID = count + 1;
             count++;
         }
         diceMask = new LayerMask();
         diceMask = LayerMask.GetMask("Dice");
+
+        UpdateScoreUI();
     }
 
     private void Update()
@@ -44,6 +61,8 @@ public class GameManager : MonoBehaviour
 
     public void OnLeftClick(InputAction.CallbackContext context)
     {
+        if (isRolling || isMoving) return;
+
         Vector3 mousepos = Mouse.current.position.ReadValue();
         Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousepos);
         worldPos.z = 0;
@@ -60,21 +79,11 @@ public class GameManager : MonoBehaviour
             Debug.Log($"HIT: {hit.collider.name}");
             DiceData hitData = hit.collider.GetComponent<DiceData>();
 
+            if (setAsideDice[hitData.ID - 1]) return;
 
             selectedDice[hitData.ID - 1] = !selectedDice[hitData.ID - 1];
-            if (selectedDice[hitData.ID - 1])
-            {
-                hit.collider.gameObject.transform.position = hit.collider.gameObject.transform.position + new Vector3(0, 1f, 0);
-            }
-            else
-            {
-                hit.collider.gameObject.transform.position = hit.collider.gameObject.transform.position + new Vector3(0, -1f, 0);
-            }
+            StartCoroutine(MoveDiceToPosition(hitData.ID - 1));
             CalculateScore(selectedDice);
-            //if (hitData)
-            //{
-            //    hitData.ChangePip(Random.Range(0, 6));
-            //}
         }
         else
         {
@@ -82,31 +91,226 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private IEnumerator MoveDiceToPosition(int diceIndex)
+    {
+        isMoving = true;
+        GameObject die = diceObjects[diceIndex];
+        Vector3 startPos = die.transform.position;
+        Vector3 targetPos = startPos;
+
+        if (selectedDice[diceIndex])
+        {
+            targetPos.y = 1f;
+        }
+        else
+        {
+            targetPos.y = 0f;
+        }
+
+        float elapsed = 0f;
+        float duration = 1f / moveSpeed;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / duration;
+            die.transform.position = Vector3.Lerp(startPos, targetPos, t);
+            yield return null;
+        }
+
+        die.transform.position = targetPos;
+        isMoving = false;
+    }
+
     public void ToggleSelectedDice(int DiceID)
     {
+        if (isRolling || isMoving || setAsideDice[DiceID]) return;
         selectedDice[DiceID] = !selectedDice[DiceID];
     }
 
     [ContextMenu("Debug Test")]
     void debugtest()
     {
+        if (isRolling) return;
+
+        for (int i = 0; i < selectedDice.Count; i++)
+        {
+            selectedDice[i] = false;
+        }
+
+        StartCoroutine(DebugRollCoroutine());
+    }
+
+    private IEnumerator DebugRollCoroutine()
+    {
+        isRolling = true;
+
+        foreach (var die in diceObjects)
+        {
+            die.transform.position = new Vector3((diceObjects.IndexOf(die)) * 2.0f - 5, 0, 0);
+        }
+
+        List<Coroutine> rollCoroutines = new List<Coroutine>();
         foreach (var die in diceDataList)
         {
             int pip = Random.Range(0, 6);
             die.ChangePip(pip);
         }
+
+        while (diceDataList.Any(d => d.rolling))
+        {
+            yield return null;
+        }
+
+        isRolling = false;
+        CalculateScore(selectedDice);
     }
 
-    /*
-        try to make a scoring system like Farkle or 10,000
-        1 = 100
-        5 = 50
-        3-6 (n) of a 1 = 1000 * (n-2)
-        3-6 (n) of a  2-6 (pip) = 100 * pip * 2^n-3
-        straight 5 = 2500
-        straight 6 = 5000
-        3 pair = 1500
-    */
+    public void RollDice()
+    {
+        if (isRolling) return;
+        StartCoroutine(RollSpecificDice());
+    }
+
+    private IEnumerator RollSpecificDice()
+    {
+        isRolling = true;
+
+        for (int i = 0; i < diceDataList.Count; i++)
+        {
+            if (!setAsideDice[i])
+            {
+                selectedDice[i] = false;
+                int pip = Random.Range(0, 6);
+                diceDataList[i].ChangePip(pip);
+            }
+        }
+
+        while (diceDataList.Any(d => d.rolling))
+        {
+            yield return null;
+        }
+
+        isRolling = false;
+
+        if (!HasValidScore())
+        {
+            Bust();
+        }
+    }
+
+    public void SetAside()
+    {
+        if (currentScore == 0 || isRolling || isMoving) return;
+
+        StartCoroutine(SetAsideDiceCoroutine());
+    }
+
+    private IEnumerator SetAsideDiceCoroutine()
+    {
+        isMoving = true;
+        setAsideScore += currentScore;
+        currentScore = 0;
+
+        List<Coroutine> moveCoroutines = new List<Coroutine>();
+
+        for (int i = 0; i < selectedDice.Count; i++)
+        {
+            if (selectedDice[i])
+            {
+                setAsideDice[i] = true;
+                selectedDice[i] = false;
+                StartCoroutine(MoveDiceToSetAside(i));
+            }
+        }
+
+        yield return new WaitForSeconds(1f / moveSpeed);
+
+        isMoving = false;
+        UpdateScoreUI();
+
+        if (setAsideDice.All(d => d))
+        {
+            ResetAllDice();
+        }
+    }
+
+    private IEnumerator MoveDiceToSetAside(int diceIndex)
+    {
+        GameObject die = diceObjects[diceIndex];
+        Vector3 startPos = die.transform.position;
+        Vector3 targetPos = new Vector3(diceIndex * 2.0f - 5, setAsideYOffset, 0);
+
+        SpriteRenderer sr = die.GetComponent<SpriteRenderer>();
+        Color startColor = sr.color;
+        Color targetColor = new Color(startColor.r, startColor.g, startColor.b, 0.5f);
+
+        float elapsed = 0f;
+        float duration = 1f / moveSpeed;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / duration;
+            die.transform.position = Vector3.Lerp(startPos, targetPos, t);
+            sr.color = Color.Lerp(startColor, targetColor, t);
+            yield return null;
+        }
+
+        die.transform.position = targetPos;
+        sr.color = targetColor;
+    }
+
+    private void ResetAllDice()
+    {
+        for (int i = 0; i < setAsideDice.Count; i++)
+        {
+            setAsideDice[i] = false;
+            diceObjects[i].GetComponent<SpriteRenderer>().color = Color.white;
+            diceObjects[i].transform.position = new Vector3(i * 2.0f - 5, 0, 0);
+        }
+    }
+
+    public void BankScore()
+    {
+        if (setAsideScore == 0) return;
+
+        totalScore += setAsideScore;
+        setAsideScore = 0;
+        ResetAllDice();
+        UpdateScoreUI();
+        lives -= 1;
+
+        if (lives <= 0)
+        {
+            Game.SetActive(false);
+            Dead.SetActive(true);
+        }
+    }
+
+    private bool HasValidScore()
+    {
+        List<int> activePips = new List<int>();
+        Dictionary<int, int> pipCounts = new Dictionary<int, int>();
+
+        for (int i = 0; i < diceDataList.Count; i++)
+        {
+            if (!setAsideDice[i])
+            {
+                int value = diceDataList[i].pips[diceDataList[i].currentFace];
+                activePips.Add(value);
+                if (pipCounts.ContainsKey(value))
+                    pipCounts[value]++;
+                else
+                    pipCounts[value] = 1;
+            }
+        }
+
+        if (activePips.Count == 0) return true;
+
+        int score = CalculateBestScore(pipCounts, activePips);
+        return score > 0;
+    }
 
     public void CalculateScore(List<bool> ToCheck)
     {
@@ -115,7 +319,7 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < 6; i++)
         {
-            if (ToCheck[i])
+            if (ToCheck[i] && !setAsideDice[i])
             {
                 int value = diceDataList[i].pips[diceDataList[i].currentFace];
                 selectedPips.Add(value);
@@ -128,13 +332,14 @@ public class GameManager : MonoBehaviour
 
         if (selectedPips.Count == 0)
         {
-            ScoreText.text = "Score: 0";
+            currentScore = 0;
+            UpdateScoreUI();
             return;
         }
 
-        int bestScore = CalculateBestScore(pipCounts, selectedPips);
-        ScoreText.text = "Score: " + bestScore;
-        Debug.Log("Best Score: " + bestScore);
+        currentScore = CalculateBestScore(pipCounts, selectedPips);
+        UpdateScoreUI();
+        Debug.Log("Best Score: " + currentScore);
     }
 
     private int CalculateBestScore(Dictionary<int, int> pipCounts, List<int> allPips)
@@ -209,24 +414,26 @@ public class GameManager : MonoBehaviour
         return score;
     }
 
-    public void setAside() 
-    { 
-        
-    }
-
-    public void CollectPoints() 
-    { 
-    
-    }
-
-    public void bust() 
+    private void UpdateScoreUI()
     {
+        ScoreText.text = "Current: " + currentScore;
+        if (SetAsideScoreText != null)
+            SetAsideScoreText.text = "Set Aside: " + setAsideScore;
+        if (TotalScoreText != null)
+            TotalScoreText.text = "Total: " + totalScore;
+    }
+
+    public void Bust()
+    {
+        setAsideScore = 0;
+        ResetAllDice();
+        UpdateScoreUI();
         lives -= 1;
-        if (lives == 0) 
+
+        if (lives <= 0)
         {
             Game.SetActive(false);
             Dead.SetActive(true);
         }
     }
-
 }

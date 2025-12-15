@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
-using UnityEditor.Rendering.Universal;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -22,7 +21,7 @@ public class GameManager : MonoBehaviour
 
     public LayerMask diceMask;
 
-    public int lives = 3;
+    public int lives = 1000000000;
     public GameObject Game;
     public GameObject Dead;
 

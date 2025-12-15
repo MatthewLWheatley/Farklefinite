@@ -9,7 +9,6 @@ public class DiceData : MonoBehaviour
     public List<Sprite> DiceSprites = new List<Sprite>();
     public List<string> DiceNames = new List<string>();
     public List<GameObject> pipSprites = new List<GameObject>();
-    // pips will be changeable later so this will allow for e.g. 3 1s, 2 5s and 1 6
     public List<int> pips = new List<int>();
 
     SpriteRenderer spriteRenderer;
@@ -19,27 +18,29 @@ public class DiceData : MonoBehaviour
     public int swapRounds = 5;
 
     [SerializeField] private AnimationCurve speedCurve;
-    [SerializeField] private float fastSpeed = 0.1f; 
+    [SerializeField] private float fastSpeed = 0.1f;
     [SerializeField] private float slowSpeed = 0.65f;
 
     public BoxCollider2D collider;
 
     public bool rolling = false;
 
+    void Awake()
+    {
+        for (int i = 1; i <= 6; i++)
+            pips.Add(i);
+    }
+
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = DiceSprites[0];
-
-        for (int i = 1; i <= 6; i++)
-            pips.Add(i);
 
         for (int i = 0; i < DiceNames.Count; i++)
         {
             DiceNames[i] = DiceNames[i].ToLower();
         }
         collider = GetComponent<BoxCollider2D>();
-        currentPip = Instantiate(pipSprites[0], transform.position, Quaternion.identity, transform);
     }
 
     public bool ChangeSprite(string diceName)
@@ -72,7 +73,7 @@ public class DiceData : MonoBehaviour
 
     public void ChangePip(int Face)
     {
-        if (rolling) 
+        if (rolling)
         {
             Debug.Log("no im already rolling");
             return;
@@ -94,7 +95,7 @@ public class DiceData : MonoBehaviour
 
         if (currentPip != null)
             DestroyImmediate(currentPip);
-        currentPip = Instantiate(pipSprites[pips[Face]-1], transform.position, Quaternion.identity, transform);
+        currentPip = Instantiate(pipSprites[pips[Face] - 1], transform.position, Quaternion.identity, transform);
     }
 
     IEnumerator SwapToFace(int Face, int Start)

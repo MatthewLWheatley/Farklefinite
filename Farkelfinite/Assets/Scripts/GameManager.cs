@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using UnityEditor.Rendering.Universal;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -387,6 +388,7 @@ public class GameManager : MonoBehaviour
             Debug.Log("Hot dice! All 6 set aside, banking score and resetting");
             yield return new WaitForSeconds(0.5f);
 
+            float temp = GetAbilityScores();
             totalScore += setAsideScore;
             setAsideScore = 0;
             selectedScore = 0;
@@ -522,6 +524,7 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
 
+        float temp = GetAbilityScores();
         totalScore += setAsideScore;
         setAsideScore = 0;
         selectedScore = 0;
@@ -736,8 +739,8 @@ public class GameManager : MonoBehaviour
         setAsideScore = 0;
         selectedScore = 0;
         ResetAllDice();
-        UpdateScoreUI();
         lives -= 1;
+        UpdateScoreUI();
 
         if (lives <= 0)
         {
@@ -771,5 +774,19 @@ public class GameManager : MonoBehaviour
         UpdateScoreUI();
 
         StartNewTurn();
+    }
+
+    public float GetAbilityScores() 
+    {
+        foreach (var diceGroup in setAsideGroups) 
+        {
+            foreach (var dice in diceGroup) 
+            {
+                var diceType = diceDataList[dice];
+            }
+        }
+
+
+        return setAsideScore;
     }
 }

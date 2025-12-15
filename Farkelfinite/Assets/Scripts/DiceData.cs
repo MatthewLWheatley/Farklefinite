@@ -10,6 +10,7 @@ public class DiceData : MonoBehaviour
     public List<string> DiceNames = new List<string>();
     public List<GameObject> pipSprites = new List<GameObject>();
     public List<int> pips = new List<int>();
+    public int DiceType;
 
     SpriteRenderer spriteRenderer;
     public int currentFace = 0;

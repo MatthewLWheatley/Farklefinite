@@ -150,8 +150,26 @@ MonoBehaviour:
   ID: 0
   DiceSprites:
   - {fileID: -7044660306776900269, guid: 3d3f40c54a04b6547bc28d26216a6aef, type: 3}
+  - {fileID: 3127820951454730706, guid: 0af0653bb2d53cc49845303bd253d32f, type: 3}
+  - {fileID: 7035268565721489098, guid: c3447ae9b7d612a45b8605563ce167fd, type: 3}
+  - {fileID: 2238295620843037817, guid: 46e759e6fde0cad448087223876b82ce, type: 3}
+  - {fileID: -4685572505800389998, guid: e60697745f0345d4788ea58b02ef5608, type: 3}
+  - {fileID: -1402637370798888211, guid: d77adc185f4716e47b39a847b3cf4879, type: 3}
+  - {fileID: 3978220063945912566, guid: 36ceefa3056bd724891f4876207c6bc4, type: 3}
+  - {fileID: -3958524371403212160, guid: 160a05e29cb0f994685be21d6846ebda, type: 3}
+  - {fileID: -6585862283101203094, guid: cc733ef92ca8af942ac94ef180b76f75, type: 3}
+  - {fileID: 5536270929184065834, guid: cd300581f6b618943a00ccd89541c96d, type: 3}
   DiceNames:
   - Normal
+  - Fire
+  - Gear
+  - Nature
+  - Obsidian
+  - Party
+  - Rock
+  - Stars
+  - Water
+  - Wind
   pipSprites:
   - {fileID: 1965599317052140067, guid: 37be34c36ffc4ae41a9198f3fbc46e0a, type: 3}
   - {fileID: 8211243896810743751, guid: 65c974d0eddda024286c3f5052802ed0, type: 3}

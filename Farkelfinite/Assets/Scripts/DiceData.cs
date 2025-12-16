@@ -5,12 +5,12 @@ using System.Collections;
 public class DiceData : MonoBehaviour
 {
     public int ID;
+    public DiceConfig diceConfig;
 
     public List<Sprite> DiceSprites = new List<Sprite>();
     public List<string> DiceNames = new List<string>();
     public List<GameObject> pipSprites = new List<GameObject>();
     public List<int> pips = new List<int>();
-    public int DiceType;
 
     SpriteRenderer spriteRenderer;
     public int currentFace = 0;
@@ -28,20 +28,50 @@ public class DiceData : MonoBehaviour
 
     void Awake()
     {
-        for (int i = 1; i <= 6; i++)
-            pips.Add(i);
+        if (diceConfig != null && diceConfig.customPips.Count > 0)
+        {
+            pips = new List<int>(diceConfig.customPips);
+        }
+        else
+        {
+            for (int i = 1; i <= 6; i++)
+                pips.Add(i);
+        }
     }
 
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        spriteRenderer.sprite = DiceSprites[0];
+
+        if (diceConfig != null)
+        {
+            spriteRenderer.sprite = diceConfig.diceSprite;
+            pipSprites = diceConfig.pipSprites;
+        }
+        else if (DiceSprites.Count > 0)
+        {
+            spriteRenderer.sprite = DiceSprites[0];
+        }
 
         for (int i = 0; i < DiceNames.Count; i++)
         {
             DiceNames[i] = DiceNames[i].ToLower();
         }
         collider = GetComponent<BoxCollider2D>();
+    }
+
+    public bool CanChangeFace()
+    {
+        return diceConfig != null && diceConfig.canChangeFaces;
+    }
+
+    public void SetFaceManually(int face)
+    {
+        if (!CanChangeFace()) return;
+        if (face < 0 || face >= pips.Count) return;
+
+        currentFace = face;
+        ChangePipNow(face);
     }
 
     public bool ChangeSprite(string diceName)

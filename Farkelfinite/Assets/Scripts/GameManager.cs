@@ -41,6 +41,8 @@ public class GameManager : MonoBehaviour
     private List<List<int>> setAsideGroups = new List<List<int>>();
     private List<int> setAsideGroupScores = new List<int>();
 
+    private AbilityProcessor abilityProcessor;
+
     void Start()
     {
         int count = 0;
@@ -74,6 +76,7 @@ public class GameManager : MonoBehaviour
             validStart = HasValidScore();
         }
 
+        InitializeAbilitySystem();
         UpdateScoreUI();
     }
 
@@ -167,6 +170,12 @@ public class GameManager : MonoBehaviour
     public void StartNewTurn()
     {
         if (isRolling) return;
+        StartCoroutine(StartNewTurnAsync());
+    }
+
+    private IEnumerator StartNewTurnAsync()
+    {
+        yield return StartCoroutine(abilityProcessor.ProcessAbilitiesAsync(TriggerType.OnTurnStart));
         setAsideScore = 0;
         selectedScore = 0;
         ResetAllDice();
@@ -227,7 +236,6 @@ public class GameManager : MonoBehaviour
                     diceDataList[i].ChangePipNow(pip);
                 }
             }
-
             if (guaranteeValid)
             {
                 validRoll = HasValidScore();
@@ -238,6 +246,8 @@ public class GameManager : MonoBehaviour
                 validRoll = true;
             }
         }
+
+        yield return StartCoroutine(abilityProcessor.ProcessAbilitiesAsync(TriggerType.OnRoll));
 
         for (int i = 0; i < diceDataList.Count; i++)
         {
@@ -376,6 +386,7 @@ public class GameManager : MonoBehaviour
 
             StartCoroutine(MoveDiceToSetAsideGroup(newGroup, setAsideGroups.Count - 1));
         }
+        yield return StartCoroutine(abilityProcessor.ProcessAbilitiesAsync(TriggerType.OnSetAside, -1, newGroup));
 
         yield return new WaitForSeconds(moveDuration);
 
@@ -386,8 +397,7 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("Hot dice! All 6 set aside, banking score and resetting");
             yield return new WaitForSeconds(0.5f);
-
-            float temp = GetAbilityScores();
+            yield return StartCoroutine(abilityProcessor.ProcessAbilitiesAsync(TriggerType.OnHotDice));
             totalScore += setAsideScore;
             setAsideScore = 0;
             selectedScore = 0;
@@ -523,7 +533,8 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
 
-        float temp = GetAbilityScores();
+        yield return StartCoroutine(abilityProcessor.ProcessAbilitiesAsync(TriggerType.OnBank));
+
         totalScore += setAsideScore;
         setAsideScore = 0;
         selectedScore = 0;
@@ -722,7 +733,7 @@ public class GameManager : MonoBehaviour
         return score;
     }
 
-    private void UpdateScoreUI()
+    public void UpdateScoreUI()
     {
         int runningScore = setAsideScore + selectedScore;
         RunningScoreText.text = "Running: " + runningScore;
@@ -734,7 +745,13 @@ public class GameManager : MonoBehaviour
 
     public void Bust()
     {
+        StartCoroutine(BustAsync());
+    }
+
+    private IEnumerator BustAsync()
+    {
         Debug.Log("FARKLE! Lost running total.");
+        yield return StartCoroutine(abilityProcessor.ProcessAbilitiesAsync(TriggerType.OnFarkle));
         setAsideScore = 0;
         selectedScore = 0;
         ResetAllDice();
@@ -775,17 +792,13 @@ public class GameManager : MonoBehaviour
         StartNewTurn();
     }
 
-    public float GetAbilityScores() 
+    private void InitializeAbilitySystem()
     {
-        foreach (var diceGroup in setAsideGroups) 
-        {
-            foreach (var dice in diceGroup) 
-            {
-                var diceType = diceDataList[dice];
-            }
-        }
+        abilityProcessor = new AbilityProcessor(this);
+    }
 
-
-        return setAsideScore;
+    public int GetSetAsideGroupCount()
+    {
+        return setAsideGroups.Count;
     }
 }

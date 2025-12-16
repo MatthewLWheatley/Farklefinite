@@ -36,20 +36,27 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Vector3 setAsideStartPosition = new Vector3(8f, 3f, 0f);
     [SerializeField] private float setAsideGroupSpacing = 1.5f;
     [SerializeField] private float setAsideDiceSpacing = 0.8f;
+    [Header("Dice Spawn Settings")]
+    [SerializeField] private Vector3 activeDiceCenter = new Vector3(0, 0, 0);
     [SerializeField] private float activeDiceSpacing = 2.0f;
+
 
     private List<List<int>> setAsideGroups = new List<List<int>>();
     private List<int> setAsideGroupScores = new List<int>();
 
     private AbilityProcessor abilityProcessor;
 
+
+
     void Start()
     {
         int count = 0;
+        float startX = activeDiceCenter.x - (6 - 1) * activeDiceSpacing / 2f;
         foreach (var die in diceObjects)
         {
             diceDataList.Add(die.GetComponent<DiceData>());
-            die.transform.position = new Vector3(count * 2.0f - 5, 0, 0);
+
+            die.transform.position = new Vector3(startX + count * activeDiceSpacing, 0, 0);
             selectedDice.Add(false);
             setAsideDice.Add(false);
             diceMoving.Add(false);
@@ -456,13 +463,13 @@ public class GameManager : MonoBehaviour
         }
 
         int count = activeDiceIndices.Count;
-        float startX = -(count - 1) * activeDiceSpacing / 2f;
+        float startX = activeDiceCenter.x - (count - 1) * activeDiceSpacing / 2f;
 
         for (int i = 0; i < activeDiceIndices.Count; i++)
         {
             int diceIndex = activeDiceIndices[i];
             float yPos = selectedDice[diceIndex] ? 1f : 0f;
-            Vector3 targetPos = new Vector3(startX + i * activeDiceSpacing, yPos, 0);
+            Vector3 targetPos = new Vector3(startX + i * activeDiceSpacing, activeDiceCenter.y + yPos, activeDiceCenter.z);
             StartCoroutine(SmoothMoveToPosition(diceIndex, targetPos));
         }
     }

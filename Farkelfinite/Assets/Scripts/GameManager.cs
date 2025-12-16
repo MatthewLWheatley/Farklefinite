@@ -686,7 +686,7 @@ public class GameManager : MonoBehaviour
         {
             int pairCount = pipCounts.Count(kvp => kvp.Value == 2);
             if (pairCount == 3)
-            {
+            { 
                 maxScore = Mathf.Max(maxScore, 1500);
             }
         }

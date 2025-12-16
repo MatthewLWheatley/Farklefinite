@@ -39,10 +39,10 @@ MonoBehaviour:
       rightVariableValue: 1
       useRightVariable: 0
     effects:
-    - effectType: 0
+    - effectType: 2
       targetVariable: 5
       sourceVariable: 5
-      sourceValue: 200
+      sourceValue: 1.5
       useSourceVariable: 0
       retriggerCount: 0
     heldVariable: 0
@@ -59,10 +59,10 @@ MonoBehaviour:
       rightVariableValue: 5
       useRightVariable: 0
     effects:
-    - effectType: 0
+    - effectType: 2
       targetVariable: 5
       sourceVariable: 5
-      sourceValue: 200
+      sourceValue: 1.5
       useSourceVariable: 0
       retriggerCount: 0
     heldVariable: 0

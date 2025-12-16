@@ -19,7 +19,7 @@ public class AbilityEffect
     public EffectType effectType;
     public VariableType targetVariable;
     public VariableType sourceVariable;
-    public int sourceValue = 0;
+    public float sourceValue = 0;
     public bool useSourceVariable = false;
 
     [Tooltip("For retrigger effects - how many times to retrigger")]

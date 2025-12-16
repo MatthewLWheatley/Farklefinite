@@ -10,14 +10,13 @@ public class AbilityProcessor
     public AbilityProcessor(GameManager gm)
     {
         gameManager = gm;
-        animController = Object.FindObjectOfType<AbilityAnimationController>();
+        animController = Object.FindFirstObjectByType<AbilityAnimationController>();
         if (animController == null)
         {
             Debug.LogWarning("No AbilityAnimationController found in scene!");
         }
     }
 
-    // Changed to return IEnumerator so we can wait for animations
     public IEnumerator ProcessAbilitiesAsync(TriggerType trigger, int diceIndex = -1, List<int> diceGroup = null)
     {
         List<DiceData> relevantDice = new List<DiceData>();
@@ -59,7 +58,6 @@ public class AbilityProcessor
 
         Debug.Log($"Activating ability: {ability.abilityName} on {sourceDice.diceConfig.diceName}");
 
-        // Play animation if one exists
         if (ability.abilityAnimation != null && animController != null)
         {
             yield return gameManager.StartCoroutine(
@@ -69,7 +67,6 @@ public class AbilityProcessor
 
         ApplyEffects(ability.effects, sourceDice, currentGroup);
 
-        // Optional: small delay after effect for visual feedback
         yield return new WaitForSeconds(0.2f);
     }
 
@@ -79,8 +76,8 @@ public class AbilityProcessor
 
         foreach (var condition in conditions)
         {
-            int leftValue = GetVariableValue(condition.leftVariable, sourceDice, currentGroup, condition.leftVariableValue);
-            int rightValue = condition.useRightVariable
+            float leftValue = GetVariableValue(condition.leftVariable, sourceDice, currentGroup, condition.leftVariableValue);
+            float rightValue = condition.useRightVariable
                 ? GetVariableValue(condition.rightVariable, sourceDice, currentGroup, condition.rightVariableValue)
                 : condition.rightVariableValue;
 
@@ -91,7 +88,7 @@ public class AbilityProcessor
         return true;
     }
 
-    private bool EvaluateComparison(int left, ComparatorType comparator, int right)
+    private bool EvaluateComparison(float left, ComparatorType comparator, float right)
     {
         switch (comparator)
         {
@@ -116,7 +113,7 @@ public class AbilityProcessor
     {
         foreach (var effect in effects)
         {
-            int sourceValue = effect.useSourceVariable
+            float sourceValue = effect.useSourceVariable
                 ? GetVariableValue(effect.sourceVariable, sourceDice, currentGroup, effect.sourceValue)
                 : effect.sourceValue;
 
@@ -124,7 +121,7 @@ public class AbilityProcessor
         }
     }
 
-    private void ApplyEffect(AbilityEffect effect, int value, DiceData sourceDice, List<int> currentGroup)
+    private void ApplyEffect(AbilityEffect effect, float value, DiceData sourceDice, List<int> currentGroup)
     {
         switch (effect.effectType)
         {
@@ -149,14 +146,12 @@ public class AbilityProcessor
                 break;
 
             case EffectType.RetriggerAbility:
-                // Note: Retrigger can't be async in this simple version
                 for (int i = 0; i < effect.retriggerCount; i++)
                 {
                     foreach (var ability in sourceDice.diceConfig.abilities)
                     {
                         if (ability != GetCurrentAbility(sourceDice))
                         {
-                            // Would need to make this async too for full support
                             gameManager.StartCoroutine(TryActivateAbilityAsync(ability, sourceDice, currentGroup));
                         }
                     }
@@ -164,18 +159,18 @@ public class AbilityProcessor
                 break;
 
             case EffectType.GainLife:
-                gameManager.lives += value;
+                gameManager.lives += (int)value;
                 gameManager.UpdateScoreUI();
                 break;
 
             case EffectType.LoseLife:
-                gameManager.lives -= value;
+                gameManager.lives -= (int)value;
                 gameManager.UpdateScoreUI();
                 break;
         }
     }
 
-    private int GetVariableValue(VariableType variable, DiceData sourceDice, List<int> currentGroup, int defaultValue)
+    private float GetVariableValue(VariableType variable, DiceData sourceDice, List<int> currentGroup, float defaultValue)
     {
         switch (variable)
         {
@@ -236,10 +231,10 @@ public class AbilityProcessor
     }
 
     private void ModifyVariable(VariableType variable, DiceData sourceDice, List<int> currentGroup,
-        int value, bool add = false, bool multiply = false, bool divide = false)
+        float value, bool add = false, bool multiply = false, bool divide = false)
     {
-        int currentValue = GetVariableValue(variable, sourceDice, currentGroup, 0);
-        int newValue = currentValue;
+        float currentValue = GetVariableValue(variable, sourceDice, currentGroup, 0);
+        float newValue = currentValue;
 
         if (add)
             newValue += value;
@@ -251,29 +246,29 @@ public class AbilityProcessor
         SetVariable(variable, sourceDice, newValue);
     }
 
-    private void SetVariable(VariableType variable, DiceData sourceDice, int value)
+    private void SetVariable(VariableType variable, DiceData sourceDice, float value)
     {
         switch (variable)
         {
             case VariableType.SetAsideScore:
-                gameManager.setAsideScore = value;
+                gameManager.setAsideScore = (int)value;
                 gameManager.UpdateScoreUI();
                 break;
 
             case VariableType.TotalScore:
-                gameManager.totalScore = value;
+                gameManager.totalScore = (int)value;
                 gameManager.UpdateScoreUI();
                 break;
 
             case VariableType.Lives:
-                gameManager.lives = value;
+                gameManager.lives = (int)value;
                 gameManager.UpdateScoreUI();
                 break;
 
             case VariableType.HeldCardVariable:
                 foreach (var ability in sourceDice.diceConfig.abilities)
                 {
-                    ability.heldVariable = value;
+                    ability.heldVariable = (int)value;
                 }
                 break;
         }

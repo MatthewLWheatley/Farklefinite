@@ -62,6 +62,7 @@ public class Setting : MonoBehaviour
 
         screenShakeSlider.GetComponent<Slider>().value = _screenShake;
         screenShakeSlider.GetComponent<Slider>().onValueChanged.AddListener((value) => AnimationSpeedChange());
+        PlayerPrefs.Save();
     }
 
 
@@ -69,21 +70,29 @@ public class Setting : MonoBehaviour
     public void MainVolumeChange() 
     {
         _mainVolume = mainVolumeSlider.GetComponent<Slider>().value;
+        PlayerPrefs.SetFloat("_mainVolume", _mainVolume);
+        PlayerPrefs.Save();
     }
 
     public void SfxVolumeChange()
     {
         _sfxVolume = sfxVolumeSlider.GetComponent<Slider>().value;
+        PlayerPrefs.SetFloat("_sfxVolume", _sfxVolume);
+        PlayerPrefs.Save();
     }
     
     public void AmbientVolumeChange()
     {
         _ambientVolume = ambientVolumeSlider.GetComponent<Slider>().value;
+        PlayerPrefs.SetFloat("_ambientVolume", _ambientVolume);
+        PlayerPrefs.Save();
     }
 
     public void MusicVolumeChange()
     {
         _musicVolume = musicVolumeSlider.GetComponent<Slider>().value;
+        PlayerPrefs.SetFloat("_musicVolume", _musicVolume);
+        PlayerPrefs.Save();
     }
 
     public void ChangeSpeed()
@@ -92,11 +101,15 @@ public class Setting : MonoBehaviour
         if (_gameSpeed >= 16) _gameSpeed = 1f;
 
         SpeedButton.transform.GetChild(0).GetComponent<TMP_Text>().text = "Animation Speed: " + _gameSpeed.ToString();
+        PlayerPrefs.SetFloat("_gameSpeed", _gameSpeed);
+        PlayerPrefs.Save();
     }
 
     public void AnimationSpeedChange()
     {
         _screenShake = screenShakeSlider.GetComponent<Slider>().value;
+        PlayerPrefs.SetFloat("_screenShake", _screenShake);
+        PlayerPrefs.Save();
     }
 
     public void OnDestroy()
@@ -107,6 +120,7 @@ public class Setting : MonoBehaviour
         PlayerPrefs.SetFloat("_musicVolume", _musicVolume);
         PlayerPrefs.SetFloat("_gameSpeed", _gameSpeed);
         PlayerPrefs.SetFloat("_screenShake", _screenShake);
+        PlayerPrefs.Save();
     }
 
     private void OnDisable()
@@ -117,6 +131,7 @@ public class Setting : MonoBehaviour
         PlayerPrefs.SetFloat("_musicVolume", _musicVolume);
         PlayerPrefs.SetFloat("_gameSpeed", _gameSpeed);
         PlayerPrefs.SetFloat("_screenShake", _screenShake);
+        PlayerPrefs.Save();
     }
 
     private void OnApplicationQuit()
@@ -127,5 +142,6 @@ public class Setting : MonoBehaviour
         PlayerPrefs.SetFloat("_musicVolume", _musicVolume);
         PlayerPrefs.SetFloat("_gameSpeed", _gameSpeed);
         PlayerPrefs.SetFloat("_screenShake", _screenShake);
+        PlayerPrefs.Save();
     }
 }

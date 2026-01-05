@@ -1,7 +1,9 @@
 using TMPro;
-using UnityEngine;
-using UnityEngine.UI;
 using UnityEditor;
+using UnityEditor.SearchService;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Setting : MonoBehaviour
 {
@@ -24,6 +26,8 @@ public class Setting : MonoBehaviour
     public GameObject screenShakeSlider;
 
     public GameObject SettingsPannel;
+    public GameObject ResumeButton;
+    public GameObject QuitButton;
 
     public static Setting Instance { get { return _instance; } }
 
@@ -37,7 +41,7 @@ public class Setting : MonoBehaviour
         {
             _instance = this;
         }
-
+        DontDestroyOnLoad(this.gameObject);
         _mainVolume = PlayerPrefs.GetFloat("_mainVolume", 0.5f);
         _sfxVolume = PlayerPrefs.GetFloat("_sfxVolume", 0.5f);
         _ambientVolume = PlayerPrefs.GetFloat("_ambientVolume", 0.5f);
@@ -45,7 +49,7 @@ public class Setting : MonoBehaviour
         _gameSpeed = PlayerPrefs.GetFloat("_gameSpeed", 0.5f);
         _screenShake = PlayerPrefs.GetFloat("_screenShake", 0.5f);
 
-        transform.GetChild(0).GetComponent<Canvas>().worldCamera = Camera.main;
+        this.GetComponent<Canvas>().worldCamera = Camera.main;
         
         mainVolumeSlider.GetComponent<Slider>().value = _mainVolume; 
         mainVolumeSlider.GetComponent<Slider>().onValueChanged.AddListener((value) => MainVolumeChange());
@@ -58,6 +62,9 @@ public class Setting : MonoBehaviour
 
         SpeedButton.transform.GetChild(0).GetComponent<TMP_Text>().text = "Animation Speed: " + _gameSpeed.ToString();
         SpeedButton.GetComponent<Button>().onClick.AddListener(() => ChangeSpeed());
+
+        ResumeButton.GetComponent<Button>().onClick.AddListener(() => CloseSettingsMenu());
+        QuitButton.GetComponent<Button>().onClick.AddListener(() => LoadMainMenu());
 
         screenShakeSlider.GetComponent<Slider>().value = _screenShake;
         screenShakeSlider.GetComponent<Slider>().onValueChanged.AddListener((value) => AnimationSpeedChange());
@@ -152,5 +159,19 @@ public class Setting : MonoBehaviour
     {
         SettingsPannel.SetActive(false);
         Time.timeScale = 1f;
+    }
+
+    public void LoadMainMenu() 
+    { 
+        Time.timeScale = 1f;
+        int sceneID = SceneManager.GetActiveScene().buildIndex;
+        if (sceneID == SceneManager.GetSceneByName("MainMenu").buildIndex) 
+        { 
+            CloseSettingsMenu();
+            return;
+        }
+        // load main menu scene
+        // i dont have one rn
+        // TODO:
     }
 }

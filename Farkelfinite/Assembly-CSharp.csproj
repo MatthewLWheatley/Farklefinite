@@ -68,6 +68,7 @@
     <Compile Include="Assets\Scripts\Maingame\AbilityAnimationController.cs" />
     <Compile Include="Assets\Scripts\Maingame\DiceData.cs" />
     <Compile Include="Assets\Scripts\Setting.cs" />
+    <Compile Include="Assets\Scripts\MainMenuManager.cs" />
     <Compile Include="Assets\Scripts\Maingame\AbilityAnimation.cs" />
     <Compile Include="Assets\Scripts\Maingame\AbilityProcessor.cs" />
     <Compile Include="Assets\Scripts\Maingame\AbilityEnums.cs" />

@@ -23,20 +23,12 @@ public class Setting : MonoBehaviour
     public GameObject SpeedButton;
     public GameObject screenShakeSlider;
 
+    public GameObject SettingsPannel;
 
     public static Setting Instance { get { return _instance; } }
 
     private void Awake()
     {
-        _mainVolume = PlayerPrefs.GetFloat("_mainVolume", 0.5f);
-        _sfxVolume = PlayerPrefs.GetFloat("_sfxVolume", 0.5f);
-        _ambientVolume = PlayerPrefs.GetFloat("_ambientVolume", 0.5f);
-        _musicVolume = PlayerPrefs.GetFloat("_musicVolume", 0.5f);
-        _gameSpeed = PlayerPrefs.GetFloat("_gameSpeed", 0.5f);
-        _screenShake = PlayerPrefs.GetFloat("_screenShake", 0.5f);
-
-
-
         if (_instance != null && _instance != this)
         {
             Destroy(this.gameObject);
@@ -45,6 +37,13 @@ public class Setting : MonoBehaviour
         {
             _instance = this;
         }
+
+        _mainVolume = PlayerPrefs.GetFloat("_mainVolume", 0.5f);
+        _sfxVolume = PlayerPrefs.GetFloat("_sfxVolume", 0.5f);
+        _ambientVolume = PlayerPrefs.GetFloat("_ambientVolume", 0.5f);
+        _musicVolume = PlayerPrefs.GetFloat("_musicVolume", 0.5f);
+        _gameSpeed = PlayerPrefs.GetFloat("_gameSpeed", 0.5f);
+        _screenShake = PlayerPrefs.GetFloat("_screenShake", 0.5f);
 
         transform.GetChild(0).GetComponent<Canvas>().worldCamera = Camera.main;
         
@@ -65,8 +64,6 @@ public class Setting : MonoBehaviour
         PlayerPrefs.Save();
     }
 
-
-    
     public void MainVolumeChange() 
     {
         _mainVolume = mainVolumeSlider.GetComponent<Slider>().value;
@@ -143,5 +140,17 @@ public class Setting : MonoBehaviour
         PlayerPrefs.SetFloat("_gameSpeed", _gameSpeed);
         PlayerPrefs.SetFloat("_screenShake", _screenShake);
         PlayerPrefs.Save();
+    }
+
+    public void OpenSettingsMenu() 
+    { 
+        SettingsPannel.SetActive(true);
+        Time.timeScale = 0f;
+    }
+
+    public void CloseSettingsMenu()
+    {
+        SettingsPannel.SetActive(false);
+        Time.timeScale = 1f;
     }
 }

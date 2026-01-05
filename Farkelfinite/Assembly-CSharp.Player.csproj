@@ -61,14 +61,16 @@
     <Analyzer Include="J:\unity\6000.1.17f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\DiceData.cs" />
-    <Compile Include="Assets\Scripts\AbilityAnimation.cs" />
-    <Compile Include="Assets\Scripts\MatSwitch.cs" />
-    <Compile Include="Assets\Scripts\AbilityProcessor.cs" />
-    <Compile Include="Assets\Scripts\DiceConfig.cs" />
-    <Compile Include="Assets\Scripts\GameManager.cs" />
-    <Compile Include="Assets\Scripts\AbilityAnimationController.cs" />
-    <Compile Include="Assets\Scripts\AbilityEnums.cs" />
+    <Compile Include="Assets\Scripts\PlayerData.cs" />
+    <Compile Include="Assets\Scripts\Maingame\DiceConfig.cs" />
+    <Compile Include="Assets\Scripts\Maingame\MatSwitch.cs" />
+    <Compile Include="Assets\Scripts\Maingame\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Maingame\AbilityAnimationController.cs" />
+    <Compile Include="Assets\Scripts\Maingame\DiceData.cs" />
+    <Compile Include="Assets\Scripts\Setting.cs" />
+    <Compile Include="Assets\Scripts\Maingame\AbilityAnimation.cs" />
+    <Compile Include="Assets\Scripts\Maingame\AbilityProcessor.cs" />
+    <Compile Include="Assets\Scripts\Maingame\AbilityEnums.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

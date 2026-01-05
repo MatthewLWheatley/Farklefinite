@@ -28,12 +28,12 @@ public class Setting : MonoBehaviour
 
     private void Awake()
     {
-        if (PlayerPrefs.HasKey("_mainVolume")) _mainVolume = PlayerPrefs.GetFloat("_mainVolume");
-        if (PlayerPrefs.HasKey("_sfxVolume")) _mainVolume = PlayerPrefs.GetFloat("_sfxVolume");
-        if (PlayerPrefs.HasKey("_ambientVolume")) _mainVolume = PlayerPrefs.GetFloat("_ambientVolume");
-        if (PlayerPrefs.HasKey("_musicVolume")) _mainVolume = PlayerPrefs.GetFloat("_musicVolume");
-        if (PlayerPrefs.HasKey("_gameSpeed")) _mainVolume = PlayerPrefs.GetFloat("_gameSpeed");
-        if (PlayerPrefs.HasKey("_screenShake")) _mainVolume = PlayerPrefs.GetFloat("_screenShake");
+        _mainVolume = PlayerPrefs.GetFloat("_mainVolume", 0.5f);
+        _sfxVolume = PlayerPrefs.GetFloat("_sfxVolume", 0.5f);
+        _ambientVolume = PlayerPrefs.GetFloat("_ambientVolume", 0.5f);
+        _musicVolume = PlayerPrefs.GetFloat("_musicVolume", 0.5f);
+        _gameSpeed = PlayerPrefs.GetFloat("_gameSpeed", 0.5f);
+        _screenShake = PlayerPrefs.GetFloat("_screenShake", 0.5f);
 
 
 

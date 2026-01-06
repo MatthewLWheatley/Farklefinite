@@ -7,23 +7,24 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum Bag
+{
+    DiceBag,        //1
+    ChestBag,       //2
+    ReusableBag,    //3
+    SecondLifeBag,  //4
+    BeggersBag,     //5
+    ApexDiceBag,    //6
+    CavemansSack,   //7
+    PaperBag,       //8
+    WetPaperBag,    //9
+    Bag,            //10
+    PerkyPurse,     //11
+    DiceceptionBag  //12
+}
+
 public class LevelSelector : MonoBehaviour
 {
-    public enum Bag
-    {
-        DiceBag,        //1
-        ChestBag,       //2
-        ReusableBag,    //3
-        SecondLifeBag,  //4
-        BeggersBag,     //5
-        ApexDiceBag,    //6
-        CavemansSack,   //7
-        PaperBag,       //8
-        WetPaperBag,    //9
-        Bag,            //10
-        PerkyPurse,     //11
-        DiceceptionBag  //12
-    }
 
     public string[] bagNames = new string[]
     {
@@ -123,6 +124,7 @@ public class LevelSelector : MonoBehaviour
         bagAbilityDescriptionText.GetComponent<TMP_Text>().text = bagAbilityDescriptions[(int)selectedBag];
         bagVisualDescriptionText.GetComponent<TMP_Text>().text = bagVisualDescriptions[(int)selectedBag];
         PlayerPrefs.SetString("_unlockedBags", unlockedBagsString);
+        PlayerPrefs.Save();
     }
 
     void Update()
@@ -136,9 +138,16 @@ public class LevelSelector : MonoBehaviour
     }
 
     public void PlayGame() 
-    { 
+    {
         //load game scene
-
+        // is the selected bag unlocked
+        if (unlockedBags[(int)selectedBag] == 0)
+        {
+            return;
+        }
+        PlayerPrefs.SetInt("_selectedBag", (int)selectedBag);
+        PlayerPrefs.Save();
+        UnityEngine.SceneManagement.SceneManager.LoadScene("GameScene");
     }
 
     public void nextBag()

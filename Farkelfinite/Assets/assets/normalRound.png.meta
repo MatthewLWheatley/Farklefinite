@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 46e759e6fde0cad448087223876b82ce
+guid: b03fb7f7f8df5754eb1c18331baed193
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2238295620843037817
-    second: NatureDiceBlank_0
+      213: 6053774859971513305
+    second: normalRound_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -75,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -126,7 +126,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: NatureDiceBlank_0
+      name: normalRound_0
       rect:
         serializedVersion: 2
         x: 0
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 97469a61206001f10800000000000000
-      internalID: 2238295620843037817
+      spriteID: 9dbcace2924530450800000000000000
+      internalID: 6053774859971513305
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      NatureDiceBlank_0: 2238295620843037817
+      normalRound_0: 6053774859971513305
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

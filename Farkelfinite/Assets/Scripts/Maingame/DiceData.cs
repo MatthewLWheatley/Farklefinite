@@ -22,7 +22,6 @@ public class DiceData : MonoBehaviour
     [SerializeField] private float fastSpeed = 0.1f;
     [SerializeField] private float slowSpeed = 0.65f;
 
-    public BoxCollider2D collider;
 
     public bool rolling = false;
 
@@ -57,7 +56,6 @@ public class DiceData : MonoBehaviour
         {
             DiceNames[i] = DiceNames[i].ToLower();
         }
-        collider = GetComponent<BoxCollider2D>();
     }
 
     public bool CanChangeFace()

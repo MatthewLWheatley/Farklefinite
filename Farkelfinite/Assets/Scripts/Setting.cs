@@ -4,6 +4,7 @@ using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using static UnityEngine.GraphicsBuffer;
 
 public class Setting : MonoBehaviour
 {
@@ -173,5 +174,9 @@ public class Setting : MonoBehaviour
         // load main menu scene
         // i dont have one rn
         // TODO:
+
+        PlayerData playerData = FindFirstObjectByType<PlayerData>();
+        GameObject player = playerData.gameObject;
+        SceneManager.MoveGameObjectToScene(player, SceneManager.GetActiveScene());
     }
 }

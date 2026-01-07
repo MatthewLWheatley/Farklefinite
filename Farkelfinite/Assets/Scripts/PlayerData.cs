@@ -5,8 +5,12 @@ using System.Data.SqlTypes;
 using Unity.VisualScripting;
 using UnityEngine.UI;
 
+
+
 public class PlayerData : MonoBehaviour
 {
+    public List<DiceConfig> diceConfigs;
+
     public static PlayerData _instance;
     public List<DiceData> dice;
     public int lives;

@@ -61,10 +61,12 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.1.17f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\ShopItem.cs" />
     <Compile Include="Assets\Scripts\PlayerData.cs" />
     <Compile Include="Assets\Scripts\Maingame\DiceConfig.cs" />
     <Compile Include="Assets\Scripts\Maingame\MatSwitch.cs" />
     <Compile Include="Assets\Scripts\Maingame\GameManager.cs" />
+    <Compile Include="Assets\Scripts\ShopContoller.cs" />
     <Compile Include="Assets\Scripts\Maingame\AbilityAnimationController.cs" />
     <Compile Include="Assets\Scripts\Maingame\DiceData.cs" />
     <Compile Include="Assets\Scripts\Setting.cs" />

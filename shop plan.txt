@@ -1,0 +1,14 @@
+keep a simialr look to the main game, the right hanbd side bar
+show money,
+reroll button,
+current round,
+current level,
+dont button,
+
+show current dice (at top),
+maybe 3 possible dice(in another box),
+cost below each dice,
+maybe use the 88 constelations for the tarot cards replacements,
+maybe also use the star signs which are just main constelations,
+
+idk if i should make a voucher system

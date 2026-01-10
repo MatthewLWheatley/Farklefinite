@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public enum ShopItemWeight 
@@ -19,6 +20,7 @@ public class ShopItemData : ScriptableObject
     public Sprite pipSprite;
     public int cost;
     public ShopItemWeight weight;
+    public DiceConfig diceConfig;
 
     public void OnPurchase()
     {

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8b102ea77a61d4d48ba984471d37322b, type: 3}
-  m_Name: Firedic
+  m_Name: FireDice
   m_EditorClassIdentifier: 
   diceType: 2
   diceName: FireDice

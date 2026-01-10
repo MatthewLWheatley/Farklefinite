@@ -134,7 +134,7 @@ public class AbilityProcessor
                 break;
 
             case EffectType.MultiplyVariable:
-                ModifyVariable(effect.targetVariable, sourceDice, currentGroup, value, false, true);
+                    ModifyVariable(effect.targetVariable, sourceDice, currentGroup, value, false, true);
                 break;
 
             case EffectType.DivideVariable:
@@ -166,6 +166,20 @@ public class AbilityProcessor
             case EffectType.LoseLife:
                 gameManager.lives -= (int)value;
                 gameManager.UpdateScoreUI();
+                break;
+
+            case EffectType.LinearScaleByVariable:
+                float increment = effect.sourceValue;  // e.g., 0.1
+                float variableValue = GetVariableValue(effect.sourceVariable, sourceDice, currentGroup, 0);
+                float linearMultiplier = 1 + (increment * variableValue);
+                ModifyVariable(effect.targetVariable, sourceDice, currentGroup, linearMultiplier, false, true);
+                break;
+
+            case EffectType.ExponentialScaleByVariable:
+                float baseValue = effect.sourceValue;  // e.g., 1.1
+                float exponent = GetVariableValue(effect.sourceVariable, sourceDice, currentGroup, 0);
+                float expMultiplier = Mathf.Pow(baseValue, exponent);
+                ModifyVariable(effect.targetVariable, sourceDice, currentGroup, expMultiplier, false, true);
                 break;
         }
     }
@@ -277,5 +291,10 @@ public class AbilityProcessor
     private DiceAbility GetCurrentAbility(DiceData sourceDice)
     {
         return null;
+    }
+
+    private float CalculateMultiplier(float baseMultiplier, int exponent)
+    {
+        return Mathf.Pow(baseMultiplier, exponent);
     }
 }

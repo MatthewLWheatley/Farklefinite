@@ -72,5 +72,7 @@ public enum EffectType
     AddDiceToGroup,
     RemoveDiceFromGroup,
     GainLife,
-    LoseLife
+    LoseLife,
+    LinearScaleByVariable,
+    ExponentialScaleByVariable
 }

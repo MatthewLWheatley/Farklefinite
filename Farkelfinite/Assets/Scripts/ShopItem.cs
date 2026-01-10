@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -12,8 +13,10 @@ public enum ShopItemType
 public class ShopItem : MonoBehaviour
 {
     public ShopItemType item;
+    public ShopItemData itemData;
 
     private bool isDragging = false;
+    private bool isSnappingBack = false;
     private Vector3 offset;
     private Camera mainCam;
     private float originalZ;
@@ -38,7 +41,7 @@ public class ShopItem : MonoBehaviour
             Vector3 worldPos = mainCam.ScreenToWorldPoint(screenPosition);
             worldPos.z = 0;
 
-            if (col.OverlapPoint(worldPos))
+            if (col.OverlapPoint(worldPos) && !isSnappingBack)
             {
                 offset = transform.position - worldPos;
                 offset.z = 0;
@@ -66,6 +69,7 @@ public class ShopItem : MonoBehaviour
     {
         Vector3 startPos = transform.position;
         float elapsed = 0f;
+        isSnappingBack = true;
 
         while (elapsed < snapBackDuration)
         {
@@ -76,5 +80,11 @@ public class ShopItem : MonoBehaviour
         }
 
         transform.position = originalPosition;
+        isSnappingBack = false;
+    }
+
+    public void Init(ShopItemData data) 
+    { 
+        
     }
 }

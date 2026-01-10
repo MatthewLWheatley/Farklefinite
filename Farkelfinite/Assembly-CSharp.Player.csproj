@@ -61,14 +61,19 @@
     <Analyzer Include="J:\unity\6000.1.17f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\ShopItem.cs" />
     <Compile Include="Assets\Scripts\PlayerData.cs" />
     <Compile Include="Assets\Scripts\Maingame\DiceConfig.cs" />
+    <Compile Include="Assets\Scripts\ShopItemData.cs" />
     <Compile Include="Assets\Scripts\Maingame\MatSwitch.cs" />
     <Compile Include="Assets\Scripts\Maingame\GameManager.cs" />
+    <Compile Include="Assets\Scripts\ShopContoller.cs" />
     <Compile Include="Assets\Scripts\Maingame\AbilityAnimationController.cs" />
     <Compile Include="Assets\Scripts\Maingame\DiceData.cs" />
     <Compile Include="Assets\Scripts\Setting.cs" />
+    <Compile Include="Assets\Scripts\MainMenuManager.cs" />
     <Compile Include="Assets\Scripts\Maingame\AbilityAnimation.cs" />
+    <Compile Include="Assets\Scripts\LevelSelector.cs" />
     <Compile Include="Assets\Scripts\Maingame\AbilityProcessor.cs" />
     <Compile Include="Assets\Scripts\Maingame\AbilityEnums.cs" />
   </ItemGroup>
@@ -960,6 +965,10 @@
     <ProjectReference Include="Unity.Multiplayer.Center.Common.Player.csproj">
       <Project>{F7EBA12F-BD49-980A-490B-B094003325BD}</Project>
       <Name>Unity.Multiplayer.Center.Common.Player</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.PlayerPrefsEditor.Samples.SampleScene.Player.csproj">
+      <Project>{8088DF25-B1C4-1B4F-9CCF-8BA821C2623F}</Project>
+      <Name>Unity.PlayerPrefsEditor.Samples.SampleScene.Player</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.TextMeshPro.Player.csproj">
       <Project>{82DB70F1-968B-C236-F44E-8BF6B205A62A}</Project>

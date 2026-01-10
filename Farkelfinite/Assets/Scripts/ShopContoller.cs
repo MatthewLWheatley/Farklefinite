@@ -23,6 +23,11 @@ public class ShopContoller : MonoBehaviour
 
     public List<DiceData> Dice = new List<DiceData>();
 
+    public List<ShopItemData> allShopItems;
+    public GameObject shopItemPrefab;
+
+
+
     public void Start()
     {
         playerData = PlayerData.Instance;
@@ -84,5 +89,17 @@ public class ShopContoller : MonoBehaviour
     private void GenerateDiceType()
     {
 
+    }
+
+    public List<ShopItemData> GetItemsByType(ShopItemType type)
+    {
+        return allShopItems.FindAll(item => item.itemType == type);
+    }
+
+    public void SpawnShopItem(ShopItemData data, Vector3 position)
+    {
+        GameObject itemObj = Instantiate(shopItemPrefab, position, Quaternion.identity);
+        ShopItem item = itemObj.GetComponent<ShopItem>();
+        item.Init(data); // pass the data to the actual item
     }
 }

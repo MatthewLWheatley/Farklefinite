@@ -41,8 +41,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float activeDiceSpacing = 2.0f;
 
 
-    private List<List<int>> setAsideGroups = new List<List<int>>();
-    private List<int> setAsideGroupScores = new List<int>();
+    public List<List<int>> setAsideGroups = new List<List<int>>();
+    public  List<int> setAsideGroupScores = new List<int>();
 
     private AbilityProcessor abilityProcessor;
 
@@ -74,11 +74,7 @@ public class GameManager : MonoBehaviour
         bool validStart = false;
         while (!validStart)
         {
-            for (int i = 0; i < diceDataList.Count; i++)
-            {
-                int pip = Random.Range(0, 6);
-                diceDataList[i].ChangePipNow(pip);
-            }
+            RollDice(true);
 
             validStart = HasValidScore();
         }
@@ -254,7 +250,6 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        yield return StartCoroutine(abilityProcessor.ProcessAbilitiesAsync(TriggerType.OnRoll));
 
         for (int i = 0; i < diceDataList.Count; i++)
         {
@@ -268,6 +263,8 @@ public class GameManager : MonoBehaviour
         {
             yield return null;
         }
+
+        yield return StartCoroutine(abilityProcessor.ProcessAbilitiesAsync(TriggerType.OnRoll));
 
         isRolling = false;
 

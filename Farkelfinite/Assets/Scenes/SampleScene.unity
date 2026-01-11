@@ -1384,6 +1384,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3519182912205222517, guid: 210e7d3e6d4d4344899305d5260489ae, type: 3}
+      propertyPath: diceConfig
+      value: 
+      objectReference: {fileID: 11400000, guid: 754c0202e7e7afc41a2641eb8efafad2, type: 2}
     - target: {fileID: 7180122734216725676, guid: 210e7d3e6d4d4344899305d5260489ae, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.45
@@ -1841,6 +1845,7 @@ MonoBehaviour:
   setAsideDiceSpacing: 1.5
   activeDiceCenter: {x: -2.45, y: 0, z: 0}
   activeDiceSpacing: 2
+  setAsideGroupScores: 
 --- !u!4 &1076454487
 Transform:
   m_ObjectHideFlags: 0
@@ -1921,6 +1926,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3519182912205222517, guid: 210e7d3e6d4d4344899305d5260489ae, type: 3}
+      propertyPath: diceConfig
+      value: 
+      objectReference: {fileID: 11400000, guid: 754c0202e7e7afc41a2641eb8efafad2, type: 2}
     - target: {fileID: 7180122734216725676, guid: 210e7d3e6d4d4344899305d5260489ae, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.45
@@ -2131,7 +2140,7 @@ PrefabInstance:
     - target: {fileID: 3519182912205222517, guid: 210e7d3e6d4d4344899305d5260489ae, type: 3}
       propertyPath: diceConfig
       value: 
-      objectReference: {fileID: 11400000, guid: 59c17449bb15e1f4c9fb362926e70c31, type: 2}
+      objectReference: {fileID: 11400000, guid: 754c0202e7e7afc41a2641eb8efafad2, type: 2}
     - target: {fileID: 7180122734216725676, guid: 210e7d3e6d4d4344899305d5260489ae, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.45
@@ -2196,7 +2205,7 @@ PrefabInstance:
     - target: {fileID: 3519182912205222517, guid: 210e7d3e6d4d4344899305d5260489ae, type: 3}
       propertyPath: diceConfig
       value: 
-      objectReference: {fileID: 11400000, guid: 8cc401117ab464245bd14c3ae5bf4cd9, type: 2}
+      objectReference: {fileID: 11400000, guid: 754c0202e7e7afc41a2641eb8efafad2, type: 2}
     - target: {fileID: 7180122734216725676, guid: 210e7d3e6d4d4344899305d5260489ae, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.45
@@ -2258,6 +2267,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3519182912205222517, guid: 210e7d3e6d4d4344899305d5260489ae, type: 3}
+      propertyPath: diceConfig
+      value: 
+      objectReference: {fileID: 11400000, guid: 754c0202e7e7afc41a2641eb8efafad2, type: 2}
     - target: {fileID: 7180122734216725676, guid: 210e7d3e6d4d4344899305d5260489ae, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.45

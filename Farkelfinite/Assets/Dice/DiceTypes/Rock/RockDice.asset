@@ -39,8 +39,8 @@ MonoBehaviour:
       useRightVariable: 0
     effects:
     - effectType: 0
-      targetVariable: 5
-      sourceVariable: 15
+      targetVariable: 8
+      sourceVariable: 0
       sourceValue: 50
       useSourceVariable: 0
       retriggerCount: 0
@@ -53,12 +53,12 @@ MonoBehaviour:
     - leftVariable: 0
       leftVariableValue: 0
       comparator: 2
-      rightVariable: 15
+      rightVariable: 0
       rightVariableValue: 3
       useRightVariable: 0
     effects:
     - effectType: 0
-      targetVariable: 5
+      targetVariable: 8
       sourceVariable: 0
       sourceValue: 50
       useSourceVariable: 0
@@ -72,12 +72,12 @@ MonoBehaviour:
     - leftVariable: 0
       leftVariableValue: 0
       comparator: 2
-      rightVariable: 15
+      rightVariable: 0
       rightVariableValue: 4
       useRightVariable: 0
     effects:
     - effectType: 0
-      targetVariable: 5
+      targetVariable: 8
       sourceVariable: 0
       sourceValue: 50
       useSourceVariable: 0
@@ -91,12 +91,12 @@ MonoBehaviour:
     - leftVariable: 0
       leftVariableValue: 0
       comparator: 2
-      rightVariable: 15
+      rightVariable: 0
       rightVariableValue: 6
       useRightVariable: 0
     effects:
     - effectType: 0
-      targetVariable: 5
+      targetVariable: 8
       sourceVariable: 0
       sourceValue: 50
       useSourceVariable: 0

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class AbilityProcessor
@@ -239,6 +240,135 @@ public class AbilityProcessor
             case VariableType.ArbitraryNumber:
                 return defaultValue;
 
+            case VariableType.ThisDiceIsSetAside:
+                int sourceIndex2 = gameManager.diceDataList.IndexOf(sourceDice);
+                return gameManager.setAsideDice[sourceIndex2] ? 1 : 0;
+
+            case VariableType.ThisDiceWasJustRolled:
+                int diceIdx = gameManager.diceDataList.IndexOf(sourceDice);
+                return gameManager.setAsideDice[diceIdx] ? 0 : 1;
+
+            case VariableType.CurrentGroupPipSum:
+                if (currentGroup != null)
+                {
+                    int sum = 0;
+                    foreach (int idx in currentGroup)
+                    {
+                        sum += gameManager.diceDataList[idx].pips[gameManager.diceDataList[idx].currentFace];
+                    }
+                    return sum;
+                }
+                return 0;
+
+            case VariableType.CurrentGroupScore:
+                if (currentGroup != null && currentGroup.Count > 0)
+                {
+                    int groupIndex = -1;
+                    for (int i = 0; i < gameManager.setAsideGroups.Count; i++)
+                    {
+                        if (gameManager.setAsideGroups[i].SequenceEqual(currentGroup))
+                        {
+                            groupIndex = i;
+                            break;
+                        }
+                    }
+                    if (groupIndex >= 0 && groupIndex < gameManager.setAsideGroupScores.Count)
+                    {
+                        return gameManager.setAsideGroupScores[groupIndex];
+                    }
+                }
+                return 0;
+
+            case VariableType.CurrentGroupUniqueValues:
+                if (currentGroup != null)
+                {
+                    HashSet<int> uniquePips = new HashSet<int>();
+                    foreach (int idx in currentGroup)
+                    {
+                        uniquePips.Add(gameManager.diceDataList[idx].pips[gameManager.diceDataList[idx].currentFace]);
+                    }
+                    return uniquePips.Count;
+                }
+                return 0;
+
+            case VariableType.TotalDiceWithAbilities:
+                int totalWithAbilities = 0;
+                foreach (var die in gameManager.diceDataList)
+                {
+                    if (die.diceConfig != null && die.diceConfig.abilities.Count > 0)
+                        totalWithAbilities++;
+                }
+                return totalWithAbilities;
+
+            case VariableType.ActiveDiceWithAbilities:
+                int activeWithAbilities = 0;
+                for (int i = 0; i < gameManager.diceDataList.Count; i++)
+                {
+                    if (!gameManager.setAsideDice[i] &&
+                        gameManager.diceDataList[i].diceConfig != null &&
+                        gameManager.diceDataList[i].diceConfig.abilities.Count > 0)
+                    {
+                        activeWithAbilities++;
+                    }
+                }
+                return activeWithAbilities;
+
+            case VariableType.SetAsideDiceWithAbilities:
+                int setAsideWithAbilities = 0;
+                for (int i = 0; i < gameManager.diceDataList.Count; i++)
+                {
+                    if (gameManager.setAsideDice[i] &&
+                        gameManager.diceDataList[i].diceConfig != null &&
+                        gameManager.diceDataList[i].diceConfig.abilities.Count > 0)
+                    {
+                        setAsideWithAbilities++;
+                    }
+                }
+                return setAsideWithAbilities;
+
+            case VariableType.CurrentGroupDiceWithAbilities:
+                if (currentGroup == null) return 0;
+                int groupWithAbilities = 0;
+                foreach (int idx in currentGroup)
+                {
+                    if (gameManager.diceDataList[idx].diceConfig != null &&
+                        gameManager.diceDataList[idx].diceConfig.abilities.Count > 0)
+                    {
+                        groupWithAbilities++;
+                    }
+                }
+                return groupWithAbilities;
+
+            case VariableType.TotalPipCount:
+                int totalPips = 0;
+                foreach (var die in gameManager.diceDataList)
+                {
+                    totalPips += die.pips[die.currentFace];
+                }
+                return totalPips;
+
+            case VariableType.ActivePipCount:
+                int activePips = 0;
+                for (int i = 0; i < gameManager.diceDataList.Count; i++)
+                {
+                    if (!gameManager.setAsideDice[i])
+                    {
+                        activePips += gameManager.diceDataList[i].pips[gameManager.diceDataList[i].currentFace];
+                    }
+                }
+                return activePips;
+
+            case VariableType.SetAsidePipCount:
+                int setAsidePips = 0;
+                for (int i = 0; i < gameManager.diceDataList.Count; i++)
+                {
+                    if (gameManager.setAsideDice[i])
+                    {
+                        setAsidePips += gameManager.diceDataList[i].pips[gameManager.diceDataList[i].currentFace];
+                    }
+                }
+                return setAsidePips;
+            
             default:
                 return defaultValue;
         }

@@ -39,8 +39,8 @@ MonoBehaviour:
       useRightVariable: 0
     effects:
     - effectType: 2
-      targetVariable: 5
-      sourceVariable: 12
+      targetVariable: 8
+      sourceVariable: 15
       sourceValue: 0.1
       useSourceVariable: 1
       retriggerCount: 0
@@ -58,8 +58,8 @@ MonoBehaviour:
       useRightVariable: 0
     effects:
     - effectType: 11
-      targetVariable: 5
-      sourceVariable: 12
+      targetVariable: 8
+      sourceVariable: 15
       sourceValue: 0.1
       useSourceVariable: 1
       retriggerCount: 0

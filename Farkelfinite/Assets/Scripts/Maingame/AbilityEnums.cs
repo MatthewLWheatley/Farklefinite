@@ -31,9 +31,12 @@ public enum VariableType
     ThisDicePipValue,
     ThisDiceGroupSize,
     ThisDiceGroupPosition,
+    ThisDiceIsSetAside,
+    ThisDiceWasJustRolled,
 
-    CurrentGroupPipCount,
-    CurrentGroupDiceCount,
+    CurrentGroupPipSum,
+    CurrentGroupScore,
+    CurrentGroupUniqueValues,
 
     SetAsideScore,
     BankScore,
@@ -45,9 +48,17 @@ public enum VariableType
     SetAsideDiceCount,
     GroupCount,
 
+    TotalDiceWithAbilities,
+    ActiveDiceWithAbilities,
+    SetAsideDiceWithAbilities,
+    CurrentGroupDiceWithAbilities,
+
     RandomNumber,
     HeldCardVariable,
-    ArbitraryNumber
+    ArbitraryNumber,
+    TotalPipCount,
+    ActivePipCount,
+    SetAsidePipCount,
 }
 
 public enum ComparatorType

@@ -54,7 +54,6 @@ public class DiceAbility
 [CreateAssetMenu(fileName = "New Dice Config", menuName = "Farkle/Dice Configuration")]
 public class DiceConfig : ScriptableObject
 {
-    public DiceType diceType;
     public string diceName;
     [TextArea(3, 6)]
     public string description;

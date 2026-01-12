@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7e0b7518e64ae34789e0c7dba6aea54, type: 3}
+  m_Name: Bronze
+  m_EditorClassIdentifier: 
+  particlePrefab: {fileID: 2549693032575953095, guid: 210e7d3e6d4d4344899305d5260489ae, type: 3}
+  spawnOffset: {x: 0, y: 0, z: 0}
+  particleDuration: 0.5
+  enableScreenShake: 1
+  shakeIntensity: 0.2
+  shakeDuration: 0.3
+  popupTextPrefab: {fileID: 3062678442021001665, guid: 85f8b0d5691db6a4fb436674b789065f, type: 3}
+  popupText: x1.1 Set A Side
+  popupColor: {r: 0.7075472, g: 0.45589402, b: 0, a: 1}
+  soundEffect: {fileID: 0}
+  volume: 0
+  startDelay: 0.5
+  totalDuration: 0.75

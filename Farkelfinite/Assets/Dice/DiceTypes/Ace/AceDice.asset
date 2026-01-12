@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   diceName: Ace
   description: High Roller
-  diceSprite: {fileID: 0}
+  diceSprite: {fileID: -3059296490022295760, guid: 61b93c539baeeb4429e694c77d3e252e, type: 3}
   pipSprites:
   - {fileID: 1965599317052140067, guid: 37be34c36ffc4ae41a9198f3fbc46e0a, type: 3}
   - {fileID: 8211243896810743751, guid: 65c974d0eddda024286c3f5052802ed0, type: 3}
@@ -28,7 +28,7 @@ MonoBehaviour:
   - abilityName: High Roller
     abilityDescription: High Roller
     trigger: 0
-    abilityAnimation: {fileID: 0}
+    abilityAnimation: {fileID: 11400000, guid: adf3d3be1ca637b4a9a4cd4dd88645df, type: 2}
     conditions:
     - leftVariable: 0
       leftVariableValue: 0
@@ -45,7 +45,7 @@ MonoBehaviour:
     effects:
     - effectType: 2
       targetVariable: 8
-      sourceVariable: 0
+      sourceVariable: 22
       sourceValue: 2
       useSourceVariable: 0
       retriggerCount: 0

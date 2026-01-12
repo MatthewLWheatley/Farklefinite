@@ -127,7 +127,16 @@ public class AbilityProcessor
         switch (effect.effectType)
         {
             case EffectType.AddToVariable:
-                ModifyVariable(effect.targetVariable, sourceDice, currentGroup, value, true);
+                if (effect.useSourceVariable)
+                {
+                    float variableValue0 = GetVariableValue(effect.sourceVariable, sourceDice, currentGroup, 0);
+                    float finalValue = variableValue0 * effect.sourceValue;
+                    ModifyVariable(effect.targetVariable, sourceDice, currentGroup, finalValue, true);
+                }
+                else
+                {
+                    ModifyVariable(effect.targetVariable, sourceDice, currentGroup, value, true);
+                }
                 break;
 
             case EffectType.SubtractFromVariable:

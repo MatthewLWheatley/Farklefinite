@@ -30,12 +30,18 @@ MonoBehaviour:
     abilityDescription: Ah Well I Tried
     trigger: 1
     abilityAnimation: {fileID: 0}
-    conditions: []
+    conditions:
+    - leftVariable: 13
+      leftVariableValue: 0
+      comparator: 2
+      rightVariable: 0
+      rightVariableValue: 1
+      useRightVariable: 0
     effects:
     - effectType: 0
       targetVariable: 8
       sourceVariable: 0
-      sourceValue: 0
+      sourceValue: 1000.0
       useSourceVariable: 0
       retriggerCount: 0
     heldVariable: 0

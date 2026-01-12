@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b102ea77a61d4d48ba984471d37322b, type: 3}
   m_Name: DreamDice
   m_EditorClassIdentifier: 
-  diceType: 0
   diceName: Dream
   description: NightMare
-  diceSprite: {fileID: 0}
+  diceSprite: {fileID: -5943531786066315403, guid: beb14c0e8960821478d4f8e91a7bee21, type: 3}
   pipSprites:
   - {fileID: 1965599317052140067, guid: 37be34c36ffc4ae41a9198f3fbc46e0a, type: 3}
   - {fileID: 8211243896810743751, guid: 65c974d0eddda024286c3f5052802ed0, type: 3}
@@ -29,13 +28,31 @@ MonoBehaviour:
   - abilityName: NightMare
     abilityDescription: NightMare
     trigger: 3
-    abilityAnimation: {fileID: 0}
-    conditions: []
+    abilityAnimation: {fileID: 11400000, guid: c38211c7db52f40478c954d800c12eaa, type: 2}
+    conditions:
+    - leftVariable: 9
+      leftVariableValue: 11
+      comparator: 0
+      rightVariable: 22
+      rightVariableValue: 11
+      useRightVariable: 0
+    - leftVariable: 11
+      leftVariableValue: 0
+      comparator: 3
+      rightVariable: 22
+      rightVariableValue: 2
+      useRightVariable: 0
     effects:
+    - effectType: 4
+      targetVariable: 11
+      sourceVariable: 22
+      sourceValue: 2
+      useSourceVariable: 0
+      retriggerCount: 0
     - effectType: 0
-      targetVariable: 8
-      sourceVariable: 0
-      sourceValue: 0
+      targetVariable: 10
+      sourceVariable: 22
+      sourceValue: 1000
       useSourceVariable: 0
       retriggerCount: 0
     heldVariable: 0

@@ -11,7 +11,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8b102ea77a61d4d48ba984471d37322b, type: 3}
   m_Name: NukeDice
-  m_EditorClassIdentifier:
+  m_EditorClassIdentifier: 
   diceType: 0
   diceName: Nuke
   description: End Times
@@ -24,11 +24,11 @@ MonoBehaviour:
   - {fileID: 2371431799608282939, guid: 012e92c2fa2912d4ea733703882aea92, type: 3}
   - {fileID: 6470227490501812004, guid: eb27ac6a26037e14aa407f23e410ede0, type: 3}
   canChangeFaces: 0
-  customPips:
+  customPips: 
   abilities:
   - abilityName: End Times
     abilityDescription: End Times
-    trigger: 0
+    trigger: 1
     abilityAnimation: {fileID: 0}
     conditions: []
     effects:

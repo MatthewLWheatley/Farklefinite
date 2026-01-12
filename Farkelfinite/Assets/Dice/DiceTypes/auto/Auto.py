@@ -1,6 +1,18 @@
 import csv
 import os
- 
+
+# Trigger type mappings
+TRIGGER_MAP = {
+    "OnSetAside": 0,
+    "OnBank": 1,
+    "OnRoll": 2,
+    "OnFarkle": 3,
+    "OnHotDice": 4,
+    "OnTurnStart": 5,
+    "OnTurnEnd": 6,
+    "Passive": 7
+}
+
 # Default pip sprite GUIDs (from Fire example)
 DEFAULT_PIP_GUIDS = [
     "37be34c36ffc4ae41a9198f3fbc46e0a",
@@ -10,7 +22,7 @@ DEFAULT_PIP_GUIDS = [
     "012e92c2fa2912d4ea733703882aea92",
     "eb27ac6a26037e14aa407f23e410ede0"
 ]
- 
+
 DEFAULT_PIP_FILEIDS = [
     "1965599317052140067",
     "8211243896810743751",
@@ -19,7 +31,7 @@ DEFAULT_PIP_FILEIDS = [
     "2371431799608282939",
     "6470227490501812004"
 ]
- 
+
 DICE_TYPE_MAP = {
     "Normal": 0,
     "Party": 1,
@@ -32,12 +44,13 @@ DICE_TYPE_MAP = {
     "Wind": 8,
     "Obsidian": 9
 }
- 
- 
-def generate_asset_file(dice_name, ability_name, description):
+
+
+def generate_asset_file(dice_name, ability_name, trigger, description):
     """Generate Unity .asset file content as a template."""
     
     dice_type_num = DICE_TYPE_MAP.get(dice_name, 0)
+    trigger_num = TRIGGER_MAP.get(trigger, 0)
     
     # Generate pip sprites section
     pip_sprites = ""
@@ -57,18 +70,18 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {{fileID: 11500000, guid: 8b102ea77a61d4d48ba984471d37322b, type: 3}}
   m_Name: {dice_name}Dice
-  m_EditorClassIdentifier:
+  m_EditorClassIdentifier: 
   diceType: {dice_type_num}
   diceName: {dice_name}
   description: {description}
   diceSprite: {{fileID: 0}}
   pipSprites:
 {pip_sprites}  canChangeFaces: 0
-  customPips:
+  customPips: 
   abilities:
   - abilityName: {ability_name}
     abilityDescription: {description}
-    trigger: 0
+    trigger: {trigger_num}
     abilityAnimation: {{fileID: 0}}
     conditions: []
     effects:
@@ -82,8 +95,8 @@ MonoBehaviour:
 """
     
     return asset_content
- 
- 
+
+
 def main():
     csv_file = input("Enter CSV file path (or press Enter for 'Farkel_Sheets_-_Dice__1_.csv'): ").strip()
     if not csv_file:
@@ -103,35 +116,44 @@ def main():
         for row in reader:
             dice_name = row['name'].strip()
             ability_name = row['ability name'].strip()
+            trigger = row.get('Trigger', '').strip()
             
             # Skip empty rows
             if not dice_name or not ability_name:
                 continue
+            
+            # Use OnSetAside as default if no trigger specified
+            if not trigger:
+                trigger = "OnSetAside"
+                print(f"⚠️  {dice_name}: No trigger specified, defaulting to OnSetAside")
             
             # Use ability name as description for now
             description = ability_name
             
             # Generate asset file template
             asset_content = generate_asset_file(
-                dice_name,
+                dice_name, 
                 ability_name,
+                trigger,
                 description
             )
             
-            dice_folder = os.path.join(output_dir,dice_name)
+            # Create folder for this dice
+            dice_folder = os.path.join(output_dir, dice_name)
             os.makedirs(dice_folder, exist_ok=True)
-
+            
             # Write to file
-            filename = f"{dice_name}/{dice_name}Dice.asset"
-            filepath = os.path.join(output_dir, filename)
+            filename = f"{dice_name}Dice.asset"
+            filepath = os.path.join(dice_folder, filename)
             
             with open(filepath, 'w', encoding='utf-8') as asset_file:
                 asset_file.write(asset_content)
             
-            print(f"✅ Created {filename}")
+            print(f"✅ Created {dice_name}/{filename}")
     
-    print(f"\n🎉 Done! Created {len(os.listdir(output_dir))} dice assets in '{output_dir}' directory")
- 
- 
+    dice_count = len([d for d in os.listdir(output_dir) if os.path.isdir(os.path.join(output_dir, d))])
+    print(f"\n🎉 Done! Created {dice_count} dice assets in '{output_dir}' directory")
+
+
 if __name__ == "__main__":
     main()

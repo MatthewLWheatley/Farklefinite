@@ -1,0 +1,45 @@
+name,ability name,Trigger,Conditions,Effect,Rarity,Cost
+Lightning,Jump Start,OnRoll,ActiveDiceWithAbilities > 3,SetAsideScore += 250,1,1
+Fire,Scorching,OnSetAside,CurrentGroupSize = 1 && ThisDicePipValue = 1 OR ThisDicePipValue = 5,SetAsideScore *= 1.5,1,1
+Pebble ,Small Gains,OnSetAside,ActiveDiceCount >= 0,SetAsideScore += 25,1,1
+Wood,Sturdy Bonus,OnSetAside,CurrentGroupSize > 0,SetAsideScore += 50,1,1
+Water ,Flowing Bonus,OnSetAside,CurrentGroupSize >= 3,SetAsideScore += 75,1,1
+Bronze,Third Place,OnBank,SetAsideGroupCount = 3,SetAsideScore *= 1.1,1,1
+Moss ,Slow Growth,OnTurnEnd,SetAsideScore > 0,SetAsideScore += 50,1,1
+Sand,Grains of Fortune,OnSetAside,CurrentGroupSize = 2,SetAsideScore += 100,1,1
+Rust ,Weathered Bonus,OnBank,ActiveDiceCount = 0,SetAsideScore += 200,1,1
+Dust ,Settled Bonus,OnTurnStart,ActiveDiceCount > 0,SetAsideScore += 75,1,1
+Nature,Growth,OnBank,SetAsideGroupCount > 0,SetAsideScore *= 1 + (0.1 * SetAsideGroupCount),1,2
+Rock,Rock And Stone,OnRoll,ThisDicePipValue != 1 && ThisDicePipValue != 5,SetAsideScore += 50,1,2
+Copper ,Small Change,OnBank,SetAsideDiceCount >= 3,SetAsideScore += 50 * SetAsideDiceCount,1,2
+Fog,Obscured Value,OnSetAside,ThisDicePipValue = RandomNumber(1-6),SetAsideScore *= 2,1,3
+Party,Party Time,OnSetAside,CurrentGroupUniqueValues = 1 && CurrentGroupCount >= 3,SetAsideScore *= 2,1,4
+Dusk,Evening Blessing,OnSetAside,ThisDicePipValue > 3,SetAsideScore += 100,2,3
+Gear,Gear Up,OnRoll,ActiveDiceWithAbilities > 1,SetAsideScore *= 1 + (0.1 * ActiveDiceWithAbilities),2,3
+Dawn,Morning Blessing,OnSetAside,ThisDicePipValue < 4,SetAsideScore += 100,2,3
+Obsidian,Rock And Stone!!!,OnRoll,ThisDicePipValue != 1 && ThisDicePipValue != 5,SetAsideScore += 100,2,3
+Gold,Midas Touch,OnBank,ThisDiceIsSetAside = 0,GoldCurrency += 1 (requires new currency system),2,3
+Ace,High Roller,OnSetAside,ThisDicePipValue = 1 && CurrentGroupSize = 1,SetAsideScore *= 2,2,4
+Jack,Court Jester,OnSetAside,ActiveDiceCount = 0,SetAsideScore += (25 * ActivePipCount),3,4
+Coin,Flip For It,OnBank,RandomNumber(1-2) = 1,SetAsideScore *= 2 ELSE SetAsideScore *= 0,3,4
+Paper,Origami Fortune,OnBank,ThisDiceIsSetAside = 0 && ActivePipCount > 0,SetAsideScore += (50 * ActivePipCount),3,5
+Poison,Toxic Touch,OnBank,SetAsideDiceCount > 0,SetAsideScore *= 1 + (0.1 * SetAsideDiceCount) BUT Lives -= 1,3,5
+Lucky Charm,Triple Chance,OnBank,RandomNumber(1-3) = 1 THEN *= 0.5 OR = 2 THEN *= 1 OR = 3 THEN *= 2,SetAsideScore varies by roll,3,5
+Stars,Stars Aligned,OnSetAside,CurrentGroupUniqueValues = CurrentGroupSize && CurrentGroupSize > 2,SetAsideScore *= 1. + (0.2 * ThisDiceGroupSize),3,6
+Queen,Royal Pair,OnBank,CurrentGroupPipSum % 2 = 0 (requires modulo operator),SetAsideScore *= 2,4,6
+Honey,Sticky Savings,OnFarkle,SetAsideScore > 0,TotalScore += (SetAsideScore * 0.5),4,6
+Vampire,Blood Bank,OnBank,SetAsideScore > 0,TotalScore -= (SetAsideScore * 0.5) THEN SetAsideScore *= 1.5,4,7
+King,Lone Monarch,OnBank,SetAsideGroupCount = 1 && CurrentGroupSize = 1,SetAsideScore *= 5,4,7
+Phoenix,Rise From Ashes,OnFarkle,Lives > 0,Lives += 1 THEN SetAsideScore = LastFarkleScore * 0.5,4,8
+Nuke,End Times,OnBank,Lives == 1 && SetAsideGroupCount >=4,SetAsideScore *= 3,4,8
+Market,Stonks,OnBank,BankedScore >= 10,BankedScore *= 1.1,4,6
+Infinity,Endless,OnHotDice,SetAsideScore > 0,SetAsideScore *= 3,4,8
+The Moon,Total Eclipse,OnBank,ActiveDiceCount = 0 && SetAsideGroupCount = 1,SetAsideScore *= 8,4,7
+Dream,NightMare,OnFarkle,BankedScore >= 10 && Lives > 1,Lives = 0 & BankedScore == 5000,4,6
+Pride,Above All Else,OnBank,SetAsideGroupCount >= 2 && ThisDiceIsSetAside = 1,SetAsideScore += 100 * SetAsideGroupCount,5,10
+Sloth,Ah Well I Tried,OnBank,ActiveDiceCount = 1,SetAsideScore += 1000,5,10
+Gluttony,All Mine,OnBank,SetAsideGroupCount = 1 && SetAsideDiceCount = 6,SetAsideScore *= 10,5,10
+Wrath,Only Makes Me Stronger,OnFarkle,ActiveDiceCount >= 1,TotalScore += (ActiveDiceCount * 500),5,10
+Envy,The Only One,OnBank,SetAsideGroupCount = 1 && SetAsideDiceCount = 1 && ActiveDiceCount = 0,SetAsideScore *= 10,5,10
+Lust,Too Many Men,OnSetAside,CurrentGroupUniqueValues = ThisDiceGroupSize,SetAsideScore *= 1 + (0.5 * ThisDiceGroupSize),5,10
+Greed,Un-Ending Greed,OnBank,SetAsideGroupCount >= 6,SetAsideScore *= 2 * SetAsideGroupCount,5,10

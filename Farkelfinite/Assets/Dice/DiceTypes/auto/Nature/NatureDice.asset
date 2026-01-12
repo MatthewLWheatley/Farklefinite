@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8b102ea77a61d4d48ba984471d37322b, type: 3}
-  m_Name: RockDice
+  m_Name: NatureDice
   m_EditorClassIdentifier: 
-  diceType: 0
+  diceType: 6
   diceName: Nature Dice
-  description: Des
-  diceSprite: {fileID: 3978220063945912566, guid: 36ceefa3056bd724891f4876207c6bc4, type: 3}
+  description: Times banked score by .1 for every setaside group
+  diceSprite: {fileID: 2238295620843037817, guid: 46e759e6fde0cad448087223876b82ce, type: 3}
   pipSprites:
   - {fileID: 1965599317052140067, guid: 37be34c36ffc4ae41a9198f3fbc46e0a, type: 3}
   - {fileID: 8211243896810743751, guid: 65c974d0eddda024286c3f5052802ed0, type: 3}
@@ -26,28 +26,41 @@ MonoBehaviour:
   canChangeFaces: 1
   customPips: 
   abilities:
-  - abilityName: Rock And Stone
-    abilityDescription: 'When rolled: if this die doesn''t show 1 or 5, add 50 to set-aside score'
-    trigger: 2
-    abilityAnimation: {fileID: 0}
+  - abilityName: Groth
+    abilityDescription: Times banked score by .1 for every setaside group
+    trigger: 1
+    abilityAnimation: {fileID: 11400000, guid: e5c058bb3fc709e4ea6bc4b5bd3196f1, type: 2}
     conditions:
-    - leftVariable: 0
+    - leftVariable: 12
       leftVariableValue: 0
-      comparator: 5
-      rightVariable: 0
-      rightVariableValue: 1
-      useRightVariable: 0
-    - leftVariable: 0
-      leftVariableValue: 0
-      comparator: 5
-      rightVariable: 0
-      rightVariableValue: 5
+      comparator: 3
+      rightVariable: 15
+      rightVariableValue: 0
       useRightVariable: 0
     effects:
-    - effectType: 0
+    - effectType: 2
       targetVariable: 8
-      sourceVariable: 0
-      sourceValue: 50
-      useSourceVariable: 0
+      sourceVariable: 15
+      sourceValue: 0.1
+      useSourceVariable: 1
+      retriggerCount: 0
+    heldVariable: 0
+  - abilityName: Groth
+    abilityDescription: Times banked score by .1 for every setaside group
+    trigger: 4
+    abilityAnimation: {fileID: 11400000, guid: e5c058bb3fc709e4ea6bc4b5bd3196f1, type: 2}
+    conditions:
+    - leftVariable: 12
+      leftVariableValue: 0
+      comparator: 3
+      rightVariable: 15
+      rightVariableValue: 0
+      useRightVariable: 0
+    effects:
+    - effectType: 11
+      targetVariable: 8
+      sourceVariable: 15
+      sourceValue: 0.1
+      useSourceVariable: 1
       retriggerCount: 0
     heldVariable: 0

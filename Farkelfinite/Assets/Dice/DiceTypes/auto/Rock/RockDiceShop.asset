@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 704fad54f364ace469609d11a7c810b3, type: 3}
+  m_Name: RockDiceShop
+  m_EditorClassIdentifier: 
+  itemName: Rock And Stone
+  itemType: 0
+  itemSprite: {fileID: 3978220063945912566, guid: 36ceefa3056bd724891f4876207c6bc4, type: 3}
+  pipSprite: {fileID: -855298285791758126, guid: 979e5c40d41a9814cb78fd16321f53d3, type: 3}
+  cost: 1
+  weight: 0
+  diceConfig: {fileID: 11400000, guid: 59c17449bb15e1f4c9fb362926e70c31, type: 2}

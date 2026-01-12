@@ -322,7 +322,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.9996948, y: -175.4997}
+  m_AnchoredPosition: {x: -0.99975586, y: -175.4997}
   m_SizeDelta: {x: -20, y: 126}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &278629200
@@ -1929,7 +1929,7 @@ PrefabInstance:
     - target: {fileID: 3519182912205222517, guid: 210e7d3e6d4d4344899305d5260489ae, type: 3}
       propertyPath: diceConfig
       value: 
-      objectReference: {fileID: 11400000, guid: 754c0202e7e7afc41a2641eb8efafad2, type: 2}
+      objectReference: {fileID: 11400000, guid: 2594a549e2120014ab68e6e47be6b245, type: 2}
     - target: {fileID: 7180122734216725676, guid: 210e7d3e6d4d4344899305d5260489ae, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.45
@@ -2140,7 +2140,7 @@ PrefabInstance:
     - target: {fileID: 3519182912205222517, guid: 210e7d3e6d4d4344899305d5260489ae, type: 3}
       propertyPath: diceConfig
       value: 
-      objectReference: {fileID: 11400000, guid: 754c0202e7e7afc41a2641eb8efafad2, type: 2}
+      objectReference: {fileID: 11400000, guid: 8cc401117ab464245bd14c3ae5bf4cd9, type: 2}
     - target: {fileID: 7180122734216725676, guid: 210e7d3e6d4d4344899305d5260489ae, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.45
@@ -2205,7 +2205,7 @@ PrefabInstance:
     - target: {fileID: 3519182912205222517, guid: 210e7d3e6d4d4344899305d5260489ae, type: 3}
       propertyPath: diceConfig
       value: 
-      objectReference: {fileID: 11400000, guid: 754c0202e7e7afc41a2641eb8efafad2, type: 2}
+      objectReference: {fileID: 11400000, guid: 59c17449bb15e1f4c9fb362926e70c31, type: 2}
     - target: {fileID: 7180122734216725676, guid: 210e7d3e6d4d4344899305d5260489ae, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.45

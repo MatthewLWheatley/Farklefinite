@@ -14,7 +14,7 @@ public class PlayerData : MonoBehaviour
     public static PlayerData _instance;
     public List<DiceData> dice;
     public int lives;
-    public int money;
+    public int money = 0;
     public int lvl = 1;
     public Bag currentBag;
 
@@ -23,6 +23,35 @@ public class PlayerData : MonoBehaviour
     public int currentRound = 1;
 
     public static PlayerData Instance { get { return _instance; } }
+
+    public void SetMoney(int amount)
+    {
+        money = Mathf.Max(0, amount);
+        Debug.Log($"Money set to: {money}");
+    }
+
+    public void AddMoney(int amount)
+    {
+        money += amount;
+        money = Mathf.Max(0, money); // Can't go below 0
+        Debug.Log($"Money: {money}");
+    }
+
+    public bool CanAfford(int cost)
+    {
+        return money >= cost;
+    }
+
+    public bool TrySpendMoney(int cost)
+    {
+        if (CanAfford(cost))
+        {
+            AddMoney(-cost);
+            return true;
+        }
+        Debug.Log($"Can't afford! Need {cost}, have {money}");
+        return false;
+    }
 
     private void Awake()
     {

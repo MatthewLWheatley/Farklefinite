@@ -40,6 +40,7 @@ public enum VariableType
     TotalPipCount = 23,
     ActivePipCount = 24,
     SetAsidePipCount = 25,
+    Money = 26,
 }
 
 public enum ComparatorType

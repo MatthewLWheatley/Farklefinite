@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b102ea77a61d4d48ba984471d37322b, type: 3}
   m_Name: GluttonyDice
   m_EditorClassIdentifier: 
-  diceType: 0
   diceName: Gluttony
   description: All Mine
-  diceSprite: {fileID: 0}
+  diceSprite: {fileID: -1495550147998926013, guid: 0876a74de010d964ca7aa85b12c3efb6, type: 3}
   pipSprites:
   - {fileID: 1965599317052140067, guid: 37be34c36ffc4ae41a9198f3fbc46e0a, type: 3}
   - {fileID: 8211243896810743751, guid: 65c974d0eddda024286c3f5052802ed0, type: 3}
@@ -29,7 +28,7 @@ MonoBehaviour:
   - abilityName: All Mine
     abilityDescription: All Mine
     trigger: 1
-    abilityAnimation: {fileID: 0}
+    abilityAnimation: {fileID: 11400000, guid: 9e977c9012e71864db4cc662824e0a71, type: 2}
     conditions:
     - leftVariable: 15
       leftVariableValue: 0
@@ -47,7 +46,32 @@ MonoBehaviour:
     - effectType: 2
       targetVariable: 8
       sourceVariable: 0
-      sourceValue: 10.0
+      sourceValue: 10
+      useSourceVariable: 0
+      retriggerCount: 0
+    heldVariable: 0
+  - abilityName: All Mine
+    abilityDescription: All Mine
+    trigger: 4
+    abilityAnimation: {fileID: 11400000, guid: 9e977c9012e71864db4cc662824e0a71, type: 2}
+    conditions:
+    - leftVariable: 15
+      leftVariableValue: 0
+      comparator: 2
+      rightVariable: 0
+      rightVariableValue: 1
+      useRightVariable: 0
+    - leftVariable: 14
+      leftVariableValue: 0
+      comparator: 2
+      rightVariable: 0
+      rightVariableValue: 6
+      useRightVariable: 0
+    effects:
+    - effectType: 2
+      targetVariable: 8
+      sourceVariable: 0
+      sourceValue: 10
       useSourceVariable: 0
       retriggerCount: 0
     heldVariable: 0

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public class AbilityProcessor
 {
@@ -377,7 +378,10 @@ public class AbilityProcessor
                     }
                 }
                 return setAsidePips;
-            
+
+            case VariableType.Money:
+                return PlayerData.Instance != null ? PlayerData.Instance.money : 0;
+
             default:
                 return defaultValue;
         }
@@ -422,6 +426,14 @@ public class AbilityProcessor
                 foreach (var ability in sourceDice.diceConfig.abilities)
                 {
                     ability.heldVariable = (int)value;
+                }
+                break;
+
+            case VariableType.Money:
+                if (PlayerData.Instance != null)
+                {
+                    PlayerData.Instance.money = Mathf.Max(0, (int)value); 
+                    Debug.Log($"Dice ability set money to: {PlayerData.Instance.money}");
                 }
                 break;
         }

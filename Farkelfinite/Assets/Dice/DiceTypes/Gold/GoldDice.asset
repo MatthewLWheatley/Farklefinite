@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b102ea77a61d4d48ba984471d37322b, type: 3}
   m_Name: GoldDice
   m_EditorClassIdentifier: 
-  diceType: 0
   diceName: Gold
   description: Midas Touch
-  diceSprite: {fileID: 0}
+  diceSprite: {fileID: 6151145170373218159, guid: 9f9a5179dda9c6c49afffbe94ea7fd12, type: 3}
   pipSprites:
   - {fileID: 1965599317052140067, guid: 37be34c36ffc4ae41a9198f3fbc46e0a, type: 3}
   - {fileID: 8211243896810743751, guid: 65c974d0eddda024286c3f5052802ed0, type: 3}
@@ -29,10 +28,29 @@ MonoBehaviour:
   - abilityName: Midas Touch
     abilityDescription: Midas Touch
     trigger: 1
+    abilityAnimation: {fileID: 11400000, guid: 412ca51f20f1ede46942b01e93c261c2, type: 2}
+    conditions:
+    - leftVariable: 3
+      leftVariableValue: 0
+      comparator: 0
+      rightVariable: 0
+      rightVariableValue: 0
+      useRightVariable: 0
+    effects:
+    - effectType: 4
+      targetVariable: 26
+      sourceVariable: 0
+      sourceValue: 0
+      useSourceVariable: 0
+      retriggerCount: 0
+    heldVariable: 0
+  - abilityName: Midas Touch
+    abilityDescription: Midas Touch
+    trigger: 4
     abilityAnimation: {fileID: 0}
     conditions: []
     effects:
-    - effectType: 0
+    - effectType: 4
       targetVariable: 8
       sourceVariable: 0
       sourceValue: 0

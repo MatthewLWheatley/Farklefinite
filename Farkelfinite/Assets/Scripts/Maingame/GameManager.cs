@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
 
     private AbilityProcessor abilityProcessor;
 
-
+    public TMP_Text MoneyText;
 
     void Start()
     {
@@ -86,7 +86,15 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        UpdateMoneyUI();
+    }
 
+    void UpdateMoneyUI()
+    {
+        if (MoneyText != null && PlayerData.Instance != null)
+        {
+            MoneyText.text = $"Money: {PlayerData.Instance.money}";
+        }
     }
 
     public void OnLeftClick(InputAction.CallbackContext context)

@@ -19,7 +19,7 @@ MonoBehaviour:
   shakeIntensity: 0.2
   shakeDuration: 0.3
   popupTextPrefab: {fileID: 3062678442021001665, guid: 85f8b0d5691db6a4fb436674b789065f, type: 3}
-  popupText: -1 life, +1000 Banked Score
+  popupText: -2 lives, +1000 Banked Score
   popupColor: {r: 0.6037736, g: 0, b: 0.54697347, a: 1}
   soundEffect: {fileID: 0}
   volume: 0

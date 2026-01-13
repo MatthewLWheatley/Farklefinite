@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b102ea77a61d4d48ba984471d37322b, type: 3}
   m_Name: EnvyDice
   m_EditorClassIdentifier: 
-  diceType: 0
   diceName: Envy
   description: The Only One
-  diceSprite: {fileID: 0}
+  diceSprite: {fileID: 3633879674100428713, guid: 9fe5e886f3457ac4b80f3a2458a498bf, type: 3}
   pipSprites:
   - {fileID: 1965599317052140067, guid: 37be34c36ffc4ae41a9198f3fbc46e0a, type: 3}
   - {fileID: 8211243896810743751, guid: 65c974d0eddda024286c3f5052802ed0, type: 3}
@@ -29,7 +28,7 @@ MonoBehaviour:
   - abilityName: The Only One
     abilityDescription: The Only One
     trigger: 1
-    abilityAnimation: {fileID: 0}
+    abilityAnimation: {fileID: 11400000, guid: faa635052f558574fa2db85a4c9e7393, type: 2}
     conditions:
     - leftVariable: 15
       leftVariableValue: 0
@@ -41,9 +40,9 @@ MonoBehaviour:
       leftVariableValue: 0
       comparator: 2
       rightVariable: 0
-      rightVariableValue: 1
+      rightVariableValue: 5
       useRightVariable: 0
-    - leftVariable: 13
+    - leftVariable: 3
       leftVariableValue: 0
       comparator: 2
       rightVariable: 0
@@ -53,7 +52,7 @@ MonoBehaviour:
     - effectType: 2
       targetVariable: 8
       sourceVariable: 0
-      sourceValue: 10.0
+      sourceValue: 10
       useSourceVariable: 0
       retriggerCount: 0
     heldVariable: 0

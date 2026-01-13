@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
 
     public LayerMask diceMask;
 
-    public int lives = 1000000000;
+    public int lives = 5;
     public GameObject Game;
     public GameObject Dead;
 

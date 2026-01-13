@@ -7,8 +7,6 @@ public class DiceData : MonoBehaviour
     public int ID;
     public DiceConfig diceConfig;
 
-    public List<Sprite> DiceSprites = new List<Sprite>();
-    public List<string> DiceNames = new List<string>();
     public List<GameObject> pipSprites = new List<GameObject>();
     public List<int> pips = new List<int>();
 
@@ -47,15 +45,6 @@ public class DiceData : MonoBehaviour
             spriteRenderer.sprite = diceConfig.diceSprite;
             pipSprites = diceConfig.pipSprites;
         }
-        else if (DiceSprites.Count > 0)
-        {
-            spriteRenderer.sprite = DiceSprites[0];
-        }
-
-        for (int i = 0; i < DiceNames.Count; i++)
-        {
-            DiceNames[i] = DiceNames[i].ToLower();
-        }
     }
 
     public bool CanChangeFace()
@@ -70,28 +59,6 @@ public class DiceData : MonoBehaviour
 
         currentFace = face;
         ChangePipNow(face);
-    }
-
-    public bool ChangeSprite(string diceName)
-    {
-        diceName = diceName.ToLower();
-        if (DiceNames.Contains(diceName))
-        {
-            int index = DiceNames.IndexOf(diceName);
-            spriteRenderer.sprite = DiceSprites[index];
-            return true;
-        }
-        return false;
-    }
-
-    public bool ChangeSprite(int diceID)
-    {
-        if (diceID >= 0 && diceID < DiceSprites.Count)
-        {
-            spriteRenderer.sprite = DiceSprites[diceID];
-            return true;
-        }
-        return false;
     }
 
     [ContextMenu("Debug Test")]

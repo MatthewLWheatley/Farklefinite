@@ -30,12 +30,18 @@ MonoBehaviour:
     abilityDescription: Too Many Men
     trigger: 0
     abilityAnimation: {fileID: 0}
-    conditions: []
+    conditions:
+    - leftVariable: 7
+      leftVariableValue: 0
+      comparator: 2
+      rightVariable: 1
+      rightVariableValue: 0
+      useRightVariable: 1
     effects:
-    - effectType: 0
+    - effectType: 11
       targetVariable: 8
-      sourceVariable: 0
-      sourceValue: 0
-      useSourceVariable: 0
+      sourceVariable: 1
+      sourceValue: 0.5
+      useSourceVariable: 1
       retriggerCount: 0
     heldVariable: 0

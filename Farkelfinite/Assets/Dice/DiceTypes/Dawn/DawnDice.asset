@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   diceName: Dawn
   description: Morning Blessing
-  diceSprite: {fileID: 0}
+  diceSprite: {fileID: -521886249943726807, guid: 495d5e4c8e4ebd84c9ef791eac59bc13, type: 3}
   pipSprites:
   - {fileID: 1965599317052140067, guid: 37be34c36ffc4ae41a9198f3fbc46e0a, type: 3}
   - {fileID: 8211243896810743751, guid: 65c974d0eddda024286c3f5052802ed0, type: 3}
@@ -28,18 +28,18 @@ MonoBehaviour:
   - abilityName: Morning Blessing
     abilityDescription: Morning Blessing
     trigger: 0
-    abilityAnimation: {fileID: 11400000, guid: c49634ee2d9dc734ca75088df24d7170, type: 2}
+    abilityAnimation: {fileID: 0}
     conditions:
     - leftVariable: 0
       leftVariableValue: 0
-      comparator: 1
-      rightVariable: 22
-      rightVariableValue: 3
+      comparator: 0
+      rightVariable: 0
+      rightVariableValue: 4
       useRightVariable: 0
     effects:
     - effectType: 0
       targetVariable: 8
-      sourceVariable: 22
+      sourceVariable: 0
       sourceValue: 100
       useSourceVariable: 0
       retriggerCount: 0

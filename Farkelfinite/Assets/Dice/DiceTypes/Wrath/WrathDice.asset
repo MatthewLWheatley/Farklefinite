@@ -30,12 +30,18 @@ MonoBehaviour:
     abilityDescription: Only Makes Me Stronger
     trigger: 3
     abilityAnimation: {fileID: 0}
-    conditions: []
+    conditions:
+    - leftVariable: 13
+      leftVariableValue: 0
+      comparator: 4
+      rightVariable: 0
+      rightVariableValue: 1
+      useRightVariable: 0
     effects:
     - effectType: 0
-      targetVariable: 8
-      sourceVariable: 0
-      sourceValue: 0
-      useSourceVariable: 0
+      targetVariable: 10
+      sourceVariable: 13
+      sourceValue: 500.0
+      useSourceVariable: 1
       retriggerCount: 0
     heldVariable: 0

@@ -22,7 +22,7 @@ MonoBehaviour:
   - {fileID: 5123967086785334009, guid: 34498b2fb085acf4895a9bfc3c401f77, type: 3}
   - {fileID: 2371431799608282939, guid: 012e92c2fa2912d4ea733703882aea92, type: 3}
   - {fileID: 6470227490501812004, guid: eb27ac6a26037e14aa407f23e410ede0, type: 3}
-  canChangeFaces: 1
+  canChangeFaces: 0
   customPips: 
   abilities:
   - abilityName: High Roller
@@ -32,20 +32,20 @@ MonoBehaviour:
     conditions:
     - leftVariable: 0
       leftVariableValue: 0
-      comparator: 0
-      rightVariable: 22
+      comparator: 2
+      rightVariable: 0
       rightVariableValue: 1
       useRightVariable: 0
     - leftVariable: 1
       leftVariableValue: 0
-      comparator: 0
-      rightVariable: 22
+      comparator: 2
+      rightVariable: 0
       rightVariableValue: 1
       useRightVariable: 0
     effects:
     - effectType: 2
       targetVariable: 8
-      sourceVariable: 22
+      sourceVariable: 0
       sourceValue: 2
       useSourceVariable: 0
       retriggerCount: 0

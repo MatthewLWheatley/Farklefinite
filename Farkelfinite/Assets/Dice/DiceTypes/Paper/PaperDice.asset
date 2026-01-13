@@ -30,12 +30,24 @@ MonoBehaviour:
     abilityDescription: Origami Fortune
     trigger: 1
     abilityAnimation: {fileID: 0}
-    conditions: []
+    conditions:
+    - leftVariable: 3
+      leftVariableValue: 0
+      comparator: 2
+      rightVariable: 0
+      rightVariableValue: 0
+      useRightVariable: 0
+    - leftVariable: 24
+      leftVariableValue: 0
+      comparator: 3
+      rightVariable: 0
+      rightVariableValue: 0
+      useRightVariable: 0
     effects:
     - effectType: 0
       targetVariable: 8
-      sourceVariable: 0
-      sourceValue: 0
-      useSourceVariable: 0
+      sourceVariable: 24
+      sourceValue: 50.0
+      useSourceVariable: 1
       retriggerCount: 0
     heldVariable: 0

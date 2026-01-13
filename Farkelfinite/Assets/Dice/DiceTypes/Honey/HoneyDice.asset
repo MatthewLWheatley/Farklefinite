@@ -30,12 +30,18 @@ MonoBehaviour:
     abilityDescription: Sticky Savings
     trigger: 3
     abilityAnimation: {fileID: 0}
-    conditions: []
+    conditions:
+    - leftVariable: 8
+      leftVariableValue: 0
+      comparator: 3
+      rightVariable: 0
+      rightVariableValue: 0
+      useRightVariable: 0
     effects:
     - effectType: 0
-      targetVariable: 8
-      sourceVariable: 0
-      sourceValue: 0
-      useSourceVariable: 0
+      targetVariable: 10
+      sourceVariable: 8
+      sourceValue: 0.5
+      useSourceVariable: 1
       retriggerCount: 0
     heldVariable: 0

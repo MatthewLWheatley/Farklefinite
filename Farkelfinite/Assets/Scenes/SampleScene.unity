@@ -595,7 +595,7 @@ PrefabInstance:
     - target: {fileID: 3519182912205222517, guid: 210e7d3e6d4d4344899305d5260489ae, type: 3}
       propertyPath: diceConfig
       value: 
-      objectReference: {fileID: 11400000, guid: 3ee7726127576ab42a84d6703696de23, type: 2}
+      objectReference: {fileID: 11400000, guid: b68b70da6f8e1e5459546b414c524a25, type: 2}
     - target: {fileID: 7180122734216725676, guid: 210e7d3e6d4d4344899305d5260489ae, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.45
@@ -1387,7 +1387,7 @@ PrefabInstance:
     - target: {fileID: 3519182912205222517, guid: 210e7d3e6d4d4344899305d5260489ae, type: 3}
       propertyPath: diceConfig
       value: 
-      objectReference: {fileID: 11400000, guid: 3ee7726127576ab42a84d6703696de23, type: 2}
+      objectReference: {fileID: 11400000, guid: b68b70da6f8e1e5459546b414c524a25, type: 2}
     - target: {fileID: 7180122734216725676, guid: 210e7d3e6d4d4344899305d5260489ae, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.45
@@ -1929,7 +1929,7 @@ PrefabInstance:
     - target: {fileID: 3519182912205222517, guid: 210e7d3e6d4d4344899305d5260489ae, type: 3}
       propertyPath: diceConfig
       value: 
-      objectReference: {fileID: 11400000, guid: 3ee7726127576ab42a84d6703696de23, type: 2}
+      objectReference: {fileID: 11400000, guid: b68b70da6f8e1e5459546b414c524a25, type: 2}
     - target: {fileID: 7180122734216725676, guid: 210e7d3e6d4d4344899305d5260489ae, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.45
@@ -2140,7 +2140,7 @@ PrefabInstance:
     - target: {fileID: 3519182912205222517, guid: 210e7d3e6d4d4344899305d5260489ae, type: 3}
       propertyPath: diceConfig
       value: 
-      objectReference: {fileID: 11400000, guid: 3ee7726127576ab42a84d6703696de23, type: 2}
+      objectReference: {fileID: 11400000, guid: b68b70da6f8e1e5459546b414c524a25, type: 2}
     - target: {fileID: 7180122734216725676, guid: 210e7d3e6d4d4344899305d5260489ae, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.45
@@ -2205,7 +2205,7 @@ PrefabInstance:
     - target: {fileID: 3519182912205222517, guid: 210e7d3e6d4d4344899305d5260489ae, type: 3}
       propertyPath: diceConfig
       value: 
-      objectReference: {fileID: 11400000, guid: 3ee7726127576ab42a84d6703696de23, type: 2}
+      objectReference: {fileID: 11400000, guid: b68b70da6f8e1e5459546b414c524a25, type: 2}
     - target: {fileID: 7180122734216725676, guid: 210e7d3e6d4d4344899305d5260489ae, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.45
@@ -2270,7 +2270,7 @@ PrefabInstance:
     - target: {fileID: 3519182912205222517, guid: 210e7d3e6d4d4344899305d5260489ae, type: 3}
       propertyPath: diceConfig
       value: 
-      objectReference: {fileID: 11400000, guid: 3ee7726127576ab42a84d6703696de23, type: 2}
+      objectReference: {fileID: 11400000, guid: b68b70da6f8e1e5459546b414c524a25, type: 2}
     - target: {fileID: 7180122734216725676, guid: 210e7d3e6d4d4344899305d5260489ae, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.45

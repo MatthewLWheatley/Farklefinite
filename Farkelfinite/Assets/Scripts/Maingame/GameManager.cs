@@ -4,6 +4,7 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEngine.Rendering.DebugUI;
 
 public class GameManager : MonoBehaviour
 {
@@ -272,13 +273,14 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("FARKLE INCOMING...");
             yield return new WaitForSeconds(2f);
-            Bust();
+            yield return StartCoroutine(BustAsync());
 
             if (lives > 0)
             {
                 yield return new WaitForSeconds(0.5f);
                 StartNewTurn();
             }
+            yield return StartCoroutine(abilityProcessor.ProcessAbilitiesAsync(TriggerType.OnTurnEnd));
         }
     }
 
@@ -556,6 +558,8 @@ public class GameManager : MonoBehaviour
                 Dead.SetActive(true);
                 yield break;
             }
+
+            yield return StartCoroutine(abilityProcessor.ProcessAbilitiesAsync(TriggerType.OnTurnEnd));
         }
 
         yield return new WaitForSeconds(0.5f);
@@ -672,7 +676,7 @@ public class GameManager : MonoBehaviour
         if (allPips.Count == 6 && pipCounts.Count == 6 &&
             pipCounts.All(kvp => kvp.Key >= 1 && kvp.Key <= 6 && kvp.Value == 1))
         {
-            maxScore = Mathf.Max(maxScore, 5000);
+            return 5000;
         }
 
         if (allPips.Count >= 5)
@@ -682,7 +686,31 @@ public class GameManager : MonoBehaviour
 
             if (has1to5 || has2to6)
             {
-                maxScore = Mathf.Max(maxScore, 2500);
+                int straightScore = 2500;
+
+                Dictionary<int, int> leftoverCounts = new Dictionary<int, int>(pipCounts);
+
+                if (has1to5)
+                {
+                    for (int i = 1; i <= 5; i++)
+                    {
+                        leftoverCounts[i]--;
+                        if (leftoverCounts[i] == 0)
+                            leftoverCounts.Remove(i);
+                    }
+                }
+                else
+                {
+                    for (int i = 2; i <= 6; i++)
+                    {
+                        leftoverCounts[i]--;
+                        if (leftoverCounts[i] == 0)
+                            leftoverCounts.Remove(i);
+                    }
+                }
+
+                int leftoverScore = CalculateComboScore(leftoverCounts);
+                maxScore = Mathf.Max(maxScore, straightScore + leftoverScore);
             }
         }
 
@@ -690,7 +718,7 @@ public class GameManager : MonoBehaviour
         {
             int pairCount = pipCounts.Count(kvp => kvp.Value == 2);
             if (pairCount == 3)
-            { 
+            {
                 maxScore = Mathf.Max(maxScore, 1500);
             }
         }

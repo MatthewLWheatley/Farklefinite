@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b102ea77a61d4d48ba984471d37322b, type: 3}
   m_Name: MarketDice
   m_EditorClassIdentifier: 
-  diceType: 0
   diceName: Market
   description: Stonks
-  diceSprite: {fileID: 0}
+  diceSprite: {fileID: -1727270389006743443, guid: 068c886c1ad9e2349b95119b375d3943, type: 3}
   pipSprites:
   - {fileID: 1965599317052140067, guid: 37be34c36ffc4ae41a9198f3fbc46e0a, type: 3}
   - {fileID: 8211243896810743751, guid: 65c974d0eddda024286c3f5052802ed0, type: 3}
@@ -23,19 +22,44 @@ MonoBehaviour:
   - {fileID: 5123967086785334009, guid: 34498b2fb085acf4895a9bfc3c401f77, type: 3}
   - {fileID: 2371431799608282939, guid: 012e92c2fa2912d4ea733703882aea92, type: 3}
   - {fileID: 6470227490501812004, guid: eb27ac6a26037e14aa407f23e410ede0, type: 3}
-  canChangeFaces: 0
+  canChangeFaces: 1
   customPips: 
   abilities:
   - abilityName: Stonks
     abilityDescription: Stonks
     trigger: 1
-    abilityAnimation: {fileID: 0}
-    conditions: []
+    abilityAnimation: {fileID: 11400000, guid: e10de44e086ac5c4ea50b38963ff7cd3, type: 2}
+    conditions:
+    - leftVariable: 10
+      leftVariableValue: 0
+      comparator: 3
+      rightVariable: 0
+      rightVariableValue: 10
+      useRightVariable: 0
     effects:
-    - effectType: 0
-      targetVariable: 8
+    - effectType: 2
+      targetVariable: 10
       sourceVariable: 0
-      sourceValue: 0
+      sourceValue: 1.1
+      useSourceVariable: 0
+      retriggerCount: 0
+    heldVariable: 0
+  - abilityName: Stonks
+    abilityDescription: Stonks
+    trigger: 4
+    abilityAnimation: {fileID: 11400000, guid: e10de44e086ac5c4ea50b38963ff7cd3, type: 2}
+    conditions:
+    - leftVariable: 10
+      leftVariableValue: 0
+      comparator: 3
+      rightVariable: 0
+      rightVariableValue: 10
+      useRightVariable: 0
+    effects:
+    - effectType: 2
+      targetVariable: 10
+      sourceVariable: 0
+      sourceValue: 1.1
       useSourceVariable: 0
       retriggerCount: 0
     heldVariable: 0

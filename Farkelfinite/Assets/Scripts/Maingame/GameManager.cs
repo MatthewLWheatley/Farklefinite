@@ -841,4 +841,16 @@ public class GameManager : MonoBehaviour
     {
         return setAsideGroups.Count;
     }
+
+    public void OnSpace(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            Time.timeScale = 10f;
+        }
+        else if (context.canceled)
+        {
+            Time.timeScale = 1f;
+        }
+    }
 }

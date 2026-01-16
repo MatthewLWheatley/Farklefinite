@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b102ea77a61d4d48ba984471d37322b, type: 3}
   m_Name: NukeDice
   m_EditorClassIdentifier: 
-  diceType: 0
   diceName: Nuke
   description: End Times
-  diceSprite: {fileID: 0}
+  diceSprite: {fileID: -5659693797464179835, guid: ca7e6e41ad9e7634395008161da7df42, type: 3}
   pipSprites:
   - {fileID: 1965599317052140067, guid: 37be34c36ffc4ae41a9198f3fbc46e0a, type: 3}
   - {fileID: 8211243896810743751, guid: 65c974d0eddda024286c3f5052802ed0, type: 3}
@@ -29,7 +28,7 @@ MonoBehaviour:
   - abilityName: End Times
     abilityDescription: End Times
     trigger: 1
-    abilityAnimation: {fileID: 0}
+    abilityAnimation: {fileID: 11400000, guid: 981c3091c459f1741b3ffd5f3847f99c, type: 2}
     conditions:
     - leftVariable: 11
       leftVariableValue: 0
@@ -47,7 +46,32 @@ MonoBehaviour:
     - effectType: 2
       targetVariable: 8
       sourceVariable: 0
-      sourceValue: 3.0
+      sourceValue: 3
+      useSourceVariable: 0
+      retriggerCount: 0
+    heldVariable: 0
+  - abilityName: End Times
+    abilityDescription: End Times
+    trigger: 4
+    abilityAnimation: {fileID: 11400000, guid: 981c3091c459f1741b3ffd5f3847f99c, type: 2}
+    conditions:
+    - leftVariable: 11
+      leftVariableValue: 0
+      comparator: 2
+      rightVariable: 0
+      rightVariableValue: 1
+      useRightVariable: 0
+    - leftVariable: 15
+      leftVariableValue: 0
+      comparator: 4
+      rightVariable: 0
+      rightVariableValue: 4
+      useRightVariable: 0
+    effects:
+    - effectType: 2
+      targetVariable: 8
+      sourceVariable: 0
+      sourceValue: 3
       useSourceVariable: 0
       retriggerCount: 0
     heldVariable: 0

@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b102ea77a61d4d48ba984471d37322b, type: 3}
   m_Name: Lucky CharmDice
   m_EditorClassIdentifier: 
-  diceType: 0
   diceName: Lucky Charm
   description: Triple Chance
-  diceSprite: {fileID: 0}
+  diceSprite: {fileID: 5433217571723671368, guid: f5511c9680cd214449d9962d7b38c56a, type: 3}
   pipSprites:
   - {fileID: 1965599317052140067, guid: 37be34c36ffc4ae41a9198f3fbc46e0a, type: 3}
   - {fileID: 8211243896810743751, guid: 65c974d0eddda024286c3f5052802ed0, type: 3}
@@ -28,13 +27,142 @@ MonoBehaviour:
   abilities:
   - abilityName: Triple Chance
     abilityDescription: Triple Chance
-    trigger: 1
-    abilityAnimation: {fileID: 0}
-    conditions: []
+    trigger: 2
+    abilityAnimation: {fileID: 11400000, guid: a7cd39d0e2f76d84e8fbdf1fbb628f55, type: 2}
+    conditions:
+    - leftVariable: 21
+      leftVariableValue: 0
+      comparator: 2
+      rightVariable: 0
+      rightVariableValue: 0
+      useRightVariable: 0
+    - leftVariable: 3
+      leftVariableValue: 0
+      comparator: 2
+      rightVariable: 0
+      rightVariableValue: 0
+      useRightVariable: 0
+    - leftVariable: 8
+      leftVariableValue: 0
+      comparator: 3
+      rightVariable: 0
+      rightVariableValue: 0
+      useRightVariable: 0
     effects:
-    - effectType: 0
+    - effectType: 4
+      targetVariable: 21
+      sourceVariable: 20
+      sourceValue: 2
+      useSourceVariable: 1
+      retriggerCount: 0
+    heldVariable: 0
+  - abilityName: Triple Chance
+    abilityDescription: Triple Chance
+    trigger: 2
+    abilityAnimation: {fileID: 11400000, guid: 24d91c1b52244164bbfd1c52c065c659, type: 2}
+    conditions:
+    - leftVariable: 21
+      leftVariableValue: 0
+      comparator: 2
+      rightVariable: 0
+      rightVariableValue: 0
+      useRightVariable: 0
+    - leftVariable: 3
+      leftVariableValue: 0
+      comparator: 2
+      rightVariable: 0
+      rightVariableValue: 0
+      useRightVariable: 0
+    - leftVariable: 8
+      leftVariableValue: 0
+      comparator: 3
+      rightVariable: 0
+      rightVariableValue: 0
+      useRightVariable: 0
+    effects:
+    - effectType: 2
       targetVariable: 8
-      sourceVariable: 0
+      sourceVariable: 22
+      sourceValue: 0.5
+      useSourceVariable: 0
+      retriggerCount: 0
+    - effectType: 4
+      targetVariable: 21
+      sourceVariable: 22
+      sourceValue: 0
+      useSourceVariable: 0
+      retriggerCount: 0
+    heldVariable: 0
+  - abilityName: Triple Chance
+    abilityDescription: Triple Chance
+    trigger: 2
+    abilityAnimation: {fileID: 11400000, guid: c036e71b2636433478639d447a70c497, type: 2}
+    conditions:
+    - leftVariable: 21
+      leftVariableValue: 0
+      comparator: 2
+      rightVariable: 0
+      rightVariableValue: 1
+      useRightVariable: 0
+    - leftVariable: 3
+      leftVariableValue: 0
+      comparator: 2
+      rightVariable: 0
+      rightVariableValue: 0
+      useRightVariable: 0
+    - leftVariable: 8
+      leftVariableValue: 0
+      comparator: 3
+      rightVariable: 0
+      rightVariableValue: 0
+      useRightVariable: 0
+    effects:
+    - effectType: 2
+      targetVariable: 8
+      sourceVariable: 22
+      sourceValue: 1
+      useSourceVariable: 0
+      retriggerCount: 0
+    - effectType: 4
+      targetVariable: 21
+      sourceVariable: 22
+      sourceValue: 0
+      useSourceVariable: 0
+      retriggerCount: 0
+    heldVariable: 0
+  - abilityName: Triple Chance
+    abilityDescription: Triple Chance
+    trigger: 2
+    abilityAnimation: {fileID: 11400000, guid: bdadcc9fec010a84fb022e7fd6eb09c3, type: 2}
+    conditions:
+    - leftVariable: 21
+      leftVariableValue: 0
+      comparator: 2
+      rightVariable: 0
+      rightVariableValue: 2
+      useRightVariable: 0
+    - leftVariable: 3
+      leftVariableValue: 0
+      comparator: 2
+      rightVariable: 0
+      rightVariableValue: 0
+      useRightVariable: 0
+    - leftVariable: 8
+      leftVariableValue: 0
+      comparator: 3
+      rightVariable: 0
+      rightVariableValue: 0
+      useRightVariable: 0
+    effects:
+    - effectType: 2
+      targetVariable: 8
+      sourceVariable: 22
+      sourceValue: 2
+      useSourceVariable: 0
+      retriggerCount: 0
+    - effectType: 4
+      targetVariable: 21
+      sourceVariable: 22
       sourceValue: 0
       useSourceVariable: 0
       retriggerCount: 0

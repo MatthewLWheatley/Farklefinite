@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b102ea77a61d4d48ba984471d37322b, type: 3}
   m_Name: PhoenixDice
   m_EditorClassIdentifier: 
-  diceType: 0
   diceName: Phoenix
   description: Rise From Ashes
-  diceSprite: {fileID: 0}
+  diceSprite: {fileID: -6994806042215425004, guid: d7b9006f5478d634fa1383b14dc93249, type: 3}
   pipSprites:
   - {fileID: 1965599317052140067, guid: 37be34c36ffc4ae41a9198f3fbc46e0a, type: 3}
   - {fileID: 8211243896810743751, guid: 65c974d0eddda024286c3f5052802ed0, type: 3}
@@ -29,13 +28,74 @@ MonoBehaviour:
   - abilityName: Rise From Ashes
     abilityDescription: Rise From Ashes
     trigger: 3
-    abilityAnimation: {fileID: 0}
-    conditions: []
+    abilityAnimation: {fileID: 11400000, guid: f31bb0db4b7b5cb479f5063cbdb08dfa, type: 2}
+    conditions:
+    - leftVariable: 11
+      leftVariableValue: 0
+      comparator: 2
+      rightVariable: 0
+      rightVariableValue: 1
+      useRightVariable: 0
+    - leftVariable: 21
+      leftVariableValue: 0
+      comparator: 2
+      rightVariable: 0
+      rightVariableValue: 1
+      useRightVariable: 0
     effects:
     - effectType: 0
-      targetVariable: 8
+      targetVariable: 11
       sourceVariable: 0
+      sourceValue: 1
+      useSourceVariable: 0
+      retriggerCount: 0
+    - effectType: 0
+      targetVariable: 10
+      sourceVariable: 8
+      sourceValue: 0.5
+      useSourceVariable: 1
+      retriggerCount: 0
+    - effectType: 4
+      targetVariable: 21
+      sourceVariable: 8
       sourceValue: 0
       useSourceVariable: 0
       retriggerCount: 0
-    heldVariable: 0
+    heldVariable: 1
+  - abilityName: Rise From Ashes
+    abilityDescription: Rise From Ashes
+    trigger: 3
+    abilityAnimation: {fileID: 11400000, guid: f31bb0db4b7b5cb479f5063cbdb08dfa, type: 2}
+    conditions:
+    - leftVariable: 11
+      leftVariableValue: 0
+      comparator: 2
+      rightVariable: 0
+      rightVariableValue: 1
+      useRightVariable: 0
+    - leftVariable: 21
+      leftVariableValue: 0
+      comparator: 2
+      rightVariable: 0
+      rightVariableValue: 1
+      useRightVariable: 0
+    effects:
+    - effectType: 0
+      targetVariable: 11
+      sourceVariable: 0
+      sourceValue: 1
+      useSourceVariable: 0
+      retriggerCount: 0
+    - effectType: 0
+      targetVariable: 10
+      sourceVariable: 8
+      sourceValue: 0.5
+      useSourceVariable: 1
+      retriggerCount: 0
+    - effectType: 4
+      targetVariable: 21
+      sourceVariable: 8
+      sourceValue: 0
+      useSourceVariable: 0
+      retriggerCount: 0
+    heldVariable: 1

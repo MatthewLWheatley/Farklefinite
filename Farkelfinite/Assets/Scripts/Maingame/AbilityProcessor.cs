@@ -36,7 +36,21 @@ public class AbilityProcessor
         }
         else
         {
-            relevantDice.AddRange(gameManager.diceDataList);
+            for (int i = 0; i < gameManager.diceDataList.Count; i++)
+            {
+                if (!gameManager.setAsideDice[i])
+                {
+                    relevantDice.Add(gameManager.diceDataList[i]);
+                }
+            }
+
+            foreach (var group in gameManager.setAsideGroups)
+            {
+                foreach (int diceIdx in group)
+                {
+                    relevantDice.Add(gameManager.diceDataList[diceIdx]);
+                }
+            }
         }
 
         foreach (var dice in relevantDice)

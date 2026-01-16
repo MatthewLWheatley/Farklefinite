@@ -595,7 +595,7 @@ PrefabInstance:
     - target: {fileID: 3519182912205222517, guid: 210e7d3e6d4d4344899305d5260489ae, type: 3}
       propertyPath: diceConfig
       value: 
-      objectReference: {fileID: 11400000, guid: 33b08be3eea7ea646852ef99405e0418, type: 2}
+      objectReference: {fileID: 11400000, guid: 8442ebcfa700d2e4f9e0aa1ee9a6e026, type: 2}
     - target: {fileID: 7180122734216725676, guid: 210e7d3e6d4d4344899305d5260489ae, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.45
@@ -1484,7 +1484,7 @@ PrefabInstance:
     - target: {fileID: 3519182912205222517, guid: 210e7d3e6d4d4344899305d5260489ae, type: 3}
       propertyPath: diceConfig
       value: 
-      objectReference: {fileID: 11400000, guid: 33b08be3eea7ea646852ef99405e0418, type: 2}
+      objectReference: {fileID: 11400000, guid: 8442ebcfa700d2e4f9e0aa1ee9a6e026, type: 2}
     - target: {fileID: 7180122734216725676, guid: 210e7d3e6d4d4344899305d5260489ae, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.45
@@ -2003,6 +2003,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: da6426cc-ce63-4866-aaf1-c7f084a66fda
     m_ActionName: 'Player/LeftClick[/Mouse/leftButton]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1076454486}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: OnSpace
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: dd4ae153-9db0-49f2-ae10-29370cdea84d
+    m_ActionName: 'Player/Space[/Keyboard/space]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -2027,7 +2043,7 @@ PrefabInstance:
     - target: {fileID: 3519182912205222517, guid: 210e7d3e6d4d4344899305d5260489ae, type: 3}
       propertyPath: diceConfig
       value: 
-      objectReference: {fileID: 11400000, guid: 33b08be3eea7ea646852ef99405e0418, type: 2}
+      objectReference: {fileID: 11400000, guid: 8442ebcfa700d2e4f9e0aa1ee9a6e026, type: 2}
     - target: {fileID: 7180122734216725676, guid: 210e7d3e6d4d4344899305d5260489ae, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.45
@@ -2238,7 +2254,7 @@ PrefabInstance:
     - target: {fileID: 3519182912205222517, guid: 210e7d3e6d4d4344899305d5260489ae, type: 3}
       propertyPath: diceConfig
       value: 
-      objectReference: {fileID: 11400000, guid: 33b08be3eea7ea646852ef99405e0418, type: 2}
+      objectReference: {fileID: 11400000, guid: 8442ebcfa700d2e4f9e0aa1ee9a6e026, type: 2}
     - target: {fileID: 7180122734216725676, guid: 210e7d3e6d4d4344899305d5260489ae, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.45
@@ -2303,7 +2319,7 @@ PrefabInstance:
     - target: {fileID: 3519182912205222517, guid: 210e7d3e6d4d4344899305d5260489ae, type: 3}
       propertyPath: diceConfig
       value: 
-      objectReference: {fileID: 11400000, guid: 33b08be3eea7ea646852ef99405e0418, type: 2}
+      objectReference: {fileID: 11400000, guid: 8442ebcfa700d2e4f9e0aa1ee9a6e026, type: 2}
     - target: {fileID: 7180122734216725676, guid: 210e7d3e6d4d4344899305d5260489ae, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.45
@@ -2368,7 +2384,7 @@ PrefabInstance:
     - target: {fileID: 3519182912205222517, guid: 210e7d3e6d4d4344899305d5260489ae, type: 3}
       propertyPath: diceConfig
       value: 
-      objectReference: {fileID: 11400000, guid: 33b08be3eea7ea646852ef99405e0418, type: 2}
+      objectReference: {fileID: 11400000, guid: 8442ebcfa700d2e4f9e0aa1ee9a6e026, type: 2}
     - target: {fileID: 7180122734216725676, guid: 210e7d3e6d4d4344899305d5260489ae, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.45

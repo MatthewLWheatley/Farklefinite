@@ -32,28 +32,34 @@ MonoBehaviour:
     conditions:
     - leftVariable: 3
       leftVariableValue: 0
-      comparator: 0
+      comparator: 2
       rightVariable: 0
       rightVariableValue: 0
       useRightVariable: 0
     effects:
-    - effectType: 4
+    - effectType: 0
       targetVariable: 26
       sourceVariable: 0
-      sourceValue: 0
+      sourceValue: 1
       useSourceVariable: 0
       retriggerCount: 0
     heldVariable: 0
   - abilityName: Midas Touch
     abilityDescription: Midas Touch
     trigger: 4
-    abilityAnimation: {fileID: 0}
-    conditions: []
+    abilityAnimation: {fileID: 11400000, guid: 412ca51f20f1ede46942b01e93c261c2, type: 2}
+    conditions:
+    - leftVariable: 3
+      leftVariableValue: 0
+      comparator: 2
+      rightVariable: 0
+      rightVariableValue: 0
+      useRightVariable: 0
     effects:
-    - effectType: 4
-      targetVariable: 8
+    - effectType: 0
+      targetVariable: 26
       sourceVariable: 0
-      sourceValue: 0
+      sourceValue: 1
       useSourceVariable: 0
       retriggerCount: 0
     heldVariable: 0

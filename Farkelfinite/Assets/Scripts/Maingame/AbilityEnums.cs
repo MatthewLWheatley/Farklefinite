@@ -51,6 +51,7 @@ public enum ComparatorType
     GreaterThan = 3,
     GreaterThanOrEqual = 4,
     NotEqual = 5,
+    IsEven = 6,
 }
 
 public enum EffectType

@@ -65,7 +65,6 @@
     <Compile Include="Assets\Scripts\PlayerData.cs" />
     <Compile Include="Assets\Scripts\Maingame\DiceConfig.cs" />
     <Compile Include="Assets\Scripts\ShopItemData.cs" />
-    <Compile Include="Assets\Scripts\Maingame\MatSwitch.cs" />
     <Compile Include="Assets\Scripts\Maingame\GameManager.cs" />
     <Compile Include="Assets\Scripts\ShopContoller.cs" />
     <Compile Include="Assets\Scripts\Maingame\AbilityAnimationController.cs" />

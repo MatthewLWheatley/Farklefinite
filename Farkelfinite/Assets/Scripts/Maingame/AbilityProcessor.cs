@@ -120,6 +120,8 @@ public class AbilityProcessor
                 return left >= right;
             case ComparatorType.NotEqual:
                 return left != right;
+            case ComparatorType.IsEven:
+                return left % 2 == 0;
             default:
                 return false;
         }

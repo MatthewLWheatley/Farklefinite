@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 218394533}
   - component: {fileID: 218394532}
   m_Layer: 5
-  m_Name: Settings (1)
+  m_Name: Play
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -204,7 +204,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1919800186}
         m_TargetAssemblyTypeName: LevelSelector, Assembly-CSharp
-        m_MethodName: OpenSettings
+        m_MethodName: PlayGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -388,6 +388,103 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 337374315}
   m_CullTransparentMesh: 1
+--- !u!1001 &542371634
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2322537441079961805, guid: f1429e9fdb6391d429ba815ac79fcf74, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2322537441079961805, guid: f1429e9fdb6391d429ba815ac79fcf74, type: 3}
+      propertyPath: QuitButton
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2322537441079961805, guid: f1429e9fdb6391d429ba815ac79fcf74, type: 3}
+      propertyPath: SpeedButton
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2322537441079961805, guid: f1429e9fdb6391d429ba815ac79fcf74, type: 3}
+      propertyPath: ResumeButton
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2322537441079961805, guid: f1429e9fdb6391d429ba815ac79fcf74, type: 3}
+      propertyPath: SettingsPannel
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2322537441079961805, guid: f1429e9fdb6391d429ba815ac79fcf74, type: 3}
+      propertyPath: sfxVolumeSlider
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2322537441079961805, guid: f1429e9fdb6391d429ba815ac79fcf74, type: 3}
+      propertyPath: mainVolumeSlider
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2322537441079961805, guid: f1429e9fdb6391d429ba815ac79fcf74, type: 3}
+      propertyPath: musicVolumeSlider
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2322537441079961805, guid: f1429e9fdb6391d429ba815ac79fcf74, type: 3}
+      propertyPath: screenShakeSlider
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2322537441079961805, guid: f1429e9fdb6391d429ba815ac79fcf74, type: 3}
+      propertyPath: ambientVolumeSlider
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2323676342675713925, guid: f1429e9fdb6391d429ba815ac79fcf74, type: 3}
+      propertyPath: m_Name
+      value: PlayerData
+      objectReference: {fileID: 0}
+    - target: {fileID: 5257289421144177665, guid: f1429e9fdb6391d429ba815ac79fcf74, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5257289421144177665, guid: f1429e9fdb6391d429ba815ac79fcf74, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5257289421144177665, guid: f1429e9fdb6391d429ba815ac79fcf74, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5257289421144177665, guid: f1429e9fdb6391d429ba815ac79fcf74, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5257289421144177665, guid: f1429e9fdb6391d429ba815ac79fcf74, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5257289421144177665, guid: f1429e9fdb6391d429ba815ac79fcf74, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5257289421144177665, guid: f1429e9fdb6391d429ba815ac79fcf74, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5257289421144177665, guid: f1429e9fdb6391d429ba815ac79fcf74, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5257289421144177665, guid: f1429e9fdb6391d429ba815ac79fcf74, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5257289421144177665, guid: f1429e9fdb6391d429ba815ac79fcf74, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f1429e9fdb6391d429ba815ac79fcf74, type: 3}
 --- !u!1 &812151955
 GameObject:
   m_ObjectHideFlags: 0
@@ -2371,3 +2468,4 @@ SceneRoots:
   m_Roots:
   - {fileID: 1893492724}
   - {fileID: 812151958}
+  - {fileID: 542371634}

@@ -11,6 +11,10 @@ public class GameManager : MonoBehaviour
     public List<GameObject> diceObjects = new List<GameObject>();
     public List<DiceData> diceDataList = new List<DiceData>();
 
+   [Header("Dice Randomization")]
+    [SerializeField] private List<DiceConfig> diceConfigPool = new List<DiceConfig>();
+    [SerializeField] private bool randomizeOnStart = true;
+
     public TMP_Text RunningScoreText;
     public TMP_Text TotalScoreText;
     public TMP_Text LivesText;
@@ -43,7 +47,7 @@ public class GameManager : MonoBehaviour
 
 
     public List<List<int>> setAsideGroups = new List<List<int>>();
-    public  List<int> setAsideGroupScores = new List<int>();
+    public List<int> setAsideGroupScores = new List<int>();
 
     private AbilityProcessor abilityProcessor;
 
@@ -72,6 +76,11 @@ public class GameManager : MonoBehaviour
             setAsideStartPosition = setAsidePositionAnchor.position;
         }
 
+        if (randomizeOnStart)
+        {
+            RandomizeAllDiceConfigs();
+        }
+
         bool validStart = false;
         while (!validStart)
         {
@@ -82,6 +91,32 @@ public class GameManager : MonoBehaviour
 
         InitializeAbilitySystem();
         UpdateScoreUI();
+    }
+
+    private void RandomizeAllDiceConfigs()
+    {
+        if (diceConfigPool.Count == 0)
+        {
+            Debug.LogWarning("Dice config pool is empty. Did you forget to add configs to the list? Typical.");
+            return;
+        }
+
+        foreach (var diceData in diceDataList)
+        {
+            diceData.diceConfig = diceConfigPool[Random.Range(0, diceConfigPool.Count)];
+
+            SpriteRenderer sr = diceData.GetComponent<SpriteRenderer>();
+            if (sr != null && diceData.diceConfig != null && diceData.diceConfig.diceSprite != null)
+            {
+                sr.sprite = diceData.diceConfig.diceSprite;
+            }
+            else
+            {
+                Debug.LogWarning($"Couldn't update sprite for dice {diceData.ID}. Missing sprite renderer or config sprite - enjoy your blank dice.");
+            }
+        }
+
+        Debug.Log($"Randomized {diceDataList.Count} dice from a pool of {diceConfigPool.Count} configs. Good luck figuring out what abilities you have.");
     }
 
     private void Update()
@@ -807,6 +842,8 @@ public class GameManager : MonoBehaviour
 
     public void Restart()
     {
+        RandomizeAllDiceConfigs();
+
         lives = 3;
         totalScore = 0;
         setAsideScore = 0;

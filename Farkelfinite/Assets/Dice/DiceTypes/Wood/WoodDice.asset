@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b102ea77a61d4d48ba984471d37322b, type: 3}
   m_Name: WoodDice
   m_EditorClassIdentifier: 
-  diceType: 0
   diceName: Wood
   description: Sturdy Bonus
-  diceSprite: {fileID: 0}
+  diceSprite: {fileID: 7370358061562332332, guid: 8e63ea7d18fcd59469534eb77f0d59a4, type: 3}
   pipSprites:
   - {fileID: 1965599317052140067, guid: 37be34c36ffc4ae41a9198f3fbc46e0a, type: 3}
   - {fileID: 8211243896810743751, guid: 65c974d0eddda024286c3f5052802ed0, type: 3}
@@ -23,25 +22,25 @@ MonoBehaviour:
   - {fileID: 5123967086785334009, guid: 34498b2fb085acf4895a9bfc3c401f77, type: 3}
   - {fileID: 2371431799608282939, guid: 012e92c2fa2912d4ea733703882aea92, type: 3}
   - {fileID: 6470227490501812004, guid: eb27ac6a26037e14aa407f23e410ede0, type: 3}
-  canChangeFaces: 0
+  canChangeFaces: 1
   customPips: 
   abilities:
   - abilityName: Sturdy Bonus
     abilityDescription: Sturdy Bonus
     trigger: 0
-    abilityAnimation: {fileID: 0}
+    abilityAnimation: {fileID: 11400000, guid: bb65e5b2e11061b4a81b240b7ad226a2, type: 2}
     conditions:
     - leftVariable: 1
       leftVariableValue: 0
-      comparator: 3
+      comparator: 1
       rightVariable: 0
-      rightVariableValue: 0
+      rightVariableValue: 3
       useRightVariable: 0
     effects:
     - effectType: 0
       targetVariable: 8
       sourceVariable: 0
-      sourceValue: 50.0
+      sourceValue: 50
       useSourceVariable: 0
       retriggerCount: 0
     heldVariable: 0

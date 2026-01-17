@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 704fad54f364ace469609d11a7c810b3, type: 3}
+  m_Name: StarsDiceShop
+  m_EditorClassIdentifier: 
+  itemName: StarsDice
+  itemType: 0
+  itemSprite: {fileID: -3958524371403212160, guid: 160a05e29cb0f994685be21d6846ebda, type: 3}
+  pipSprite: {fileID: -855298285791758126, guid: 6c1c4024c5495e14686c20b44385f404, type: 3}
+  cost: 6
+  weight: 3
+  diceConfig: {fileID: 11400000, guid: cf37570ad473da644b2e9a0cd7223522, type: 2}

@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b102ea77a61d4d48ba984471d37322b, type: 3}
   m_Name: PrideDice
   m_EditorClassIdentifier: 
-  diceType: 0
   diceName: Pride
   description: Above All Else
-  diceSprite: {fileID: 0}
+  diceSprite: {fileID: 286944230784367106, guid: 23d01d19c59076245a122b8ba56dd023, type: 3}
   pipSprites:
   - {fileID: 1965599317052140067, guid: 37be34c36ffc4ae41a9198f3fbc46e0a, type: 3}
   - {fileID: 8211243896810743751, guid: 65c974d0eddda024286c3f5052802ed0, type: 3}
@@ -29,7 +28,7 @@ MonoBehaviour:
   - abilityName: Above All Else
     abilityDescription: Above All Else
     trigger: 1
-    abilityAnimation: {fileID: 0}
+    abilityAnimation: {fileID: 11400000, guid: 591d2d797fab7ad48a1bc4653ea67487, type: 2}
     conditions:
     - leftVariable: 15
       leftVariableValue: 0
@@ -47,7 +46,7 @@ MonoBehaviour:
     - effectType: 0
       targetVariable: 8
       sourceVariable: 15
-      sourceValue: 100.0
+      sourceValue: 100
       useSourceVariable: 1
       retriggerCount: 0
     heldVariable: 0

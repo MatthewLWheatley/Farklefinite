@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b102ea77a61d4d48ba984471d37322b, type: 3}
   m_Name: RockDice
   m_EditorClassIdentifier: 
-  diceType: 3
   diceName: Rock
   description: Rock And Stone
-  diceSprite: {fileID: 0}
+  diceSprite: {fileID: 3978220063945912566, guid: 36ceefa3056bd724891f4876207c6bc4, type: 3}
   pipSprites:
   - {fileID: 1965599317052140067, guid: 37be34c36ffc4ae41a9198f3fbc46e0a, type: 3}
   - {fileID: 8211243896810743751, guid: 65c974d0eddda024286c3f5052802ed0, type: 3}
@@ -29,7 +28,7 @@ MonoBehaviour:
   - abilityName: Rock And Stone
     abilityDescription: Rock And Stone
     trigger: 2
-    abilityAnimation: {fileID: 0}
+    abilityAnimation: {fileID: 11400000, guid: 9c7135bda897dd543ba4d8c7dbeb8dc3, type: 2}
     conditions:
     - leftVariable: 0
       leftVariableValue: 0
@@ -47,7 +46,7 @@ MonoBehaviour:
     - effectType: 0
       targetVariable: 8
       sourceVariable: 0
-      sourceValue: 50.0
+      sourceValue: 50
       useSourceVariable: 0
       retriggerCount: 0
     heldVariable: 0

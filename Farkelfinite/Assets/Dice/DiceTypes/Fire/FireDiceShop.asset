@@ -16,6 +16,6 @@ MonoBehaviour:
   itemType: 0
   itemSprite: {fileID: 3127820951454730706, guid: 0af0653bb2d53cc49845303bd253d32f, type: 3}
   pipSprite: {fileID: -855298285791758126, guid: 6c1c4024c5495e14686c20b44385f404, type: 3}
-  cost: 0
-  weight: 0
+  cost: 1
+  weight: 1
   diceConfig: {fileID: 11400000, guid: 754c0202e7e7afc41a2641eb8efafad2, type: 2}

@@ -3,6 +3,7 @@ using UnityEngine;
 
 public enum ShopItemWeight 
 { 
+    NULLWEIGHT,
     common,
     uncommon,
     rare,

@@ -63,7 +63,7 @@ public class PlayerData : MonoBehaviour
         {
             _instance = this;
         }
-        dice = new List<DiceData>();
+        //dice = new List<DiceData>();
         int bagint = PlayerPrefs.GetInt("CurrentBag", (int)Bag.DiceBag);
         currentBag = (Bag)bagint;
         roundsPerLevel = 3 + (currentLevel * 2) - 2;

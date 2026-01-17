@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 704fad54f364ace469609d11a7c810b3, type: 3}
+  m_Name: FireDiceShop
+  m_EditorClassIdentifier: 
+  itemName: FireDice
+  itemType: 0
+  itemSprite: {fileID: 3127820951454730706, guid: 0af0653bb2d53cc49845303bd253d32f, type: 3}
+  pipSprite: {fileID: -855298285791758126, guid: 6c1c4024c5495e14686c20b44385f404, type: 3}
+  cost: 1
+  weight: 1
+  diceConfig: {fileID: 11400000, guid: 754c0202e7e7afc41a2641eb8efafad2, type: 2}

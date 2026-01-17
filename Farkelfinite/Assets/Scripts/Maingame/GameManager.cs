@@ -11,10 +11,9 @@ public class GameManager : MonoBehaviour
     public List<GameObject> diceObjects = new List<GameObject>();
     public List<DiceData> diceDataList = new List<DiceData>();
 
-    // Your shiny new dice randomizer pool - don't forget to populate this in the inspector or you'll be debugging for hours
-    [Header("Dice Randomization")]
+   [Header("Dice Randomization")]
     [SerializeField] private List<DiceConfig> diceConfigPool = new List<DiceConfig>();
-    [SerializeField] private bool randomizeOnStart = true; // in case you change your mind about chaos
+    [SerializeField] private bool randomizeOnStart = true;
 
     public TMP_Text RunningScoreText;
     public TMP_Text TotalScoreText;
@@ -77,7 +76,6 @@ public class GameManager : MonoBehaviour
             setAsideStartPosition = setAsidePositionAnchor.position;
         }
 
-        // Randomize dice configs on start if you're feeling spicy
         if (randomizeOnStart)
         {
             RandomizeAllDiceConfigs();
@@ -95,7 +93,6 @@ public class GameManager : MonoBehaviour
         UpdateScoreUI();
     }
 
-    // THE RANDOMIZER - your ticket to unpredictable balance nightmares
     private void RandomizeAllDiceConfigs()
     {
         if (diceConfigPool.Count == 0)
@@ -108,7 +105,6 @@ public class GameManager : MonoBehaviour
         {
             diceData.diceConfig = diceConfigPool[Random.Range(0, diceConfigPool.Count)];
 
-            // Update the sprite so you can actually SEE what dice you got, genius
             SpriteRenderer sr = diceData.GetComponent<SpriteRenderer>();
             if (sr != null && diceData.diceConfig != null && diceData.diceConfig.diceSprite != null)
             {
@@ -846,7 +842,6 @@ public class GameManager : MonoBehaviour
 
     public void Restart()
     {
-        // HERE'S THE MONEY SHOT - randomize all your dice so every game is a fresh surprise
         RandomizeAllDiceConfigs();
 
         lives = 3;

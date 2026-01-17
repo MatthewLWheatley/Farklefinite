@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 704fad54f364ace469609d11a7c810b3, type: 3}
+  m_Name: GearDiceShop
+  m_EditorClassIdentifier: 
+  itemName: Gear Dice
+  itemType: 0
+  itemSprite: {fileID: 7035268565721489098, guid: c3447ae9b7d612a45b8605563ce167fd, type: 3}
+  pipSprite: {fileID: -855298285791758126, guid: 979e5c40d41a9814cb78fd16321f53d3, type: 3}
+  cost: 3
+  weight: 2
+  diceConfig: {fileID: 11400000, guid: 277a14f2fa6a86944a4fd000a735a65e, type: 2}

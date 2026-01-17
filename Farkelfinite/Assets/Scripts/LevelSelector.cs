@@ -92,7 +92,6 @@ public class LevelSelector : MonoBehaviour
 
     void Start()
     {
-        // just make it a string of bits where 1 is unlocked and 0 is locked
         string defualt = "1".PadRight(System.Enum.GetNames(typeof(Bag)).Length, '0');
         string unlockedBagsString = PlayerPrefs.GetString("_unlockedBags", defualt);
         unlockedBags = new int[unlockedBagsString.Length];
@@ -101,10 +100,6 @@ public class LevelSelector : MonoBehaviour
             unlockedBags[i] = (unlockedBagsString[i] == '1') ? 1 : 0;
         }
 
-        //create a visual representation of the bags
-        // create a object for each bag
-        // move them to the side, out of the screen
-        // i want to make it so they scroll in and out of the screen from the side 
         for (int i = 0; i < System.Enum.GetNames(typeof(Bag)).Length; i++)
         {
             GameObject bagObj = Instantiate(bagSpritePrefab, transform);
@@ -119,7 +114,6 @@ public class LevelSelector : MonoBehaviour
             bagSpriteObjects.Add(bagObj);
         }
 
-        //update the UI to show the selected bag
         bagNameText.GetComponent<TMP_Text>().text = bagNames[(int)selectedBag];
         bagAbilityDescriptionText.GetComponent<TMP_Text>().text = bagAbilityDescriptions[(int)selectedBag];
         bagVisualDescriptionText.GetComponent<TMP_Text>().text = bagVisualDescriptions[(int)selectedBag];
@@ -139,14 +133,13 @@ public class LevelSelector : MonoBehaviour
 
     public void PlayGame() 
     {
-        //load game scene
-        // is the selected bag unlocked
         if (unlockedBags[(int)selectedBag] == 0)
         {
             return;
         }
         PlayerPrefs.SetInt("_selectedBag", (int)selectedBag);
         PlayerPrefs.Save();
+        PlayerData.Instance.currentBag = selectedBag;
         UnityEngine.SceneManagement.SceneManager.LoadScene("GameScene");
     }
 
@@ -157,10 +150,8 @@ public class LevelSelector : MonoBehaviour
             return;
         }
         float offset = this.GetComponent<RectTransform>().rect.width / 2 + bagSpritePrefab.GetComponent<RectTransform>().rect.width * 2;
-        //incriment bag start a short coroutine that moves all bags left by the offset amount
         playingCourtine = StartCoroutine(MoveBag((int)offset));
         selectedBag = (Bag)(((int)selectedBag + 1) % System.Enum.GetNames(typeof(Bag)).Length);
-        //update the UI to show the selected bag
         bagNameText.GetComponent<TMP_Text>().text = bagNames[(int)selectedBag];
         bagAbilityDescriptionText.GetComponent<TMP_Text>().text = bagAbilityDescriptions[(int)selectedBag];
         bagVisualDescriptionText.GetComponent<TMP_Text>().text = bagVisualDescriptions[(int)selectedBag];
@@ -201,10 +192,8 @@ public class LevelSelector : MonoBehaviour
         }
         float offset = this.GetComponent<RectTransform>().rect.width / 2 + bagSpritePrefab.GetComponent<RectTransform>().rect.width * 2;
         offset = -offset;
-        //incriment bag start a short coroutine that moves all bags left by the offset amount
         playingCourtine = StartCoroutine(MoveBag((int)offset));
         selectedBag = (Bag)(((int)selectedBag - 1) % System.Enum.GetNames(typeof(Bag)).Length);
-        //update the UI to show the selected bag
         bagNameText.GetComponent<TMP_Text>().text = bagNames[(int)selectedBag];
         bagAbilityDescriptionText.GetComponent<TMP_Text>().text = bagAbilityDescriptions[(int)selectedBag];
         bagVisualDescriptionText.GetComponent<TMP_Text>().text = bagVisualDescriptions[(int)selectedBag];

@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b102ea77a61d4d48ba984471d37322b, type: 3}
   m_Name: SandDice
   m_EditorClassIdentifier: 
-  diceType: 0
   diceName: Sand
   description: Grains of Fortune
-  diceSprite: {fileID: 0}
+  diceSprite: {fileID: -7176715144293859337, guid: 20ff946251fcf9b48b9460e1cabe98ec, type: 3}
   pipSprites:
   - {fileID: 1965599317052140067, guid: 37be34c36ffc4ae41a9198f3fbc46e0a, type: 3}
   - {fileID: 8211243896810743751, guid: 65c974d0eddda024286c3f5052802ed0, type: 3}
@@ -41,7 +40,7 @@ MonoBehaviour:
     - effectType: 0
       targetVariable: 8
       sourceVariable: 0
-      sourceValue: 100.0
+      sourceValue: 100
       useSourceVariable: 0
       retriggerCount: 0
     heldVariable: 0

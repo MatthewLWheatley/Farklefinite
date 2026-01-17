@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b102ea77a61d4d48ba984471d37322b, type: 3}
   m_Name: WaterDice
   m_EditorClassIdentifier: 
-  diceType: 0
   diceName: Water
   description: Flowing Bonus
-  diceSprite: {fileID: 0}
+  diceSprite: {fileID: -6585862283101203094, guid: cc733ef92ca8af942ac94ef180b76f75, type: 3}
   pipSprites:
   - {fileID: 1965599317052140067, guid: 37be34c36ffc4ae41a9198f3fbc46e0a, type: 3}
   - {fileID: 8211243896810743751, guid: 65c974d0eddda024286c3f5052802ed0, type: 3}
@@ -29,19 +28,19 @@ MonoBehaviour:
   - abilityName: Flowing Bonus
     abilityDescription: Flowing Bonus
     trigger: 0
-    abilityAnimation: {fileID: 0}
+    abilityAnimation: {fileID: 11400000, guid: cbdaa497b78026b41b893d221a2e6f6a, type: 2}
     conditions:
     - leftVariable: 1
       leftVariableValue: 0
       comparator: 4
       rightVariable: 0
-      rightVariableValue: 3
+      rightVariableValue: 4
       useRightVariable: 0
     effects:
     - effectType: 0
       targetVariable: 8
       sourceVariable: 0
-      sourceValue: 75.0
+      sourceValue: 75
       useSourceVariable: 0
       retriggerCount: 0
     heldVariable: 0

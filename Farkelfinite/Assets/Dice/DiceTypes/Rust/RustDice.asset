@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b102ea77a61d4d48ba984471d37322b, type: 3}
   m_Name: RustDice
   m_EditorClassIdentifier: 
-  diceType: 0
   diceName: Rust
   description: Weathered Bonus
-  diceSprite: {fileID: 0}
+  diceSprite: {fileID: -1384490331761844996, guid: 2a62c790e6fbbf94a8f4565f2df8f4c0, type: 3}
   pipSprites:
   - {fileID: 1965599317052140067, guid: 37be34c36ffc4ae41a9198f3fbc46e0a, type: 3}
   - {fileID: 8211243896810743751, guid: 65c974d0eddda024286c3f5052802ed0, type: 3}
@@ -29,7 +28,7 @@ MonoBehaviour:
   - abilityName: Weathered Bonus
     abilityDescription: Weathered Bonus
     trigger: 1
-    abilityAnimation: {fileID: 0}
+    abilityAnimation: {fileID: 11400000, guid: 92a4245fba2c79746b79a5b54a8362bf, type: 2}
     conditions:
     - leftVariable: 13
       leftVariableValue: 0
@@ -41,7 +40,7 @@ MonoBehaviour:
     - effectType: 0
       targetVariable: 8
       sourceVariable: 0
-      sourceValue: 200.0
+      sourceValue: 200
       useSourceVariable: 0
       retriggerCount: 0
     heldVariable: 0

@@ -1,10 +1,7 @@
-using TMPro;
-using UnityEditor;
-using UnityEditor.SearchService;
-using UnityEngine;
+using TMPro;using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using static UnityEngine.GraphicsBuffer;
+
 
 public class Setting : MonoBehaviour
 {

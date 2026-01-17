@@ -1,4 +1,6 @@
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MainMenuManager : MonoBehaviour
@@ -26,5 +28,6 @@ public class MainMenuManager : MonoBehaviour
         Debug.Log("LOAD!");
         //implement scene loading here
         // if i can be bothered
+        SceneManager.LoadScene("PlayScene");
     }
 }

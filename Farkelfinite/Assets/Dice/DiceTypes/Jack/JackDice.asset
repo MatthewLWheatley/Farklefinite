@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: JackDice
   m_EditorClassIdentifier: 
   diceName: Jack
-  description: Court Jester
+  description: 'Set aside dice until none remain active? Gain 25 points per pip showing
+    on set-aside dice. Finish strong.
+
+'
   diceSprite: {fileID: -6760647179940377563, guid: 08fc024d606f59547a239c091c45e34c, type: 3}
   pipSprites:
   - {fileID: 1965599317052140067, guid: 37be34c36ffc4ae41a9198f3fbc46e0a, type: 3}

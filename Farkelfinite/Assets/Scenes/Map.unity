@@ -235,7 +235,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   horizontalSpacing: 300
   verticalSpacing: 200
-  maxNodesPerColumn: 3
+  maxNodesPerColumn: 4
   totalColumns: 7
   minShopCount: 1
   maxShopCount: 2

@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: NatureDice
   m_EditorClassIdentifier: 
   diceName: Nature
-  description: Growth
+  description: 'Bank with any set-aside groups? Multiply score by 1 + (0.1 per group).
+    Organic gains.
+
+'
   diceSprite: {fileID: 2238295620843037817, guid: 46e759e6fde0cad448087223876b82ce, type: 3}
   pipSprites:
   - {fileID: 1965599317052140067, guid: 37be34c36ffc4ae41a9198f3fbc46e0a, type: 3}

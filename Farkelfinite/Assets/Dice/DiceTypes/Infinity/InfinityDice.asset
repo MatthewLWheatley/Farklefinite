@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: InfinityDice
   m_EditorClassIdentifier: 
   diceName: Infinity
-  description: Endless
+  description: 'Hit hot dice? Triple your running score before banking. The gift
+    that keeps on giving.
+
+'
   diceSprite: {fileID: 8876350416691821993, guid: 63a7be774f93d6c46a618577b24db801, type: 3}
   pipSprites:
   - {fileID: 1965599317052140067, guid: 37be34c36ffc4ae41a9198f3fbc46e0a, type: 3}

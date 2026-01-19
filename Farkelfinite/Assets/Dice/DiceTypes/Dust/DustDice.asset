@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: DustDice
   m_EditorClassIdentifier: 
   diceName: Dust
-  description: Settled Bonus
+  description: 'Start your turn with only 1 active die? Gain 100 points immediately.
+    Barely scraping by pays off.
+
+'
   diceSprite: {fileID: -126421554054031118, guid: 0a8d84ea85e9a2044886309620afc8ee, type: 3}
   pipSprites:
   - {fileID: 1965599317052140067, guid: 37be34c36ffc4ae41a9198f3fbc46e0a, type: 3}

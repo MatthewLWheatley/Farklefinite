@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: GoldDice
   m_EditorClassIdentifier: 
   diceName: Gold
-  description: Midas Touch
+  description: 'Whenever you bank without being set aside, earn 1 gold currency.
+    Passive income vibes.
+
+'
   diceSprite: {fileID: 6151145170373218159, guid: 9f9a5179dda9c6c49afffbe94ea7fd12, type: 3}
   pipSprites:
   - {fileID: 1965599317052140067, guid: 37be34c36ffc4ae41a9198f3fbc46e0a, type: 3}

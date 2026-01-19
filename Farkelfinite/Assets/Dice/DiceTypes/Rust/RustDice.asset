@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: RustDice
   m_EditorClassIdentifier: 
   diceName: Rust
-  description: Weathered Bonus
+  description: 'Bank with zero active dice remaining? Gain 200 bonus points. Finish
+    what you started.
+
+'
   diceSprite: {fileID: -1384490331761844996, guid: 2a62c790e6fbbf94a8f4565f2df8f4c0, type: 3}
   pipSprites:
   - {fileID: 1965599317052140067, guid: 37be34c36ffc4ae41a9198f3fbc46e0a, type: 3}

@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: FireDice
   m_EditorClassIdentifier: 
   diceName: Fire
-  description: Scorching
+  description: 'Set aside a single 1 or 5? Multiply that score by 1.5x. Burns so
+    good.
+
+'
   diceSprite: {fileID: 3127820951454730706, guid: 0af0653bb2d53cc49845303bd253d32f, type: 3}
   pipSprites:
   - {fileID: 1965599317052140067, guid: 37be34c36ffc4ae41a9198f3fbc46e0a, type: 3}

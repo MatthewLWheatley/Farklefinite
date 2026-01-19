@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: StarsDice
   m_EditorClassIdentifier: 
   diceName: Stars
-  description: Stars Aligned
+  description: 'Set aside 3+ dice all showing different values? Multiply by 1 + (0.2
+    per die). Constellation bonus.
+
+'
   diceSprite: {fileID: -3958524371403212160, guid: 160a05e29cb0f994685be21d6846ebda, type: 3}
   pipSprites:
   - {fileID: 1965599317052140067, guid: 37be34c36ffc4ae41a9198f3fbc46e0a, type: 3}

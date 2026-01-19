@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: FogDice
   m_EditorClassIdentifier: 
   diceName: Fog
-  description: Obscured Value
+  description: 'Your roll another dice when set aside. If it is 6, double the score.
+    Mystery box energy.
+
+'
   diceSprite: {fileID: -1393428890638769941, guid: 03115528a76549041b4339b5b1f22e3a, type: 3}
   pipSprites:
   - {fileID: 1965599317052140067, guid: 37be34c36ffc4ae41a9198f3fbc46e0a, type: 3}

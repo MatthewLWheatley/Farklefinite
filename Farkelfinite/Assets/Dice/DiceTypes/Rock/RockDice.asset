@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: RockDice
   m_EditorClassIdentifier: 
   diceName: Rock
-  description: Rock And Stone
+  description: 'Roll any die showing 2, 3, 4, or 6? Gain 50 points. Rock solid. (Rock
+    and Stone!)
+
+'
   diceSprite: {fileID: 3978220063945912566, guid: 36ceefa3056bd724891f4876207c6bc4, type: 3}
   pipSprites:
   - {fileID: 1965599317052140067, guid: 37be34c36ffc4ae41a9198f3fbc46e0a, type: 3}

@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: EnvyDice
   m_EditorClassIdentifier: 
   diceName: Envy
-  description: The Only One
+  description: Bank with exactly 5 dice set aside in one group while you're not included?
+    10x multiplier. Watch from the sidelines and profit.
   diceSprite: {fileID: 3633879674100428713, guid: 9fe5e886f3457ac4b80f3a2458a498bf, type: 3}
   pipSprites:
   - {fileID: 1965599317052140067, guid: 37be34c36ffc4ae41a9198f3fbc46e0a, type: 3}

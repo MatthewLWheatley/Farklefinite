@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: MarketDice
   m_EditorClassIdentifier: 
   diceName: Market
-  description: Stonks
+  description: 'Bank with 10+ total score? Gain 10% interest on your banked total.
+    only goes up.
+
+'
   diceSprite: {fileID: -1727270389006743443, guid: 068c886c1ad9e2349b95119b375d3943, type: 3}
   pipSprites:
   - {fileID: 1965599317052140067, guid: 37be34c36ffc4ae41a9198f3fbc46e0a, type: 3}

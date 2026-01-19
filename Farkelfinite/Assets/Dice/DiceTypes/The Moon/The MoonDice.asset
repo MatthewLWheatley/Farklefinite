@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: The MoonDice
   m_EditorClassIdentifier: 
   diceName: The Moon
-  description: Total Eclipse
+  description: Bank in exactly 1 group? 5x multiplier Banked Score. Total domination.
   diceSprite: {fileID: -4513025157028777925, guid: 300bbc3b90eae684490c29cbc206c2f3, type: 3}
   pipSprites:
   - {fileID: 1965599317052140067, guid: 37be34c36ffc4ae41a9198f3fbc46e0a, type: 3}
@@ -44,9 +44,9 @@ MonoBehaviour:
       useRightVariable: 0
     effects:
     - effectType: 2
-      targetVariable: 8
+      targetVariable: 10
       sourceVariable: 0
-      sourceValue: 8
+      sourceValue: 5
       useSourceVariable: 0
       retriggerCount: 0
     heldVariable: 0

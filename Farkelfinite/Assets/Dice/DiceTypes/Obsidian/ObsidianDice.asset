@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: ObsidianDice
   m_EditorClassIdentifier: 
   diceName: Obsidian
-  description: Rock And Stone!!!
+  description: 'Roll any die showing 2, 3, 4, or 6? Gain 100 points. For the miners.
+    (Did I hear a Rock and Stone?)
+
+'
   diceSprite: {fileID: -4685572505800389998, guid: e60697745f0345d4788ea58b02ef5608, type: 3}
   pipSprites:
   - {fileID: 1965599317052140067, guid: 37be34c36ffc4ae41a9198f3fbc46e0a, type: 3}

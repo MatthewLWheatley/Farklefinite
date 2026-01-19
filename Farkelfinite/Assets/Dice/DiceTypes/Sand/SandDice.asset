@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: SandDice
   m_EditorClassIdentifier: 
   diceName: Sand
-  description: Grains of Fortune
+  description: 'Set aside exactly 2 dice together? Gain 100 points. Two''s company.
+
+'
   diceSprite: {fileID: -7176715144293859337, guid: 20ff946251fcf9b48b9460e1cabe98ec, type: 3}
   pipSprites:
   - {fileID: 1965599317052140067, guid: 37be34c36ffc4ae41a9198f3fbc46e0a, type: 3}

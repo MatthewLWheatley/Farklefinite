@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: QueenDice
   m_EditorClassIdentifier: 
   diceName: Queen
-  description: Royal Pair
+  description: 'Bank when your group''s pip sum is even? Double the score. Even better
+    than odd.
+
+'
   diceSprite: {fileID: -2505175415179087835, guid: b1d301c9a5e17754a8ae72d2d39757c2, type: 3}
   pipSprites:
   - {fileID: 1965599317052140067, guid: 37be34c36ffc4ae41a9198f3fbc46e0a, type: 3}

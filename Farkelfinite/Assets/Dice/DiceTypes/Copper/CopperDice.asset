@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b102ea77a61d4d48ba984471d37322b, type: 3}
   m_Name: CopperDice
   m_EditorClassIdentifier: 
-  diceName: Copper
-  description: Small Change
+  diceName: Copper Dice
+  description: When banking or hitting hot dice with 3+ dice set aside, gain 50 points
+    per die. Pennies add up.
   diceSprite: {fileID: 3295319992732515022, guid: bd73edda8728a564787aee0ec7c7eb95, type: 3}
   pipSprites:
   - {fileID: 1965599317052140067, guid: 37be34c36ffc4ae41a9198f3fbc46e0a, type: 3}

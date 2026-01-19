@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: GreedDice
   m_EditorClassIdentifier: 
   diceName: Greed
-  description: Un-Ending Greed
+  description: 'Bank with 6+ separate groups? Multiply score by 2 per group. More
+    is more is MORE.
+
+'
   diceSprite: {fileID: -3836027886402143882, guid: 4cb2985d9bd5b3f44bfc38ee3c291d2b, type: 3}
   pipSprites:
   - {fileID: 1965599317052140067, guid: 37be34c36ffc4ae41a9198f3fbc46e0a, type: 3}

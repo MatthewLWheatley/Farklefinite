@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b102ea77a61d4d48ba984471d37322b, type: 3}
   m_Name: DawnDice
   m_EditorClassIdentifier: 
-  diceName: Dawn
-  description: Morning Blessing
+  diceName: Dawn Dice
+  description: Set aside a die showing 1, 2, or 3? Get 100 bonus points. Early bird
+    gets the points.
   diceSprite: {fileID: -521886249943726807, guid: 495d5e4c8e4ebd84c9ef791eac59bc13, type: 3}
   pipSprites:
   - {fileID: 1965599317052140067, guid: 37be34c36ffc4ae41a9198f3fbc46e0a, type: 3}

@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: Lucky CharmDice
   m_EditorClassIdentifier: 
   diceName: Lucky Charm
-  description: Triple Chance
+  description: 'On every roll: 33% chance to halve score, 33% to keep it normal,
+    33% to double it. Pure RNG chaos.
+
+'
   diceSprite: {fileID: 5433217571723671368, guid: f5511c9680cd214449d9962d7b38c56a, type: 3}
   pipSprites:
   - {fileID: 1965599317052140067, guid: 37be34c36ffc4ae41a9198f3fbc46e0a, type: 3}

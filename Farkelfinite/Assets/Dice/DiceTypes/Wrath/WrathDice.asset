@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: WrathDice
   m_EditorClassIdentifier: 
   diceName: Wrath
-  description: Only Makes Me Stronger
+  description: 'Farkle with active dice remaining? Gain 500 points per active die
+    to your total. Rage quit simulator.
+
+'
   diceSprite: {fileID: 3889139618678349257, guid: 767aba82664ce1349a6fc0de6550f241, type: 3}
   pipSprites:
   - {fileID: 1965599317052140067, guid: 37be34c36ffc4ae41a9198f3fbc46e0a, type: 3}

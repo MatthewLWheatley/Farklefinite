@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: KingDice
   m_EditorClassIdentifier: 
   diceName: King
-  description: Lone Monarch
+  description: 'Bank with exactly 1 group containing 1 die? 5x multiplier. Solo carry
+    energy.
+
+'
   diceSprite: {fileID: -1519744811011981055, guid: ecefc82f85fbc124f9dfdd025782de0a, type: 3}
   pipSprites:
   - {fileID: 1965599317052140067, guid: 37be34c36ffc4ae41a9198f3fbc46e0a, type: 3}

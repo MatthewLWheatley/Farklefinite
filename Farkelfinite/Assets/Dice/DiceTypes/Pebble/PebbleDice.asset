@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: PebbleDice
   m_EditorClassIdentifier: 
   diceName: Pebble
-  description: Small Gains
+  description: 'Set aside literally any dice? Gain 25 points. Participation award.
+
+'
   diceSprite: {fileID: -6218067371362024162, guid: 14a5cf4c12faf9d4cb2b5cde857cd9b4, type: 3}
   pipSprites:
   - {fileID: 1965599317052140067, guid: 37be34c36ffc4ae41a9198f3fbc46e0a, type: 3}

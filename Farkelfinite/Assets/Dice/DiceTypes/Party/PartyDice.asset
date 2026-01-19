@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: PartyDice
   m_EditorClassIdentifier: 
   diceName: Party
-  description: Party Time
+  description: 'Set aside 3+ dice all showing the same value? Double the score. Everyone''s
+    invited.
+
+'
   diceSprite: {fileID: -1402637370798888211, guid: d77adc185f4716e47b39a847b3cf4879, type: 3}
   pipSprites:
   - {fileID: 1965599317052140067, guid: 37be34c36ffc4ae41a9198f3fbc46e0a, type: 3}

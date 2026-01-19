@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: PaperDice
   m_EditorClassIdentifier: 
   diceName: Paper
-  description: Origami Fortune
+  description: 'Bank without being set aside while active dice remain? Gain 50 points
+    per pip on active dice. Fold in the value.
+
+'
   diceSprite: {fileID: 4586044219576704100, guid: da84e78a526252d48b0fe12395f4eebd, type: 3}
   pipSprites:
   - {fileID: 1965599317052140067, guid: 37be34c36ffc4ae41a9198f3fbc46e0a, type: 3}

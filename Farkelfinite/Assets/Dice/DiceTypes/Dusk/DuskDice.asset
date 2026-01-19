@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: DuskDice
   m_EditorClassIdentifier: 
   diceName: Dusk
-  description: Evening Blessing
+  description: 'Set aside a die showing 4, 5, or 6? Get 100 bonus points. For the
+    night owls.
+
+'
   diceSprite: {fileID: 4349281699787700302, guid: d54d0f8bbcb61634d8007ec7b858649a, type: 3}
   pipSprites:
   - {fileID: 1965599317052140067, guid: 37be34c36ffc4ae41a9198f3fbc46e0a, type: 3}

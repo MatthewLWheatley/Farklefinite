@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-using static UnityEngine.Rendering.DebugUI;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -53,21 +54,44 @@ public class GameManager : MonoBehaviour
 
     public TMP_Text MoneyText;
 
+    [Header("Helper Settings")]
+    public GameObject nameObject;
+    public GameObject descObject;
+    public bool descEnabled = false;
+    public int diceDescId = -1;
+
     void Start()
     {
-        int count = 0;
+        diceDataList = PlayerData.Instance.dice;
         float startX = activeDiceCenter.x - (6 - 1) * activeDiceSpacing / 2f;
-        foreach (var die in diceObjects)
+        for(int i = 0; i < diceObjects.Count; i++)
         {
-            diceDataList.Add(die.GetComponent<DiceData>());
-
-            die.transform.position = new Vector3(startX + count * activeDiceSpacing, 0, 0);
+            int diceIndex = i;
+            diceObjects[i].transform.position = new Vector3(startX + i * activeDiceSpacing, 0, 0);
             selectedDice.Add(false);
             setAsideDice.Add(false);
             diceMoving.Add(false);
-            diceDataList[count].ID = count + 1;
-            count++;
+            diceDataList[i].ID = i + 1;
+
+            diceObjects[i].GetComponent<Button>().onClick.AddListener(() => DiceClicked(diceIndex));
+
+            EventTrigger trigger = diceObjects[i].GetComponent<EventTrigger>();
+            if (trigger == null)
+            {
+                trigger = diceObjects[i].AddComponent<EventTrigger>();
+            }
+
+            EventTrigger.Entry entryEnter = new EventTrigger.Entry();
+            entryEnter.eventID = EventTriggerType.PointerEnter;
+            entryEnter.callback.AddListener((data) => { ShowDiceDescription(diceIndex); });
+            trigger.triggers.Add(entryEnter);
+
+            EventTrigger.Entry entryExit = new EventTrigger.Entry();
+            entryExit.eventID = EventTriggerType.PointerExit;
+            entryExit.callback.AddListener((data) => { HideDiceDescription(); });
+            trigger.triggers.Add(entryExit);
         }
+
         diceMask = new LayerMask();
         diceMask = LayerMask.GetMask("Dice");
 
@@ -105,7 +129,7 @@ public class GameManager : MonoBehaviour
         {
             diceData.diceConfig = diceConfigPool[Random.Range(0, diceConfigPool.Count)];
 
-            SpriteRenderer sr = diceData.GetComponent<SpriteRenderer>();
+            Image sr = diceData.GetComponent<Image>();
             if (sr != null && diceData.diceConfig != null && diceData.diceConfig.diceSprite != null)
             {
                 sr.sprite = diceData.diceConfig.diceSprite;
@@ -124,6 +148,28 @@ public class GameManager : MonoBehaviour
         UpdateMoneyUI();
     }
 
+    public void ShowDiceDescription(int diceIndex)
+    {
+        if (diceIndex < 0 || diceIndex >= diceDataList.Count) return;
+
+        DiceData die = diceDataList[diceIndex];
+
+        if (nameObject != null)
+            nameObject.GetComponent<TMP_Text>().text = die.diceConfig != null ? die.diceConfig.diceName : "Unknown Dice";
+
+        if (descObject != null)
+            descObject.GetComponent<TMP_Text>().text = die.diceConfig != null ? die.diceConfig.description : "No description";
+    }
+
+    public void HideDiceDescription()
+    {
+        if (nameObject != null)
+            nameObject.GetComponent<TMP_Text>().text = "";
+
+        if (descObject != null)
+            descObject.GetComponent<TMP_Text>().text = "";
+    }
+
     void UpdateMoneyUI()
     {
         if (MoneyText != null && PlayerData.Instance != null)
@@ -132,37 +178,17 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void OnLeftClick(InputAction.CallbackContext context)
+    public void DiceClicked(int diceIndex)
     {
-        if (!context.performed) return;
         if (isRolling) return;
 
-        Vector2 screenPosition = Pointer.current.position.ReadValue();
-        Vector3 worldPos = Camera.main.ScreenToWorldPoint(screenPosition);
-        worldPos.z = 0;
+        DiceData hitData = diceDataList[diceIndex];
 
-        Debug.DrawLine(worldPos + Vector3.up * 0.5f, worldPos + Vector3.down * 0.5f, Color.red, 2f);
-        Debug.DrawLine(worldPos + Vector3.left * 0.5f, worldPos + Vector3.right * 0.5f, Color.red, 2f);
+        if (setAsideDice[diceIndex] || diceMoving[diceIndex]) return;
 
-        RaycastHit2D hit = Physics2D.Raycast(worldPos, Vector2.zero, 0f, diceMask);
-
-        Debug.DrawRay(worldPos, Vector2.zero, Color.yellow, 2f);
-
-        if (hit.collider != null)
-        {
-            Debug.Log($"HIT: {hit.collider.name}");
-            DiceData hitData = hit.collider.GetComponent<DiceData>();
-
-            if (setAsideDice[hitData.ID - 1] || diceMoving[hitData.ID - 1]) return;
-
-            selectedDice[hitData.ID - 1] = !selectedDice[hitData.ID - 1];
-            StartCoroutine(MoveDiceToPosition(hitData.ID - 1));
-            CalculateScore(selectedDice);
-        }
-        else
-        {
-            Debug.Log("hit literally nothing, check your life choices");
-        }
+        selectedDice[diceIndex] = !selectedDice[diceIndex];
+        StartCoroutine(MoveDiceToPosition(diceIndex));
+        CalculateScore(selectedDice);
     }
 
     private IEnumerator MoveDiceToPosition(int diceIndex)
@@ -473,7 +499,7 @@ public class GameManager : MonoBehaviour
             Vector3 startPos = die.transform.position;
             Vector3 targetPos = basePosition + new Vector3(i * setAsideDiceSpacing, 0, 0);
 
-            SpriteRenderer sr = die.GetComponent<SpriteRenderer>();
+            Image sr = die.GetComponent<Image>();
             Color startColor = sr.color;
             Color targetColor = new Color(startColor.r, startColor.g, startColor.b, 0.6f);
 
@@ -542,7 +568,7 @@ public class GameManager : MonoBehaviour
         {
             setAsideDice[i] = false;
             selectedDice[i] = false;
-            diceObjects[i].GetComponent<SpriteRenderer>().color = Color.white;
+            diceObjects[i].GetComponent<Image>().color = Color.white;
         }
 
         RepositionActiveDice();
@@ -857,7 +883,7 @@ public class GameManager : MonoBehaviour
             setAsideDice[i] = false;
             selectedDice[i] = false;
             diceMoving[i] = false;
-            diceObjects[i].GetComponent<SpriteRenderer>().color = Color.white;
+            diceObjects[i].GetComponent<Image>().color = Color.white;
         }
 
         Game.SetActive(true);

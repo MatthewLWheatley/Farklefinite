@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: SlothDice
   m_EditorClassIdentifier: 
   diceName: Sloth
-  description: Ah Well I Tried
+  description: 'Bank with exactly 5 active dice still remaining? Gain 2000 points.
+    Barely lifting a finger pays off.
+
+'
   diceSprite: {fileID: -8483236119687955588, guid: 4236dd59e10f65241aed5d6efed883e4, type: 3}
   pipSprites:
   - {fileID: 1965599317052140067, guid: 37be34c36ffc4ae41a9198f3fbc46e0a, type: 3}

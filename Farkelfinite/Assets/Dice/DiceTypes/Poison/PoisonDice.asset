@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: PoisonDice
   m_EditorClassIdentifier: 
   diceName: Poison
-  description: Toxic Touch
+  description: 'Bank with any set-aside dice? Gain 10% per die but lose 1 life. Risk
+    your health for wealth.
+
+'
   diceSprite: {fileID: -4789749864752536213, guid: 5627c0c09caa51f468842b57bb8a0028, type: 3}
   pipSprites:
   - {fileID: 1965599317052140067, guid: 37be34c36ffc4ae41a9198f3fbc46e0a, type: 3}

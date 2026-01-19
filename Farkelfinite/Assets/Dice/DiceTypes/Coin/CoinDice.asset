@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b102ea77a61d4d48ba984471d37322b, type: 3}
   m_Name: CoinDice
   m_EditorClassIdentifier: 
-  diceName: Coin
-  description: Flip For It
+  diceName: Coin Dice
+  description: '50/50 chance when banking: double your score or lose everything.
+    Gamblers only.'
   diceSprite: {fileID: -7189895235512639589, guid: cc9325b3b56c4044386a6111d0be20a2, type: 3}
   pipSprites:
   - {fileID: 1965599317052140067, guid: 37be34c36ffc4ae41a9198f3fbc46e0a, type: 3}

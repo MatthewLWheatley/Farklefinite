@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: MossDice
   m_EditorClassIdentifier: 
   diceName: Moss
-  description: Slow Growth
+  description: 'End your turn with leftover running score? Gain 50 bonus points.
+    Patience pays.
+
+'
   diceSprite: {fileID: 1764137279955468476, guid: 31495a3294f82104698cb6131a4959c6, type: 3}
   pipSprites:
   - {fileID: 1965599317052140067, guid: 37be34c36ffc4ae41a9198f3fbc46e0a, type: 3}

@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: GluttonyDice
   m_EditorClassIdentifier: 
   diceName: Gluttony
-  description: All Mine
+  description: 'Bank all 6 dice in a single group? 10x multiplier. Take everything
+    or nothing.
+
+'
   diceSprite: {fileID: -1495550147998926013, guid: 0876a74de010d964ca7aa85b12c3efb6, type: 3}
   pipSprites:
   - {fileID: 1965599317052140067, guid: 37be34c36ffc4ae41a9198f3fbc46e0a, type: 3}

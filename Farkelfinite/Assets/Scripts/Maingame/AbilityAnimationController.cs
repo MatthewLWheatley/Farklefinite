@@ -14,6 +14,11 @@ public class AbilityAnimationController : MonoBehaviour
 
     private Vector3 originalCameraPos;
 
+    [Header("Screen Shake")]
+    [SerializeField] private Canvas mainCanvas;
+    [SerializeField] private RectTransform canvasRect;
+    private Vector3 originalCanvasPos;
+
     void Start()
     {
         if (mainCamera == null)
@@ -36,6 +41,13 @@ public class AbilityAnimationController : MonoBehaviour
 
         if (mainCamera != null)
             originalCameraPos = mainCamera.transform.position;
+
+        if (mainCanvas != null)
+        {
+            mainCanvas = PlayerData.Instance.gameObject.transform.GetChild(0).GetComponent<Canvas>();
+            canvasRect = PlayerData.Instance.gameObject.transform.GetChild(0).GetComponent<RectTransform>();
+            originalCanvasPos = canvasRect.anchoredPosition;
+        }
     }
 
     public IEnumerator PlayAbilityAnimation(DiceAbility ability, GameObject sourceObject)
@@ -102,6 +114,7 @@ public class AbilityAnimationController : MonoBehaviour
             float y = Random.Range(-1f, 1f) * intensity;
 
             mainCamera.transform.position = originalCameraPos + new Vector3(x, y, 0);
+            canvasRect.anchoredPosition = originalCanvasPos + new Vector3(x, y, 0);
 
             elapsed += Time.deltaTime;
             yield return null;

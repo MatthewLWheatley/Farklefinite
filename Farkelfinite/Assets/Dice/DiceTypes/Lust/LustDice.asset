@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: LustDice
   m_EditorClassIdentifier: 
   diceName: Lust
-  description: Too Many Men
+  description: 'Set aside a group where every die shows a different value? Multiply
+    by 1 + (0.5 per die). Variety is spicy.
+
+'
   diceSprite: {fileID: 1543753095241644085, guid: 8c87902ee0cb58943bff965270df4d17, type: 3}
   pipSprites:
   - {fileID: 1965599317052140067, guid: 37be34c36ffc4ae41a9198f3fbc46e0a, type: 3}

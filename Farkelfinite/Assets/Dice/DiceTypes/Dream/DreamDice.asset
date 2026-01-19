@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: DreamDice
   m_EditorClassIdentifier: 
   diceName: Dream
-  description: NightMare
+  description: Farkle with 0 banked score and multiple lives? Your score becomes
+    5000 but you drop to 1 life. High risk, higher reward.
   diceSprite: {fileID: -5943531786066315403, guid: beb14c0e8960821478d4f8e91a7bee21, type: 3}
   pipSprites:
   - {fileID: 1965599317052140067, guid: 37be34c36ffc4ae41a9198f3fbc46e0a, type: 3}
@@ -31,10 +32,10 @@ MonoBehaviour:
     abilityAnimation: {fileID: 11400000, guid: c38211c7db52f40478c954d800c12eaa, type: 2}
     conditions:
     - leftVariable: 9
-      leftVariableValue: 11
+      leftVariableValue: 1
       comparator: 0
       rightVariable: 22
-      rightVariableValue: 11
+      rightVariableValue: 1
       useRightVariable: 0
     - leftVariable: 11
       leftVariableValue: 0
@@ -52,7 +53,7 @@ MonoBehaviour:
     - effectType: 0
       targetVariable: 10
       sourceVariable: 22
-      sourceValue: 1000
+      sourceValue: 5000
       useSourceVariable: 0
       retriggerCount: 0
     heldVariable: 0

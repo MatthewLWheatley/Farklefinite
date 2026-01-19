@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b102ea77a61d4d48ba984471d37322b, type: 3}
   m_Name: BronzeDice
   m_EditorClassIdentifier: 
-  diceName: Bronze
-  description: Third Place
+  diceName: Bronze Dice
+  description: Banking with exactly 3 groups of dice? Gain 10% bonus points. Third
+    place never felt so good.
   diceSprite: {fileID: -5170133889821026615, guid: d79bf0fb64beb884d8407dc0f2daaa62, type: 3}
   pipSprites:
   - {fileID: 1965599317052140067, guid: 37be34c36ffc4ae41a9198f3fbc46e0a, type: 3}
@@ -22,7 +23,7 @@ MonoBehaviour:
   - {fileID: 5123967086785334009, guid: 34498b2fb085acf4895a9bfc3c401f77, type: 3}
   - {fileID: 2371431799608282939, guid: 012e92c2fa2912d4ea733703882aea92, type: 3}
   - {fileID: 6470227490501812004, guid: eb27ac6a26037e14aa407f23e410ede0, type: 3}
-  canChangeFaces: 0
+  canChangeFaces: 1
   customPips: 
   abilities:
   - abilityName: Third Place

@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: NukeDice
   m_EditorClassIdentifier: 
   diceName: Nuke
-  description: End Times
+  description: 'Bank on your last life with 4+ groups set aside? Triple your score.
+    Go out with a bang.
+
+'
   diceSprite: {fileID: -5659693797464179835, guid: ca7e6e41ad9e7634395008161da7df42, type: 3}
   pipSprites:
   - {fileID: 1965599317052140067, guid: 37be34c36ffc4ae41a9198f3fbc46e0a, type: 3}

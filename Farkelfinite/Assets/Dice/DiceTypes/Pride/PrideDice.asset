@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: PrideDice
   m_EditorClassIdentifier: 
   diceName: Pride
-  description: Above All Else
+  description: 'Bank with 2+ groups and be included in one? Gain 100 points per group.
+    Main character syndrome.
+
+'
   diceSprite: {fileID: 286944230784367106, guid: 23d01d19c59076245a122b8ba56dd023, type: 3}
   pipSprites:
   - {fileID: 1965599317052140067, guid: 37be34c36ffc4ae41a9198f3fbc46e0a, type: 3}

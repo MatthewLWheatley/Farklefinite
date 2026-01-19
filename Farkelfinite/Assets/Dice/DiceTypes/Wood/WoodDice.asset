@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: WoodDice
   m_EditorClassIdentifier: 
   diceName: Wood
-  description: Sturdy Bonus
+  description: 'Set aside any group of dice? Gain 50 points. Reliable and boring.
+
+'
   diceSprite: {fileID: 7370358061562332332, guid: 8e63ea7d18fcd59469534eb77f0d59a4, type: 3}
   pipSprites:
   - {fileID: 1965599317052140067, guid: 37be34c36ffc4ae41a9198f3fbc46e0a, type: 3}

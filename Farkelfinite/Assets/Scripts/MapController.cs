@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,8 +11,8 @@ public class MapController : MonoBehaviour
     public float verticalSpacing = 200f;
 
     [Header("Map Size")]
-    public int maxNodesPerColumn = 4;
-    public int totalColumns = 5;
+    public int maxNodesPerColumn = 3;
+    public int totalColumns = 8;
 
     [Header("Shop Settings")]
     public int minShopCount = 1;
@@ -151,25 +153,7 @@ public class MapController : MonoBehaviour
 
     void CreateConnections()
     {
-        for (int col = 0; col < totalColumns - 1; col++)
-        {
-            List<MapNode> currentColumn = columns[col];
-            List<MapNode> nextColumn = columns[col + 1];
-
-            foreach (MapNode currentNode in currentColumn)
-            {
-                int connectionCount = Random.Range(1, Mathf.Min(3, nextColumn.Count + 1));
-
-                List<MapNode> availableTargets = new List<MapNode>(nextColumn);
-
-                for (int i = 0; i < connectionCount && availableTargets.Count > 0; i++)
-                {
-                    MapNode target = availableTargets[Random.Range(0, availableTargets.Count)];
-                    currentNode.connections.Add(target);
-                    availableTargets.Remove(target);
-                }
-            }
-        }
+        
     }
 
     void DrawConnections()

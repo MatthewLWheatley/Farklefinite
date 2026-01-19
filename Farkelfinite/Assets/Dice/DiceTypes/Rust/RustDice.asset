@@ -19,13 +19,13 @@ MonoBehaviour:
 '
   diceSprite: {fileID: -1384490331761844996, guid: 2a62c790e6fbbf94a8f4565f2df8f4c0, type: 3}
   pipSprites:
-  - {fileID: 1965599317052140067, guid: 37be34c36ffc4ae41a9198f3fbc46e0a, type: 3}
-  - {fileID: 8211243896810743751, guid: 65c974d0eddda024286c3f5052802ed0, type: 3}
-  - {fileID: 1350188232839117535, guid: 551a995738647cb4796c1ff72fc4bdd1, type: 3}
-  - {fileID: 5123967086785334009, guid: 34498b2fb085acf4895a9bfc3c401f77, type: 3}
-  - {fileID: 2371431799608282939, guid: 012e92c2fa2912d4ea733703882aea92, type: 3}
-  - {fileID: 6470227490501812004, guid: eb27ac6a26037e14aa407f23e410ede0, type: 3}
-  canChangeFaces: 0
+  - {fileID: 1668003154139372888, guid: 167f0765f30041e4eaae37d1b5b9166e, type: 3}
+  - {fileID: 1668003154139372888, guid: 3c471bb815d1f0047b769840feffa248, type: 3}
+  - {fileID: 1668003154139372888, guid: f6882489d83bbbe4e896c53e9f16181f, type: 3}
+  - {fileID: 1668003154139372888, guid: a033f219bae3c624cba4aaaf3bfffc47, type: 3}
+  - {fileID: 1668003154139372888, guid: 4b918b5b7a9dca84192e6ad695af653d, type: 3}
+  - {fileID: 1668003154139372888, guid: 1a18326044f326040bfe0b5e46a21ee5, type: 3}
+  canChangeFaces: 1
   customPips: 
   abilities:
   - abilityName: Weathered Bonus

@@ -18,7 +18,6 @@ public class MainMenuManager : MonoBehaviour
 
     public void QUITTheGame() 
     { 
-        //should do some clean up but nahhhhhhh
         Debug.Log("QUIT!");
         Application.Quit();
     }
@@ -26,8 +25,6 @@ public class MainMenuManager : MonoBehaviour
     public void LoadGameScene()
     {
         Debug.Log("LOAD!");
-        //implement scene loading here
-        // if i can be bothered
-        SceneManager.LoadScene("PlayScene");
+        SceneManager.LoadScene("Map");
     }
 }

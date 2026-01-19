@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class DiceData : MonoBehaviour
 {
@@ -38,11 +39,11 @@ public class DiceData : MonoBehaviour
 
     void Start()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        Image i = GetComponent<Image>();
 
-        if (diceConfig != null)
+        if (diceConfig != null && i != null)
         {
-            spriteRenderer.sprite = diceConfig.diceSprite;
+            i.sprite = diceConfig.diceSprite;
             pipSprites = diceConfig.pipSprites;
         }
     }

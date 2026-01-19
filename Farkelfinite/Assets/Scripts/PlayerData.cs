@@ -33,7 +33,7 @@ public class PlayerData : MonoBehaviour
     public void AddMoney(int amount)
     {
         money += amount;
-        money = Mathf.Max(0, money); // Can't go below 0
+        money = Mathf.Max(0, money);
         Debug.Log($"Money: {money}");
     }
 
@@ -63,6 +63,7 @@ public class PlayerData : MonoBehaviour
         {
             _instance = this;
         }
+        transform.GetChild(0).GetComponent<Canvas>().worldCamera = Camera.main;
         //dice = new List<DiceData>();
         int bagint = PlayerPrefs.GetInt("CurrentBag", (int)Bag.DiceBag);
         currentBag = (Bag)bagint;

@@ -46,6 +46,8 @@ public class ShopContoller : MonoBehaviour
         playerData = PlayerData.Instance;
         positonDice();
         GenerateShopItems();
+        SpawnPipBagDice();
+        SpawnPipShopItems();
     }
 
     public void Update()
@@ -57,6 +59,8 @@ public class ShopContoller : MonoBehaviour
         totalScoreTextObject.GetComponent<TMP_Text>().text = $"Next Level: {playerData.getNextLevelScoreThreshold(playerData.currentLevel+1)}";
         runningScoreTextObject.GetComponent<TMP_Text>().text = $"";
         BankedScoreTextObject.GetComponent<TMP_Text>().text = $"Best Score: {playerData.bestScore}";
+
+        DisplayPipDice();
     }
 
     // ---------- shop item generation ----------
@@ -167,14 +171,24 @@ public class ShopContoller : MonoBehaviour
         entryExit.callback.AddListener((data) => { HideDiceDescription(); });
         trigger.triggers.Add(entryExit);
     }
-    
+
     public void ShowDiceDescription(ShopItemData data) 
     {
         if (data == null) return;
-        if (buysellButton.transform.GetChild(0).GetComponent<TMP_Text>().text == "Cancel") return;
+        if (buysellButton.transform.GetChild(0).GetComponent<TMP_Text>().text == "Cancel")
+        {
+            foreach (GameObject pipDice in pipDiceItems)
+            {
+                pipDice.SetActive(true);
+                Image imagecomp = pipDice.transform.GetChild(0).GetComponent<Image>();
+                // get the pip for this index from the item selected
+                int pipindex = itemSelected.GetComponent<DiceData>().pips[pipDiceItems.IndexOf(pipDice)];
+                imagecomp.sprite = itemSelected.GetComponent<DiceData>().diceConfig.pipSprites[pipindex - 1].GetComponent<Image>().sprite;
+            }
+            return;
+        }
         buysellButton.transform.GetChild(0).GetComponent<TMP_Text>().text = "";
-        itemSelected = null;
-
+        
         descEnabled = false;
         DiceConfig die = data.diceConfig;
 
@@ -198,6 +212,100 @@ public class ShopContoller : MonoBehaviour
         if (playerData.money < itemSelected.GetComponent<ShopItem>().itemData.cost) return;
         buysellButton.transform.GetChild(0).GetComponent<TMP_Text>().text = "Buy";
         Debug.Log($"Dice {itemObj.name} clicked.");
+    }
+
+    public GameObject PipDicePrefab;
+    public List<GameObject> pipDiceItems = new List<GameObject>();
+
+    public void SpawnPipShopItems() 
+    {
+        List<ShopItemData> pipItems = GetItemsByType(ShopItemType.Pip);
+
+
+        if (PipTypePosition1 != null)
+        {
+            SpawnShopPipItem(GeneratePipTypeShopItem(), PipTypePosition1);
+        }
+        if (PipTypePosition2 != null)
+        {
+            SpawnShopPipItem(GeneratePipTypeShopItem(), PipTypePosition2);
+        }
+        if (PipTypePosition3 != null)
+        {
+            SpawnShopPipItem(GeneratePipTypeShopItem(), PipTypePosition3);
+        }
+    }
+
+    public void SpawnShopPipItem(ShopItemData shopData, GameObject pipObject) 
+    {
+        pipObject.transform.GetChild(0).gameObject.SetActive(true);
+        pipObject.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = shopData.pipSprite;
+        pipObject.transform.GetComponent<ShopItem>().itemData = shopData;
+
+        EventTrigger trigger = pipObject.GetComponent<EventTrigger>();
+        if (trigger == null)
+        {
+            trigger = pipObject.transform.AddComponent<EventTrigger>();
+        }
+
+    }
+
+    private ShopItemData GeneratePipTypeShopItem()
+    {
+        List<ShopItemData> PipItems = GetItemsByType(ShopItemType.Pip);
+
+        if (PipTypePosition1.GetComponent<ShopItem>().itemData != null)
+            PipItems.RemoveAll(item => item.pipSprite == PipTypePosition1.GetComponent<ShopItem>().itemData.pipSprite);
+        if (PipTypePosition2.GetComponent<ShopItem>().itemData != null)
+            PipItems.RemoveAll(item => item.pipSprite == PipTypePosition2.GetComponent<ShopItem>().itemData.pipSprite);
+        if (PipTypePosition3.GetComponent<ShopItem>().itemData != null)
+            PipItems.RemoveAll(item => item.pipSprite == PipTypePosition3.GetComponent<ShopItem>().itemData.pipSprite);
+
+        List<ShopItemData> pipItemsWeighted = new List<ShopItemData>();
+        foreach (ShopItemData item in PipItems)
+        {
+            int weight = 6 - (int)item.weight;
+            for (int i = 0; i < weight; i++)
+            {
+                pipItemsWeighted.Add(item);
+            }
+        }
+
+        int randomIndex = Random.Range(0, pipItemsWeighted.Count);
+        return pipItemsWeighted[randomIndex];
+    }
+
+
+    public void SpawnPipBagDice() 
+    {
+        RectTransform panelRect = PipPannel.GetComponent<RectTransform>();
+
+        float width = panelRect.sizeDelta.x - activeDiceSpacing;
+        float startX = -width / 2;
+
+        for (int i = 0; i < 6; i++)
+        {
+            GameObject pipDice = Instantiate(PipDicePrefab, PipPannel.transform);
+            pipDiceItems.Add(pipDice);
+            pipDiceItems[i].transform.SetParent(PipPannel.transform, false);
+            float xPos = startX + (i * (width / (6 - 1)));
+            pipDiceItems[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(xPos, 0);
+        }
+    }
+
+    public void DisplayPipDice()
+    {
+        foreach (GameObject pipDice in pipDiceItems)
+        {
+            pipDice.SetActive(false);
+        }
+        if (itemSelected == null) return;
+        if (itemSelected.GetComponent<ShopItem>() == null) return;
+        if (itemSelected.GetComponent<ShopItem>().item != ShopItemType.Pip) return;
+        foreach (GameObject pipDice in pipDiceItems)
+        {
+            pipDice.SetActive(true);
+        }
     }
 
     /// ---------- dice bag description helper ----------

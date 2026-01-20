@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 704fad54f364ace469609d11a7c810b3, type: 3}
-  m_Name: FireDiceShop
+  m_Name: 6 Pips
   m_EditorClassIdentifier: 
-  itemName: Coin Dice
-  itemType: 0
-  itemSprite: {fileID: -7189895235512639589, guid: cc9325b3b56c4044386a6111d0be20a2, type: 3}
-  pipSprite: {fileID: -855298285791758126, guid: 6c1c4024c5495e14686c20b44385f404, type: 3}
+  itemName: 6 PIP
+  itemType: 1
+  itemSprite: {fileID: -7044660306776900269, guid: 348d837d14c03a349af96a455e5086fd, type: 3}
+  pipSprite: {fileID: 3465286685962602723, guid: a5cc9604f250cd240b49acc4d16b0820, type: 3}
   cost: 4
-  weight: 3
-  diceConfig: {fileID: 11400000, guid: e260cad47fd6e9248afa4af46aa74c6b, type: 2}
+  weight: 4
+  diceConfig: {fileID: 0}

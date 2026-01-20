@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public enum ShopItemType
 {
@@ -77,7 +78,9 @@ public class ShopItem : MonoBehaviour
     }
 
     public void Init(ShopItemData data) 
-    { 
-        
+    {
+        itemData = data;
+        item = data.itemType;
+        GetComponent<Image>().sprite = data.itemSprite;
     }
 }

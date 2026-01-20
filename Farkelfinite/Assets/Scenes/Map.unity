@@ -315,11 +315,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 0}
-  totalColumns: 5
-  minNodesPerColumn: 5
-  maxNodesPerColumn: 5
-  minPaths: 3
-  maxPaths: 5
+  totalColumns: 15
+  minNodesPerColumn: 15
+  maxNodesPerColumn: 15
+  minPaths: 5
+  maxPaths: 10
   columnSpacing: 200
   nodeSpacing: 200
   SidePadding: 0.035

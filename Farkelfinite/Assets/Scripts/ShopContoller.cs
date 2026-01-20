@@ -1,8 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class ShopContoller : MonoBehaviour
 {
@@ -22,17 +25,11 @@ public class ShopContoller : MonoBehaviour
     public List<DiceData> Dice = new List<DiceData>();
 
     public List<ShopItemData> allShopItems;
-    public GameObject shopItemPrefab;
 
     [Header("Dice Panel Swapping")]
     public GameObject DicePannel;
     [SerializeField] private float activeDiceSpacing = 200f;
     private Canvas canvas;
-
-    [Header("Dice Positioning")]
-    public List<Vector2> dicePositions = new List<Vector2>();
-    private DiceData currentlyDragging = null;
-    private int lastHoveredIndex = -1;
 
     public void Start()
     {
@@ -40,211 +37,10 @@ public class ShopContoller : MonoBehaviour
 
         playerData = PlayerData.Instance;
         positonDice();
+        GenerateShopItems();
     }
 
-    void positonDice()
-    {
-        List<DiceData> temp = playerData.dice;
-        RectTransform panelRect = DicePannel.GetComponent<RectTransform>();
-        dicePositions.Clear();
-
-        float width = panelRect.sizeDelta.x - activeDiceSpacing;
-        float startX = -width / 2;
-
-        for (int i = 0; i < temp.Count; i++)
-        {
-            float xPos = startX + (i * (width / (temp.Count - 1)));
-            dicePositions.Add(new Vector2(xPos, 0));
-
-            temp[i].transform.SetParent(DicePannel.transform, false);
-            temp[i].GetComponent<RectTransform>().anchoredPosition = dicePositions[i];
-        }
-    }
-
-    public void OnDiceBeginDrag(DiceData dice)
-    {
-        currentlyDragging = dice;
-        lastHoveredIndex = playerData.dice.IndexOf(dice);
-    }
-
-    public void OnDiceDragging(DiceData dice)
-    {
-        if (currentlyDragging == null) return;
-
-        int currentIndex = playerData.dice.IndexOf(dice);
-        int hoveredIndex = GetHoveredSlotIndex(dice.GetComponent<RectTransform>());
-
-        if (hoveredIndex != -1 && hoveredIndex != lastHoveredIndex)
-        {
-            // swap in the list
-            playerData.dice.RemoveAt(currentIndex);
-            playerData.dice.Insert(hoveredIndex, dice);
-
-            lastHoveredIndex = hoveredIndex;
-
-            // animate all OTHER dice to their new positions
-            AnimateNonDraggedDice();
-        }
-    }
-
-    public void OnDiceEndDrag(DiceData dice)
-    {
-        if (currentlyDragging == null) return;
-
-        int finalIndex = playerData.dice.IndexOf(dice);
-        StartCoroutine(SnapDiceToPosition(dice.GetComponent<RectTransform>(), dicePositions[finalIndex]));
-
-        currentlyDragging = null;
-        lastHoveredIndex = -1;
-    }
-
-    private int GetHoveredSlotIndex(RectTransform draggedRect)
-    {
-        float draggedX = draggedRect.anchoredPosition.x;
-        int closestIndex = 0;
-        float closestDistance = float.MaxValue;
-
-        for (int i = 0; i < dicePositions.Count; i++)
-        {
-            float distance = Mathf.Abs(dicePositions[i].x - draggedX);
-
-            if (distance < closestDistance)
-            {
-                closestDistance = distance;
-                closestIndex = i;
-            }
-        }
-
-        return closestIndex;
-    }
-
-    private void AnimateNonDraggedDice()
-    {
-        for (int i = 0; i < playerData.dice.Count; i++)
-        {
-            if (playerData.dice[i] == currentlyDragging) continue;
-
-            RectTransform rect = playerData.dice[i].GetComponent<RectTransform>();
-            StartCoroutine(SmoothMove(rect, dicePositions[i], 0.2f));
-        }
-    }
-
-    private IEnumerator SmoothMove(RectTransform rect, Vector2 targetPos, float duration)
-    {
-        Vector2 startPos = rect.anchoredPosition;
-        float elapsed = 0f;
-
-        while (elapsed < duration)
-        {
-            elapsed += Time.deltaTime;
-            float t = Mathf.SmoothStep(0, 1, elapsed / duration);
-            rect.anchoredPosition = Vector2.Lerp(startPos, targetPos, t);
-            yield return null;
-        }
-
-        rect.anchoredPosition = targetPos;
-    }
-
-    private IEnumerator SnapDiceToPosition(RectTransform rect, Vector2 targetPos)
-    {
-        float duration = 0.15f;
-        Vector2 startPos = rect.anchoredPosition;
-        float elapsed = 0f;
-
-        while (elapsed < duration)
-        {
-            elapsed += Time.deltaTime;
-            float t = Mathf.SmoothStep(0, 1, elapsed / duration);
-            rect.anchoredPosition = Vector2.Lerp(startPos, targetPos, t);
-            yield return null;
-        }
-
-        rect.anchoredPosition = targetPos;
-    }
-
-    public void HandleDiceDropped(DiceData droppedDice, Vector3 originalPos)
-    {
-        int oldIndex = playerData.dice.IndexOf(droppedDice);
-        int newIndex = CalculateInsertionIndex(droppedDice.GetComponent<RectTransform>());
-
-        if (newIndex != oldIndex && newIndex >= 0)
-        {
-            playerData.dice.RemoveAt(oldIndex);
-            playerData.dice.Insert(newIndex, droppedDice);
-            positonDice();
-            StartCoroutine(AnimateDiceSwap());
-        }
-        else
-        {
-            StartCoroutine(AnimateSingleDiceBack(droppedDice.GetComponent<RectTransform>(), originalPos));
-        }
-    }
-
-    private int CalculateInsertionIndex(RectTransform draggedRect)
-    {
-        float draggedX = draggedRect.anchoredPosition.x;
-        int closestIndex = 0;
-        float closestDistance = float.MaxValue;
-
-        for (int i = 0; i < dicePositions.Count; i++)
-        {
-            float distance = Mathf.Abs(dicePositions[i].x - draggedX);
-
-            if (distance < closestDistance)
-            {
-                closestDistance = distance;
-                closestIndex = i;
-            }
-        }
-
-        return closestIndex;
-    }
-
-    private IEnumerator AnimateDiceSwap()
-    {
-        float duration = 0.3f;
-        Dictionary<DiceData, Vector3> startPos = new Dictionary<DiceData, Vector3>();
-
-        foreach (var dice in playerData.dice)
-        {
-            startPos[dice] = dice.transform.position; // world position
-        }
-
-        float elapsed = 0f;
-        while (elapsed < duration)
-        {
-            elapsed += Time.deltaTime;
-            float t = Mathf.SmoothStep(0, 1, elapsed / duration);
-
-            for (int i = 0; i < playerData.dice.Count; i++)
-            {
-                playerData.dice[i].transform.position = Vector3.Lerp(startPos[playerData.dice[i]], dicePositions[i], t);
-            }
-
-            yield return null;
-        }
-    }
-
-    private IEnumerator AnimateSingleDiceBack(RectTransform diceRect, Vector2 originalPos)
-    {
-        float duration = 0.2f;
-        Vector3 startPos = diceRect.position; // world position
-        float elapsed = 0f;
-
-        while (elapsed < duration)
-        {
-            elapsed += Time.deltaTime;
-            diceRect.position = Vector3.Lerp(startPos, originalPos, elapsed / duration);
-            yield return null;
-        }
-
-        diceRect.position = originalPos;
-    }
-
-    public void LoadUnlockedDiceType()
-    {
-
-    }
+    // ---------- shop item generation ----------
 
     public void GenerateShopItems()
     {
@@ -261,29 +57,63 @@ public class ShopContoller : MonoBehaviour
             return;
         }
 
-        List<ShopItemData> shuffledDice = new List<ShopItemData>(diceItems);
-        for (int i = 0; i < shuffledDice.Count; i++)
+        if (DiceTypePosition1 != null)
         {
-            ShopItemData temp = shuffledDice[i];
-            int randomIndex = Random.Range(i, shuffledDice.Count);
-            shuffledDice[i] = shuffledDice[randomIndex];
-            shuffledDice[randomIndex] = temp;
+            SpawnShopItem(GenerateDiceTypeShopItem(), DiceTypePosition1);
         }
 
-        if (DiceTypePosition1 != null && shuffledDice.Count > 0)
+        if (DiceTypePosition2 != null)
         {
-            SpawnShopItem(shuffledDice[0], DiceTypePosition1.transform.position);
+            SpawnShopItem(GenerateDiceTypeShopItem(), DiceTypePosition2);
         }
 
-        if (DiceTypePosition2 != null && shuffledDice.Count > 1)
+        if (DiceTypePosition3 != null)
         {
-            SpawnShopItem(shuffledDice[1], DiceTypePosition2.transform.position);
+            SpawnShopItem(GenerateDiceTypeShopItem(), DiceTypePosition3);
+        }
+    }
+
+    private ShopItemData GenerateDiceTypeShopItem() 
+    {
+        List<ShopItemData> diceItems = GetItemsByType(ShopItemType.DiceType);
+
+        //collect all dice types in player data and in shop item list
+        //remove them from the list
+        //then pick a random one from the remaining list
+
+        playerData.dice.ForEach(diceData =>
+        {
+            diceItems.RemoveAll(item => item.diceConfig == diceData.diceConfig);
+        });
+
+        
+
+        if (DiceTypePosition1.GetComponent<ShopItem>().itemData != null)
+            diceItems.RemoveAll(item => item.diceConfig == DiceTypePosition1.GetComponent<ShopItem>().itemData.diceConfig);
+        if(DiceTypePosition2.GetComponent<ShopItem>().itemData != null)
+            diceItems.RemoveAll(item => item.diceConfig == DiceTypePosition2.GetComponent<ShopItem>().itemData.diceConfig);
+        if(DiceTypePosition3.GetComponent<ShopItem>().itemData != null)
+            diceItems.RemoveAll(item => item.diceConfig == DiceTypePosition3.GetComponent<ShopItem>().itemData.diceConfig);
+        if(PipTypePosition1.GetComponent<ShopItem>().itemData != null)
+            diceItems.RemoveAll(item => item.diceConfig == PipTypePosition1.GetComponent<ShopItem>().itemData.diceConfig);
+        if(PipTypePosition2.GetComponent<ShopItem>().itemData != null)
+            diceItems.RemoveAll(item => item.diceConfig == PipTypePosition2.GetComponent<ShopItem>().itemData.diceConfig);
+        if (PipTypePosition3.GetComponent<ShopItem>().itemData != null)
+            diceItems.RemoveAll(item => item.diceConfig == PipTypePosition3.GetComponent<ShopItem>().itemData.diceConfig);
+
+        List<ShopItemData> diceItemsWeighted = new List<ShopItemData>();
+        foreach (ShopItemData item in diceItems)
+        {
+            int weight = 6 - (int)item.weight;
+            for (int i = 0; i < weight; i++)
+            {
+                diceItemsWeighted.Add(item);
+            }
+
         }
 
-        if (DiceTypePosition3 != null && shuffledDice.Count > 2)
-        {
-            SpawnShopItem(shuffledDice[2], DiceTypePosition3.transform.position);
-        }
+        int randomIndex = Random.Range(0, diceItemsWeighted.Count);
+        return diceItemsWeighted[randomIndex];
     }
 
     public List<ShopItemData> GetItemsByType(ShopItemType type)
@@ -291,11 +121,161 @@ public class ShopContoller : MonoBehaviour
         return allShopItems.FindAll(item => item.itemType == type);
     }
 
-    public void SpawnShopItem(ShopItemData data, Vector3 position)
+    public void SpawnShopItem(ShopItemData data, GameObject itemObj)
     {
-        GameObject itemObj = Instantiate(shopItemPrefab, position, Quaternion.identity);
         ShopItem item = itemObj.GetComponent<ShopItem>();
         item.Init(data);
+        SetUpShopTriggers(item.itemData, itemObj);
+    }
+
+    public void SetUpShopTriggers(ShopItemData shopData, GameObject itemObj) 
+    {
+        EventTrigger trigger = itemObj.GetComponent<EventTrigger>();
+        if (trigger == null)
+        {
+            trigger = itemObj.transform.AddComponent<EventTrigger>();
+        }
+
+        itemObj.GetComponent<Button>().onClick.AddListener(() => ShopDiceClicked(itemObj));
+
+        EventTrigger.Entry entryEnter = new EventTrigger.Entry();
+        entryEnter.eventID = EventTriggerType.PointerEnter;
+        entryEnter.callback.AddListener((data) => { ShowDiceDescription(shopData); });
+        trigger.triggers.Add(entryEnter);
+
+        EventTrigger.Entry entryExit = new EventTrigger.Entry();
+        entryExit.eventID = EventTriggerType.PointerExit;
+        entryExit.callback.AddListener((data) => { HideDiceDescription(); });
+        trigger.triggers.Add(entryExit);
+    }
+    
+    public void ShowDiceDescription(ShopItemData data) 
+    {
+        if (data == null) return;
+
+        descEnabled = false;
+        DiceConfig die = data.diceConfig;
+
+        if (nameObject != null)
+            nameObject.GetComponent<TMP_Text>().text = die != null ? die.diceName : "Unknown Dice";
+
+        if (descObject != null)
+            descObject.GetComponent<TMP_Text>().text = die != null ? die.description : "No description";
+
+        if (rarityObject != null)
+            rarityObject.GetComponent<TMP_Text>().text = die != null ? data.weight.ToString() : "Rarity: ?";
+
+        if (costObject != null)
+            costObject.GetComponent<TMP_Text>().text = die != null ? data.cost.ToString() : "Cost: ?";
+    }
+
+    public void ShopDiceClicked(GameObject itemObj) 
+    {
+        descEnabled = true;
+        Debug.Log($"Dice {itemObj.name} clicked.");
+    }
+
+    /// ---------- dice bag description helper ----------
+    [Header("Helper Settings")]
+    public GameObject nameObject;
+    public GameObject descObject;
+    public GameObject rarityObject;
+    public GameObject costObject;
+    public bool descEnabled = false;
+    public int diceDescId = -1;
+
+    void positonDice()
+    {
+        List<DiceData> temp = playerData.dice;
+        RectTransform panelRect = DicePannel.GetComponent<RectTransform>();
+
+        float width = panelRect.sizeDelta.x - activeDiceSpacing;
+        float startX = -width / 2;
+
+        for (int i = 0; i < temp.Count; i++)
+        {
+            int diceIndex = i;
+            temp[i].transform.SetParent(DicePannel.transform, false);
+            float xPos = startX + (i * (width / (temp.Count - 1)));
+            temp[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(xPos, 0);
+
+
+            playerData.dice[i].GetComponent<Button>().onClick.AddListener(() => DiceClicked(diceIndex));
+
+            EventTrigger trigger = playerData.dice[i].GetComponent<EventTrigger>();
+            if (trigger == null)
+            {
+                trigger = playerData.dice[i].transform.AddComponent<EventTrigger>();
+            }
+
+            EventTrigger.Entry entryEnter = new EventTrigger.Entry();
+            entryEnter.eventID = EventTriggerType.PointerEnter;
+            entryEnter.callback.AddListener((data) => { ShowDiceDescription(diceIndex); });
+            trigger.triggers.Add(entryEnter);
+
+            EventTrigger.Entry entryExit = new EventTrigger.Entry();
+            entryExit.eventID = EventTriggerType.PointerExit;
+            entryExit.callback.AddListener((data) => { HideDiceDescription(); });
+            trigger.triggers.Add(entryExit);
+        }
+    }
+
+    public void ShowDiceDescription(int diceIndex)
+    {
+        if (diceIndex < 0 || diceIndex >= playerData.dice.Count) return;
+        descEnabled = false;
+        DiceData die = playerData.dice[diceIndex];
+
+        if (nameObject != null)
+            nameObject.GetComponent<TMP_Text>().text = die.diceConfig != null ? die.diceConfig.diceName : "Unknown Dice";
+
+        if (descObject != null)
+            descObject.GetComponent<TMP_Text>().text = die.diceConfig != null ? die.diceConfig.description : "No description";
+
+
+        List<ShopItemData> diceItems = GetItemsByType(ShopItemType.DiceType);
+        diceItems.RemoveAll(item => item.diceConfig != null && die.diceConfig != null && item.diceConfig.diceName != die.diceConfig.diceName);
+        ShopItemData diceShopData = diceItems[0];
+        if (rarityObject != null && diceShopData != null)
+            rarityObject.GetComponent<TMP_Text>().text = die.diceConfig != null ? diceShopData.weight.ToString(): "Rarity: ?";
+
+        if (costObject != null && diceShopData != null)
+            costObject.GetComponent<TMP_Text>().text = die.diceConfig != null ? diceShopData.cost.ToString() : "Cost: ?";
+    }
+
+    public void HideDiceDescription()
+    {
+        if (descEnabled) return;
+
+        if (nameObject != null)
+            nameObject.GetComponent<TMP_Text>().text = "";
+
+        if (descObject != null)
+            descObject.GetComponent<TMP_Text>().text = "";
+
+        if (rarityObject != null)
+            rarityObject.GetComponent<TMP_Text>().text = "";
+
+        if (costObject != null)
+            costObject.GetComponent<TMP_Text>().text = "";
+
+        
+    }
+
+    public void DiceClicked(int diceIndex)
+    {
+        descEnabled = true;
+        Debug.Log($"Dice {diceIndex} clicked.");
+    }
+
+    private void OnDestroy()
+    {
+        for (int i = 0; i < DicePannel.transform.childCount; i++) 
+        { 
+            DicePannel.transform.GetChild(0).GetComponent<Button>().onClick.RemoveAllListeners();
+            DicePannel.transform.GetChild(0).GetComponent<EventTrigger>().triggers.Clear();
+            DicePannel.transform.GetChild(0).SetParent(playerData.transform.GetChild(0));
+        }
     }
 
 }

@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 704fad54f364ace469609d11a7c810b3, type: 3}
-  m_Name: ObsidianDiceShop
+  m_Name: 5 Pips
   m_EditorClassIdentifier: 
-  itemName: Obsidian
-  itemType: 0
-  itemSprite: {fileID: -4685572505800389998, guid: e60697745f0345d4788ea58b02ef5608, type: 3}
-  pipSprite: {fileID: -855298285791758126, guid: 979e5c40d41a9814cb78fd16321f53d3, type: 3}
-  cost: 3
-  weight: 2
-  diceConfig: {fileID: 11400000, guid: b1715589547cbe9439adbf054a778f74, type: 2}
+  itemName: 5 PIP
+  itemType: 1
+  itemSprite: {fileID: -7044660306776900269, guid: 348d837d14c03a349af96a455e5086fd, type: 3}
+  pipSprite: {fileID: 4130640169021434097, guid: 0b74e2777e8f906428e14028590ec300, type: 3}
+  cost: 5
+  weight: 5
+  diceConfig: {fileID: 0}

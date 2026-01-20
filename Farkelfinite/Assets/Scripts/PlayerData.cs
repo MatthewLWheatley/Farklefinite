@@ -21,6 +21,7 @@ public class PlayerData : MonoBehaviour
     public int currentLevel = 1;
     public int roundsPerLevel = 3;
     public int currentRound = 1;
+    public int bestScore = 0;
 
     public static PlayerData Instance { get { return _instance; } }
 
@@ -51,6 +52,11 @@ public class PlayerData : MonoBehaviour
         }
         Debug.Log($"Can't afford! Need {cost}, have {money}");
         return false;
+    }
+
+    public int getNextLevelScoreThreshold(int level)
+    {
+        return level * 500 + (level - 1) * 250;
     }
 
     private void Awake()

@@ -996,6 +996,13 @@ MonoBehaviour:
   RerollButton: {fileID: 483585499}
   NextRoundButton: {fileID: 1954565612}
   playerData: {fileID: 0}
+  moneyTextObject: {fileID: 2134451178}
+  levelTextObject: {fileID: 1802644356}
+  stageTextObject: {fileID: 1623567986}
+  livesTextObject: {fileID: 153157324}
+  totalScoreTextObject: {fileID: 136255720}
+  runningScoreTextObject: {fileID: 1155233700}
+  BankedScoreTextObject: {fileID: 1041193648}
   Dice:
   - {fileID: 0}
   allShopItems:
@@ -1050,13 +1057,17 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 544fabce663b896468b9e2b9d7ab20b1, type: 2}
   - {fileID: 11400000, guid: fbb74dcc2ad871b46821962c6a27cbb6, type: 2}
   DicePannel: {fileID: 239345283}
+  PipPannel: {fileID: 0}
   activeDiceSpacing: 200
+  buysellButton: {fileID: 1600034805}
   nameObject: {fileID: 1500298608}
   descObject: {fileID: 1996880978}
   rarityObject: {fileID: 1196597668}
   costObject: {fileID: 1794646949}
+  itemSelected: {fileID: 0}
   descEnabled: 0
   diceDescId: -1
+  defualtDiceSprite: {fileID: -7044660306776900269, guid: 348d837d14c03a349af96a455e5086fd, type: 3}
 --- !u!114 &423518357
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2006,7 +2017,7 @@ GameObject:
   - component: {fileID: 1093401214}
   - component: {fileID: 1093401213}
   m_Layer: 5
-  m_Name: Dicebag (1)
+  m_Name: PipBag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3100,7 +3111,7 @@ GameObject:
   - component: {fileID: 1600034808}
   - component: {fileID: 1600034807}
   m_Layer: 5
-  m_Name: Buy
+  m_Name: Buy/Sell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3170,9 +3181,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: SetAside
+      - m_Target: {fileID: 423518356}
+        m_TargetAssemblyTypeName: ShopContoller, Assembly-CSharp
+        m_MethodName: BuySellButtonClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

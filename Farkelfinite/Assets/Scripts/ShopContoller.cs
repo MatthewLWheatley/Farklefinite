@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -22,14 +20,24 @@ public class ShopContoller : MonoBehaviour
 
     public PlayerData playerData;
 
+    public GameObject moneyTextObject;
+    public GameObject levelTextObject;
+    public GameObject stageTextObject;
+    public GameObject livesTextObject;
+    public GameObject totalScoreTextObject;
+    public GameObject runningScoreTextObject;
+    public GameObject BankedScoreTextObject;
+
     public List<DiceData> Dice = new List<DiceData>();
 
     public List<ShopItemData> allShopItems;
 
     [Header("Dice Panel Swapping")]
     public GameObject DicePannel;
+    public GameObject PipPannel;
     [SerializeField] private float activeDiceSpacing = 200f;
     private Canvas canvas;
+    public GameObject buysellButton;
 
     public void Start()
     {
@@ -38,6 +46,17 @@ public class ShopContoller : MonoBehaviour
         playerData = PlayerData.Instance;
         positonDice();
         GenerateShopItems();
+    }
+
+    public void Update()
+    {
+        moneyTextObject.GetComponent<TMP_Text>().text = $"Money: {playerData.money}";
+        levelTextObject.GetComponent<TMP_Text>().text = $"Level: {playerData.currentLevel}";
+        stageTextObject.GetComponent<TMP_Text>().text = $"Stage: {playerData.currentRound}";
+        livesTextObject.GetComponent<TMP_Text>().text = $"Lives: {playerData.lives}";
+        totalScoreTextObject.GetComponent<TMP_Text>().text = $"Next Level: {playerData.getNextLevelScoreThreshold(playerData.currentLevel+1)}";
+        runningScoreTextObject.GetComponent<TMP_Text>().text = $"";
+        BankedScoreTextObject.GetComponent<TMP_Text>().text = $"Best Score: {playerData.bestScore}";
     }
 
     // ---------- shop item generation ----------
@@ -152,6 +171,9 @@ public class ShopContoller : MonoBehaviour
     public void ShowDiceDescription(ShopItemData data) 
     {
         if (data == null) return;
+        if (buysellButton.transform.GetChild(0).GetComponent<TMP_Text>().text == "Cancel") return;
+        buysellButton.transform.GetChild(0).GetComponent<TMP_Text>().text = "";
+        itemSelected = null;
 
         descEnabled = false;
         DiceConfig die = data.diceConfig;
@@ -172,6 +194,9 @@ public class ShopContoller : MonoBehaviour
     public void ShopDiceClicked(GameObject itemObj) 
     {
         descEnabled = true;
+        itemSelected = itemObj;
+        if (playerData.money < itemSelected.GetComponent<ShopItem>().itemData.cost) return;
+        buysellButton.transform.GetChild(0).GetComponent<TMP_Text>().text = "Buy";
         Debug.Log($"Dice {itemObj.name} clicked.");
     }
 
@@ -181,6 +206,7 @@ public class ShopContoller : MonoBehaviour
     public GameObject descObject;
     public GameObject rarityObject;
     public GameObject costObject;
+    public GameObject itemSelected;
     public bool descEnabled = false;
     public int diceDescId = -1;
 
@@ -223,7 +249,10 @@ public class ShopContoller : MonoBehaviour
     public void ShowDiceDescription(int diceIndex)
     {
         if (diceIndex < 0 || diceIndex >= playerData.dice.Count) return;
+        if (buysellButton.transform.GetChild(0).GetComponent<TMP_Text>().text == "Cancel") return;
         descEnabled = false;
+        itemSelected = null;
+        buysellButton.transform.GetChild(0).GetComponent<TMP_Text>().text = "";
         DiceData die = playerData.dice[diceIndex];
 
         if (nameObject != null)
@@ -265,6 +294,31 @@ public class ShopContoller : MonoBehaviour
     public void DiceClicked(int diceIndex)
     {
         descEnabled = true;
+        if (playerData.dice[diceIndex].diceConfig != null)
+        {
+            itemSelected = playerData.dice[diceIndex].gameObject;
+            buysellButton.transform.GetChild(0).GetComponent<TMP_Text>().text = "Sell";
+        }
+        else if (buysellButton.transform.GetChild(0).GetComponent<TMP_Text>().text == "Cancel" && itemSelected.GetComponent<ShopItem>().item == ShopItemType.DiceType)
+        {
+            playerData.dice[diceIndex].diceConfig = itemSelected.GetComponent<ShopItem>().itemData.diceConfig;
+            playerData.money -= itemSelected.GetComponent<ShopItem>().itemData.cost;
+            playerData.dice[diceIndex].GetComponent<Image>().sprite = itemSelected.GetComponent<ShopItem>().itemData.diceConfig.diceSprite;
+            buysellButton.transform.GetChild(0).GetComponent<TMP_Text>().text = "";
+            // set the shop dice to null
+            // first you must find it.
+            if (itemSelected != null)
+            {
+                itemSelected.GetComponent<ShopItem>().itemData = null;
+                itemSelected.GetComponent<Image>().sprite = defualtDiceSprite;
+            }
+            itemSelected = null;
+
+        }
+        else if (buysellButton.transform.GetChild(0).GetComponent<TMP_Text>().text == "Cancel" && itemSelected.GetComponent<ShopItem>().item == ShopItemType.Pip) 
+        { 
+            
+        }
         Debug.Log($"Dice {diceIndex} clicked.");
     }
 
@@ -278,4 +332,46 @@ public class ShopContoller : MonoBehaviour
         }
     }
 
+    // ---------- Purchaseing/Selling Dice ----------
+    
+    public Sprite defualtDiceSprite;
+    
+    public void BuySellButtonClicked() 
+    {
+
+        if (itemSelected == null) return;
+
+        Debug.Log("Buy/Sell button clicked.");
+        if (buysellButton.transform.GetChild(0).GetComponent<TMP_Text>().text == "Buy")
+        {
+            List<bool> availableSlots = new List<bool>();
+            playerData.dice.ForEach(diceData =>
+            {
+                availableSlots.Add(diceData.diceConfig == null);
+            });
+            if (!availableSlots.Contains(true))
+            {
+                Debug.Log("No available dice slots to equip purchased dice.");
+                return;
+            }
+            buysellButton.transform.GetChild(0).GetComponent<TMP_Text>().text = "Cancel";
+        }
+        else if (buysellButton.transform.GetChild(0).GetComponent<TMP_Text>().text == "Cancel") 
+        { 
+            itemSelected = null;
+            buysellButton.transform.GetChild(0).GetComponent<TMP_Text>().text = "";
+        }
+        else
+        {
+            List<ShopItemData> diceItems = GetItemsByType(ShopItemType.DiceType);
+            diceItems.RemoveAll(item => item.diceConfig != null && itemSelected.GetComponent<DiceData>().diceConfig != null && item.diceConfig.diceName != itemSelected.GetComponent<DiceData>().diceConfig.diceName);
+            ShopItemData diceShopData = diceItems[0];
+            PlayerData.Instance.money += diceShopData.cost / 2;
+            itemSelected.GetComponent<DiceData>().diceConfig = null;
+            itemSelected.GetComponent<Image>().sprite = defualtDiceSprite;
+            itemSelected = null;
+            buysellButton.transform.GetChild(0).GetComponent<TMP_Text>().text = "";
+            HideDiceDescription();
+        }
+    }
 }

@@ -18,4 +18,4 @@ MonoBehaviour:
   pipSprite: {fileID: -855298285791758126, guid: 979e5c40d41a9814cb78fd16321f53d3, type: 3}
   cost: 2
   weight: 1
-  diceConfig: {fileID: 11400000, guid: 59c17449bb15e1f4c9fb362926e70c31, type: 2}
+  diceConfig: {fileID: 11400000, guid: b4ffa665cf176b241b243130d103a4f8, type: 2}

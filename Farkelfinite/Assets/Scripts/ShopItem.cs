@@ -40,13 +40,6 @@ public class ShopItem : MonoBehaviour
             Vector2 screenPosition = Mouse.current.position.ReadValue();
             Vector3 worldPos = mainCam.ScreenToWorldPoint(screenPosition);
             worldPos.z = 0;
-
-            if (col.OverlapPoint(worldPos) && !isSnappingBack)
-            {
-                offset = transform.position - worldPos;
-                offset.z = 0;
-                isDragging = true;
-            }
         }
 
         if (isDragging && Mouse.current.leftButton.isPressed)

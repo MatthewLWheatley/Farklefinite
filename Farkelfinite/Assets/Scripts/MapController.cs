@@ -8,6 +8,8 @@ using static UnityEngine.Rendering.DebugUI.Table;
 
 public class MapGenerator : MonoBehaviour
 {
+    public Camera mainCamera;
+
     [Header("Map Settings")]
     public int totalColumns = 7;
     public int minNodesPerColumn = 2;
@@ -475,10 +477,7 @@ public class MapGenerator : MonoBehaviour
 
         if (node == NodeType.Start) return;
         Level += 1;
-        //hide the map
-        //for (int x = 0; x < this.transform.childCount; x++) this.transform.GetChild(x).gameObject.SetActive(false);
 
-        //load scene additivley
         switch (node)
         {
             case NodeType.Start:
@@ -486,7 +485,7 @@ public class MapGenerator : MonoBehaviour
                 break;
             case NodeType.Shop:
                 SceneManager.LoadScene("ShopScene", LoadSceneMode.Additive);
-
+                setUpShop();
                 break;
             case NodeType.Money:
                 break;
@@ -496,6 +495,34 @@ public class MapGenerator : MonoBehaviour
                 break;
             case NodeType.Boss: 
                 break;
+        }
+        for (int x = 0; x < this.transform.childCount; x++) this.transform.GetChild(x).gameObject.SetActive(false);
+        updateCanvases();
+    }
+
+    public void setUpShop() 
+    { 
+        
+    }
+
+    public void updateCanvases() 
+    {
+        List<Canvas> canvases = FindObjectsByType<Canvas>(FindObjectsSortMode.None).ToList();
+        foreach (var can in canvases) 
+        { 
+            can.worldCamera = mainCamera;
+        }
+        List<CanvasScaler> scalers = FindObjectsByType<CanvasScaler>(FindObjectsSortMode.None).ToList();
+        foreach (var scaler in scalers)
+        {
+            scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+        }
+        
+        List<Camera> cameras = FindObjectsByType<Camera>(FindObjectsSortMode.None).ToList();
+        foreach (var cam in cameras)
+        {
+            if (cam == mainCamera) continue;
+            cam.enabled = false;    
         }
     }
 

@@ -65,10 +65,12 @@
     <Compile Include="Assets\Scripts\PlayerData.cs" />
     <Compile Include="Assets\Scripts\Maingame\DiceConfig.cs" />
     <Compile Include="Assets\Scripts\ShopItemData.cs" />
+    <Compile Include="Assets\Scripts\MapController.cs" />
     <Compile Include="Assets\Scripts\Maingame\GameManager.cs" />
     <Compile Include="Assets\Scripts\ShopContoller.cs" />
     <Compile Include="Assets\Scripts\Maingame\AbilityAnimationController.cs" />
     <Compile Include="Assets\Scripts\Maingame\DiceData.cs" />
+    <Compile Include="Assets\Scripts\DiceDragHandler.cs" />
     <Compile Include="Assets\Scripts\Setting.cs" />
     <Compile Include="Assets\Scripts\MainMenuManager.cs" />
     <Compile Include="Assets\Scripts\Maingame\AbilityAnimation.cs" />

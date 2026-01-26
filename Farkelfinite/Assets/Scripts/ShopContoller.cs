@@ -56,7 +56,7 @@ public class ShopContoller : MonoBehaviour
         levelTextObject.GetComponent<TMP_Text>().text = $"Level: {playerData.currentLevel}";
         stageTextObject.GetComponent<TMP_Text>().text = $"Stage: {playerData.currentRound}";
         livesTextObject.GetComponent<TMP_Text>().text = $"Lives: {playerData.lives}";
-        totalScoreTextObject.GetComponent<TMP_Text>().text = $"Next Level: {playerData.getNextLevelScoreThreshold(playerData.currentLevel+1)}";
+        totalScoreTextObject.GetComponent<TMP_Text>().text = $"Next Level: {playerData.getNextLevelScoreThreshold(playerData.currentLevel + 1)}";
         runningScoreTextObject.GetComponent<TMP_Text>().text = $"";
         BankedScoreTextObject.GetComponent<TMP_Text>().text = $"Best Score: {playerData.bestScore}";
     }
@@ -94,7 +94,7 @@ public class ShopContoller : MonoBehaviour
         }
     }
 
-    private ShopItemData GenerateDiceTypeShopItem() 
+    private ShopItemData GenerateDiceTypeShopItem()
     {
         List<ShopItemData> diceItems = GetItemsByType(ShopItemType.DiceType);
 
@@ -107,17 +107,17 @@ public class ShopContoller : MonoBehaviour
             diceItems.RemoveAll(item => item.diceConfig == diceData.diceConfig);
         });
 
-        
+
 
         if (DiceTypePosition1.GetComponent<ShopItem>().itemData != null)
             diceItems.RemoveAll(item => item.diceConfig == DiceTypePosition1.GetComponent<ShopItem>().itemData.diceConfig);
-        if(DiceTypePosition2.GetComponent<ShopItem>().itemData != null)
+        if (DiceTypePosition2.GetComponent<ShopItem>().itemData != null)
             diceItems.RemoveAll(item => item.diceConfig == DiceTypePosition2.GetComponent<ShopItem>().itemData.diceConfig);
-        if(DiceTypePosition3.GetComponent<ShopItem>().itemData != null)
+        if (DiceTypePosition3.GetComponent<ShopItem>().itemData != null)
             diceItems.RemoveAll(item => item.diceConfig == DiceTypePosition3.GetComponent<ShopItem>().itemData.diceConfig);
-        if(PipTypePosition1.GetComponent<ShopItem>().itemData != null)
+        if (PipTypePosition1.GetComponent<ShopItem>().itemData != null)
             diceItems.RemoveAll(item => item.diceConfig == PipTypePosition1.GetComponent<ShopItem>().itemData.diceConfig);
-        if(PipTypePosition2.GetComponent<ShopItem>().itemData != null)
+        if (PipTypePosition2.GetComponent<ShopItem>().itemData != null)
             diceItems.RemoveAll(item => item.diceConfig == PipTypePosition2.GetComponent<ShopItem>().itemData.diceConfig);
         if (PipTypePosition3.GetComponent<ShopItem>().itemData != null)
             diceItems.RemoveAll(item => item.diceConfig == PipTypePosition3.GetComponent<ShopItem>().itemData.diceConfig);
@@ -149,7 +149,7 @@ public class ShopContoller : MonoBehaviour
         SetUpShopTriggers(item.itemData, itemObj);
     }
 
-    public void SetUpShopTriggers(ShopItemData shopData, GameObject itemObj) 
+    public void SetUpShopTriggers(ShopItemData shopData, GameObject itemObj)
     {
         EventTrigger trigger = itemObj.GetComponent<EventTrigger>();
         if (trigger == null)
@@ -170,7 +170,7 @@ public class ShopContoller : MonoBehaviour
         trigger.triggers.Add(entryExit);
     }
 
-    public void ShowDiceDescription(ShopItemData data) 
+    public void ShowDiceDescription(ShopItemData data)
     {
         if (data == null) return;
 
@@ -195,10 +195,10 @@ public class ShopContoller : MonoBehaviour
         if (costObject != null)
             costObject.GetComponent<TMP_Text>().text = die != null ? data.cost.ToString() : "Cost: ?";
 
-        if (data.itemType == ShopItemType.Pip) 
+        if (data.itemType == ShopItemType.Pip)
         {
             nameObject.GetComponent<TMP_Text>().text = data.itemName;
-            descObject.GetComponent<TMP_Text>().text = "Swap a face on a dice to pip: " + data.pipSprite.name.ToString().Substring(0,1);
+            descObject.GetComponent<TMP_Text>().text = "Swap a face on a dice to pip: " + data.pipSprite.name.ToString().Substring(0, 1);
             rarityObject.GetComponent<TMP_Text>().text = data.weight.ToString();
             costObject.GetComponent<TMP_Text>().text = data.cost.ToString();
 
@@ -208,7 +208,7 @@ public class ShopContoller : MonoBehaviour
     public GameObject PipDicePrefab;
     public List<GameObject> pipDiceItems = new List<GameObject>();
 
-    public void SpawnPipShopItems() 
+    public void SpawnPipShopItems()
     {
         List<ShopItemData> pipItems = GetItemsByType(ShopItemType.Pip);
 
@@ -227,7 +227,7 @@ public class ShopContoller : MonoBehaviour
         }
     }
 
-    public void SpawnShopPipItem(ShopItemData shopData, GameObject pipObject) 
+    public void SpawnShopPipItem(ShopItemData shopData, GameObject pipObject)
     {
         pipObject.transform.GetChild(0).gameObject.SetActive(true);
         pipObject.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = shopData.pipSprite;
@@ -277,7 +277,7 @@ public class ShopContoller : MonoBehaviour
         return pipItemsWeighted[randomIndex];
     }
 
-    public void SpawnPipBagDice() 
+    public void SpawnPipBagDice()
     {
         RectTransform panelRect = PipPannel.GetComponent<RectTransform>();
 
@@ -442,15 +442,34 @@ public class ShopContoller : MonoBehaviour
 
     private void OnDestroy()
     {
-        for (int i = 0; i < DicePannel.transform.childCount; i++) 
-        { 
+        for (int i = 0; i < DicePannel.transform.childCount; i++)
+        {
             DicePannel.transform.GetChild(0).GetComponent<Button>().onClick.RemoveAllListeners();
             DicePannel.transform.GetChild(0).GetComponent<EventTrigger>().triggers.Clear();
             DicePannel.transform.GetChild(0).SetParent(playerData.transform.GetChild(0));
         }
     }
 
-    // ---------- Purchaseing/Selling Dice ----------
-    
-    public Sprite defualtDiceSprite;
+    void SetupDraggableShopItem(GameObject item)
+    {
+        ShopItemDrag dragScript = item.AddComponent<ShopItemDrag>();
+
+        dragScript.OnDroppedOn += HandleItemDropped;
+    }
+
+    void HandleItemDropped(ShopItemDrag draggedItem, GameObject dropZone)
+    {
+        if (dropZone.CompareTag("BuyZone"))
+        {
+            Debug.Log("Buying item!");
+        }
+        else if (dropZone.CompareTag("SellZone"))
+        {
+            Debug.Log("Selling item!");
+        }
+        else if (dropZone.CompareTag("SwapZone"))
+        {
+            Debug.Log("Swapping!");
+        }
+    }
 }

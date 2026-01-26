@@ -157,7 +157,7 @@ public class ShopContoller : MonoBehaviour
             trigger = itemObj.transform.AddComponent<EventTrigger>();
         }
 
-        itemObj.GetComponent<Button>().onClick.AddListener(() => ShopDiceClicked(itemObj));
+        //itemObj.GetComponent<Button>().onClick.AddListener(() => ShopDiceClicked(itemObj));
 
         EventTrigger.Entry entryEnter = new EventTrigger.Entry();
         entryEnter.eventID = EventTriggerType.PointerEnter;
@@ -205,15 +205,6 @@ public class ShopContoller : MonoBehaviour
         }
     }
 
-    public void ShopDiceClicked(GameObject itemObj) 
-    {
-        descEnabled = true;
-        itemSelected = itemObj;
-        if (playerData.money < itemSelected.GetComponent<ShopItem>().itemData.cost) return;
-        buysellButton.transform.GetChild(0).GetComponent<TMP_Text>().text = "Buy";
-        Debug.Log($"Dice {itemObj.name} clicked.");
-    }
-
     public GameObject PipDicePrefab;
     public List<GameObject> pipDiceItems = new List<GameObject>();
 
@@ -248,7 +239,7 @@ public class ShopContoller : MonoBehaviour
             trigger = pipObject.transform.AddComponent<EventTrigger>();
         }
 
-        pipObject.GetComponent<Button>().onClick.AddListener(() => ShopPipDiceClicker(pipObject));
+        //pipObject.GetComponent<Button>().onClick.AddListener(() => ShopPipDiceClicker(pipObject));
 
         EventTrigger.Entry entryEnter = new EventTrigger.Entry();
         entryEnter.eventID = EventTriggerType.PointerEnter;
@@ -305,7 +296,7 @@ public class ShopContoller : MonoBehaviour
             int pipIndex = i;
             Button pipButton = pipDice.GetComponent<Button>();
             if (pipButton == null) pipButton = pipDice.AddComponent<Button>();
-            pipButton.onClick.AddListener(() => PipDiceClicked(pipIndex));
+            //pipButton.onClick.AddListener(() => PipDiceClicked(pipIndex));
         }
     }
 
@@ -320,76 +311,6 @@ public class ShopContoller : MonoBehaviour
         {
             pipDice.SetActive(true);
         }
-    }
-
-    public void ShopPipDiceClicker(GameObject itemObj) 
-    {
-        descEnabled = true;
-        itemSelected = itemObj;
-        if (playerData.money < itemSelected.GetComponent<ShopItem>().itemData.cost) return;
-        buysellButton.transform.GetChild(0).GetComponent<TMP_Text>().text = "Buy";
-        Debug.Log($"Dice {itemObj.name} clicked.");
-    }
-
-    public void PipDiceClicked(int pipIndex)
-    {
-        if (buysellButton.transform.GetChild(0).GetComponent<TMP_Text>().text != "Cancel") return;
-        if (itemSelected == null || itemSelected.GetComponent<ShopItem>() == null) return;
-        if (itemSelected.GetComponent<ShopItem>().item != ShopItemType.Pip) return;
-
-        DiceData targetDice = null;
-        foreach (DiceData dice in playerData.dice)
-        {
-            if (dice.diceConfig != null && nameObject.GetComponent<TMP_Text>().text == dice.diceConfig.diceName)
-            {
-                targetDice = dice;
-                break;
-            }
-        }
-
-        if (targetDice == null)
-        {
-            Debug.Log("No dice selected to modify pip");
-            return;
-        }
-
-        ShopItemData pipShopData = itemSelected.GetComponent<ShopItem>().itemData;
-        if (playerData.money < pipShopData.cost) return;
-
-        int newPipValue = GetPipValueFromSprite(pipShopData.pipSprite, targetDice.diceConfig);
-
-        if (newPipValue == -1)
-        {
-            Debug.LogError("Couldn't determine pip value from sprite");
-            return;
-        }
-
-        targetDice.pips[pipIndex] = newPipValue;
-        playerData.money -= pipShopData.cost;
-
-        pipDiceItems[pipIndex].transform.GetChild(0).GetComponent<Image>().sprite = pipShopData.pipSprite;
-
-        itemSelected.GetComponent<ShopItem>().itemData = null;
-        itemSelected.transform.GetChild(0).GetComponent<Image>().sprite = null;
-        itemSelected.transform.GetChild(0).gameObject.SetActive(false);
-
-        itemSelected = null;
-        buysellButton.transform.GetChild(0).GetComponent<TMP_Text>().text = "";
-
-        Debug.Log($"Replaced pip {pipIndex} with value {newPipValue}");
-    }
-
-    private int GetPipValueFromSprite(Sprite pipSprite, DiceConfig config)
-    {
-        for (int i = 0; i < config.pipSprites.Count; i++)
-        {
-            Image img = config.pipSprites[i].GetComponent<Image>();
-            if (img != null && img.sprite == pipSprite)
-            {
-                return i + 1;
-            }
-        }
-        return -1;
     }
 
     /// ---------- dice bag description helper ----------
@@ -418,7 +339,7 @@ public class ShopContoller : MonoBehaviour
             temp[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(xPos, 0);
 
 
-            playerData.dice[i].GetComponent<Button>().onClick.AddListener(() => DiceClicked(diceIndex));
+            //playerData.dice[i].GetComponent<Button>().onClick.AddListener(() => DiceClicked(diceIndex));
 
             EventTrigger trigger = playerData.dice[i].GetComponent<EventTrigger>();
             if (trigger == null)
@@ -519,37 +440,6 @@ public class ShopContoller : MonoBehaviour
         }
     }
 
-    public void DiceClicked(int diceIndex)
-    {
-        descEnabled = true;
-        if (playerData.dice[diceIndex].diceConfig != null)
-        {
-            itemSelected = playerData.dice[diceIndex].gameObject;
-            buysellButton.transform.GetChild(0).GetComponent<TMP_Text>().text = "Sell";
-        }
-        else if (buysellButton.transform.GetChild(0).GetComponent<TMP_Text>().text == "Cancel" && itemSelected.GetComponent<ShopItem>().item == ShopItemType.DiceType)
-        {
-            playerData.dice[diceIndex].diceConfig = itemSelected.GetComponent<ShopItem>().itemData.diceConfig;
-            playerData.money -= itemSelected.GetComponent<ShopItem>().itemData.cost;
-            playerData.dice[diceIndex].GetComponent<Image>().sprite = itemSelected.GetComponent<ShopItem>().itemData.diceConfig.diceSprite;
-            buysellButton.transform.GetChild(0).GetComponent<TMP_Text>().text = "";
-            // set the shop dice to null
-            // first you must find it.
-            if (itemSelected != null)
-            {
-                itemSelected.GetComponent<ShopItem>().itemData = null;
-                itemSelected.GetComponent<Image>().sprite = defualtDiceSprite;
-            }
-            itemSelected = null;
-
-        }
-        else if (buysellButton.transform.GetChild(0).GetComponent<TMP_Text>().text == "Cancel" && itemSelected.GetComponent<ShopItem>().item == ShopItemType.Pip) 
-        { 
-            
-        }
-        Debug.Log($"Dice {diceIndex} clicked.");
-    }
-
     private void OnDestroy()
     {
         for (int i = 0; i < DicePannel.transform.childCount; i++) 
@@ -563,57 +453,4 @@ public class ShopContoller : MonoBehaviour
     // ---------- Purchaseing/Selling Dice ----------
     
     public Sprite defualtDiceSprite;
-
-    public void BuySellButtonClicked()
-    {
-        if (itemSelected == null) return;
-
-        Debug.Log("Buy/Sell button clicked.");
-
-        if (buysellButton.transform.GetChild(0).GetComponent<TMP_Text>().text == "Buy")
-        {
-            List<bool> availableSlots = new List<bool>();
-            playerData.dice.ForEach(diceData =>
-            {
-                availableSlots.Add(diceData.diceConfig == null);
-            });
-            if (!availableSlots.Contains(true))
-            {
-                Debug.Log("No available dice slots to equip purchased dice.");
-                return;
-            }
-            buysellButton.transform.GetChild(0).GetComponent<TMP_Text>().text = "Cancel";
-        }
-        else if (buysellButton.transform.GetChild(0).GetComponent<TMP_Text>().text == "Cancel")
-        {
-            itemSelected = null;
-            buysellButton.transform.GetChild(0).GetComponent<TMP_Text>().text = "";
-        }
-        else
-        {
-            DiceData diceData = itemSelected.GetComponent<DiceData>();
-            if (diceData == null || diceData.diceConfig == null)
-            {
-                Debug.LogWarning("Can't sell this item - not a valid dice");
-                return;
-            }
-
-            List<ShopItemData> diceItems = GetItemsByType(ShopItemType.DiceType);
-            diceItems.RemoveAll(item => item.diceConfig != null && diceData.diceConfig != null && item.diceConfig.diceName != diceData.diceConfig.diceName);
-
-            if (diceItems.Count == 0)
-            {
-                Debug.LogError("Couldn't find shop data for this dice type");
-                return;
-            }
-
-            ShopItemData diceShopData = diceItems[0];
-            PlayerData.Instance.money += diceShopData.cost / 2;
-            diceData.diceConfig = null;
-            itemSelected.GetComponent<Image>().sprite = defualtDiceSprite;
-            itemSelected = null;
-            buysellButton.transform.GetChild(0).GetComponent<TMP_Text>().text = "";
-            HideDiceDescription();
-        }
-    }
 }

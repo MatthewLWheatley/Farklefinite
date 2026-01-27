@@ -307,15 +307,11 @@ public class ShopContoller : MonoBehaviour
             if (pipButton == null) pipButton = pipDice.AddComponent<Button>();
             //pipButton.onClick.AddListener(() => PipDiceClicked(pipIndex));
         }
+        DisplayPipDice();
     }
 
     public void DisplayPipDice()
     {
-        foreach (GameObject pipDice in pipDiceItems)
-        {
-            pipDice.SetActive(false);
-        }
-        if (itemSelected.GetComponent<ShopItem>() == null) return;
         foreach (GameObject pipDice in pipDiceItems)
         {
             pipDice.SetActive(true);
@@ -367,6 +363,7 @@ public class ShopContoller : MonoBehaviour
 
             SetupDraggableDice(temp[i].gameObject);
         }
+        highlightPanel.transform.position = temp[0].transform.position;
     }
 
     void SetupDraggableDice(GameObject diceObj)
@@ -411,6 +408,8 @@ public class ShopContoller : MonoBehaviour
         }
     }
 
+    public GameObject highlightPanel;
+
     public void ShowDiceDescription(int diceIndex)
     {
         if (diceIndex < 0 || diceIndex >= playerData.dice.Count) return;
@@ -430,6 +429,7 @@ public class ShopContoller : MonoBehaviour
                         int pipValue = die.pips[i];
                         pipImage.sprite = die.pipSprites[pipValue - 1].GetComponent<Image>().sprite;
                     }
+                    
                 }
                 if (nameObject != null)
                     nameObject.GetComponent<TMP_Text>().text = die.diceConfig != null ? die.diceConfig.diceName : "Unknown Dice";
@@ -453,7 +453,7 @@ public class ShopContoller : MonoBehaviour
                 pipImage.sprite = die.diceConfig.pipSprites[pipValue - 1].GetComponent<Image>().sprite;
             }
         }
-
+        highlightPanel.transform.position = die.transform.position;
         if (nameObject != null)
             nameObject.GetComponent<TMP_Text>().text = die.diceConfig != null ? die.diceConfig.diceName : "Unknown Dice";
 
@@ -493,11 +493,6 @@ public class ShopContoller : MonoBehaviour
 
         if (costObject != null)
             costObject.GetComponent<TMP_Text>().text = "";
-
-        foreach (GameObject pipDice in pipDiceItems)
-        {
-            pipDice.SetActive(false);
-        }
     }
 
     private void OnDestroy()
@@ -582,7 +577,7 @@ public class ShopContoller : MonoBehaviour
             DestroyImmediate(diceData.currentPip);
         }
 
-        diceData.ChangePipNow(diceData.currentFace);
+        //diceData.ChangePipNow(diceData.currentFace);
 
         Debug.Log("Dice converted to normal dice");
     }
@@ -694,7 +689,7 @@ public class ShopContoller : MonoBehaviour
         {
             DestroyImmediate(diceData.currentPip);
         }
-        diceData.ChangePipNow(diceData.currentFace);
+        //diceData.ChangePipNow(diceData.currentFace);
 
         Debug.Log($"Dice upgraded to {newConfig.diceName}");
     }

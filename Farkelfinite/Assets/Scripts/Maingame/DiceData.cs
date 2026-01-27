@@ -75,7 +75,6 @@ public class DiceData : MonoBehaviour
             Debug.Log("no im already rolling");
             return;
         }
-        rolling = true;
         int pastFace = currentFace;
         currentFace = Face;
         Debug.Log("Changing pip to face " + Face);
@@ -97,6 +96,7 @@ public class DiceData : MonoBehaviour
 
     IEnumerator SwapToFace(int Face, int Start)
     {
+        rolling = true;
         int current = Start;
         int diff = ((Face + 6) - Start) % 6;
         int totalSteps = (swapRounds * 6) + diff;

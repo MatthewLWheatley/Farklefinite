@@ -63,8 +63,20 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         diceDataList = PlayerData.Instance.dice;
+        diceObjects = new List<GameObject>();
         float startX = activeDiceCenter.x - (6 - 1) * activeDiceSpacing / 2f;
-        for(int i = 0; i < diceObjects.Count; i++)
+        List<Canvas> can = FindObjectsByType<Canvas>(FindObjectsSortMode.None).ToList();
+        foreach (var c in can)
+        {
+            c.worldCamera = Camera.main;
+        }
+        foreach (var die in diceDataList)
+        {
+            diceObjects.Add(die.gameObject);
+        }
+
+
+        for (int i = 0; i < diceObjects.Count; i++)
         {
             int diceIndex = i;
             diceObjects[i].transform.position = new Vector3(startX + i * activeDiceSpacing, 0, 0);
@@ -115,6 +127,12 @@ public class GameManager : MonoBehaviour
 
         InitializeAbilitySystem();
         UpdateScoreUI();
+
+    }
+
+    private void Awake()
+    {
+        
     }
 
     private void RandomizeAllDiceConfigs()

@@ -9,6 +9,7 @@ using static UnityEngine.Rendering.DebugUI.Table;
 public class MapGenerator : MonoBehaviour
 {
     public Camera mainCamera;
+    public GameObject player;
 
     [Header("Map Settings")]
     public int totalColumns = 7;
@@ -41,6 +42,7 @@ public class MapGenerator : MonoBehaviour
     private void Start()
     {
         GenerateMap();
+        DontDestroyOnLoad(player);
     }
 
     [ContextMenu("Debug Test")]
@@ -490,6 +492,7 @@ public class MapGenerator : MonoBehaviour
             case NodeType.Money:
                 break;
             case NodeType.Enemy:
+                SceneManager.LoadScene("FightScene", LoadSceneMode.Additive);
                 break;
             case NodeType.EliteEnemy:
                 break;
@@ -516,13 +519,6 @@ public class MapGenerator : MonoBehaviour
         foreach (var scaler in scalers)
         {
             scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-        }
-        
-        List<Camera> cameras = FindObjectsByType<Camera>(FindObjectsSortMode.None).ToList();
-        foreach (var cam in cameras)
-        {
-            if (cam == mainCamera) continue;
-            cam.enabled = false;    
         }
     }
 

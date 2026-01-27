@@ -1,43 +1,40 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
-using UnityEngine.EventSystems;
+using System;
 
-public enum ShopItemType
+public class DiceDrag : MonoBehaviour
 {
-    DiceType,
-    Pip,
-    Constelation
-}
+    [Header("Drag Settings")]
+    [SerializeField] private float snapBackDuration = 0.3f;
+    [SerializeField] private AnimationCurve snapCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
 
-public class ShopItem : MonoBehaviour
-{
-    public ShopItemType item;
-    public ShopItemData itemData;
+    [Header("Drop Zone Detection")]
+    [SerializeField] private float dropZoneCheckRadius = 50f;
+    [SerializeField] private LayerMask dropZoneLayer;
 
-    [SerializeField] private float snapBackDuration = 0.125f;
-
-    private bool isDragging = false;
-    private Vector2 dragOffset;
-    private Vector2 originalAnchoredPosition;
-    private int originalSiblingIndex;
-    private Transform originalParent;
     private Camera mainCam;
     private Canvas canvas;
     private RectTransform rectTransform;
+    private Vector3 dragOffset;
+    private Vector2 originalAnchoredPosition;
+    private bool isDragging = false;
+    private bool isSnapingBack = false;
+    private int originalSiblingIndex;
+    private Transform originalParent;
 
-    public event Action<ShopItem> OnDragStart;
-    public event Action<ShopItem> OnDragEnd;
-    public event Action<ShopItem, GameObject> OnDroppedOn;
+    public event Action<DiceDrag> OnDragStart;
+    public event Action<DiceDrag> OnDragEnd;
+    public event Action<DiceDrag, GameObject> OnDroppedOn;
+
+    private DiceData diceData;
 
     void Awake()
     {
         mainCam = Camera.main;
         rectTransform = GetComponent<RectTransform>();
         canvas = GetComponentInParent<Canvas>();
+        diceData = GetComponent<DiceData>();
     }
 
     void Start()
@@ -75,7 +72,7 @@ public class ShopItem : MonoBehaviour
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
             rectTransform, mousePos, mainCam, out Vector2 localPoint);
 
-        if (rectTransform.rect.Contains(localPoint))
+        if (rectTransform.rect.Contains(localPoint) && !isSnapingBack)
         {
             isDragging = true;
             originalAnchoredPosition = rectTransform.anchoredPosition;
@@ -101,18 +98,18 @@ public class ShopItem : MonoBehaviour
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
             canvas.transform as RectTransform, mousePos, mainCam, out Vector2 canvasPoint);
 
-        rectTransform.anchoredPosition = canvasPoint + dragOffset;
+        rectTransform.anchoredPosition = canvasPoint + (Vector2)dragOffset;
     }
 
     void EndDrag()
     {
         isDragging = false;
 
-        GameObject dropTarget = FindDropTargetAtPosition();
+        GameObject dropZone = FindDropZoneAtPosition();
 
-        if (dropTarget != null)
+        if (dropZone != null)
         {
-            OnDroppedOn?.Invoke(this, dropTarget);
+            OnDroppedOn?.Invoke(this, dropZone);
         }
 
         StartCoroutine(SnapBack());
@@ -120,22 +117,19 @@ public class ShopItem : MonoBehaviour
         OnDragEnd?.Invoke(this);
     }
 
-    GameObject FindDropTargetAtPosition()
+    GameObject FindDropZoneAtPosition()
     {
         Vector2 mousePos = Mouse.current.position.ReadValue();
 
-        var pointerEventData = new PointerEventData(EventSystem.current);
+        var pointerEventData = new UnityEngine.EventSystems.PointerEventData(UnityEngine.EventSystems.EventSystem.current);
         pointerEventData.position = mousePos;
 
-        var raycastResults = new List<RaycastResult>();
-        EventSystem.current.RaycastAll(pointerEventData, raycastResults);
+        var raycastResults = new System.Collections.Generic.List<UnityEngine.EventSystems.RaycastResult>();
+        UnityEngine.EventSystems.EventSystem.current.RaycastAll(pointerEventData, raycastResults);
 
         foreach (var result in raycastResults)
         {
-            if (result.gameObject == this.gameObject) continue;
-
-            DiceData diceData = result.gameObject.GetComponent<DiceData>();
-            if (diceData != null)
+            if (result.gameObject != this.gameObject && result.gameObject.CompareTag("SellZone"))
             {
                 return result.gameObject;
             }
@@ -146,6 +140,8 @@ public class ShopItem : MonoBehaviour
 
     IEnumerator SnapBack()
     {
+        isSnapingBack = true;
+
         transform.SetParent(originalParent, true);
         transform.SetSiblingIndex(originalSiblingIndex);
 
@@ -155,19 +151,14 @@ public class ShopItem : MonoBehaviour
         while (elapsed < snapBackDuration)
         {
             elapsed += Time.deltaTime;
-            float t = elapsed / snapBackDuration;
+            float t = snapCurve.Evaluate(elapsed / snapBackDuration);
             rectTransform.anchoredPosition = Vector2.Lerp(startPos, originalAnchoredPosition, t);
             yield return null;
         }
 
         rectTransform.anchoredPosition = originalAnchoredPosition;
-    }
 
-    public void Init(ShopItemData data)
-    {
-        itemData = data;
-        item = data.itemType;
-        GetComponent<Image>().sprite = data.itemSprite;
+        isSnapingBack = false;
     }
 
     public void SetOriginalPosition(Vector2 pos)
@@ -178,5 +169,10 @@ public class ShopItem : MonoBehaviour
     public bool IsDragging()
     {
         return isDragging;
+    }
+
+    public DiceData GetDiceData()
+    {
+        return diceData;
     }
 }

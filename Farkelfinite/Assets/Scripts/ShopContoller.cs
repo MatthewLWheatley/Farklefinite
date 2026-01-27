@@ -39,9 +39,18 @@ public class ShopContoller : MonoBehaviour
     private Canvas canvas;
     public GameObject buysellButton;
 
+    [Header("Sell Settings")]
+    public DiceConfig normalDiceConfig;
+    public GameObject sellZone;
+
     public void Start()
     {
         canvas = GetComponentInParent<Canvas>();
+
+        if (sellZone != null)
+        {
+            sellZone.SetActive(false);
+        }
 
         playerData = PlayerData.Instance;
         positonDice();
@@ -98,9 +107,6 @@ public class ShopContoller : MonoBehaviour
     {
         List<ShopItemData> diceItems = GetItemsByType(ShopItemType.DiceType);
 
-        //collect all dice types in player data and in shop item list
-        //remove them from the list
-        //then pick a random one from the remaining list
 
         playerData.dice.ForEach(diceData =>
         {
@@ -147,6 +153,7 @@ public class ShopContoller : MonoBehaviour
         ShopItem item = itemObj.GetComponent<ShopItem>();
         item.Init(data);
         SetUpShopTriggers(item.itemData, itemObj);
+        SetupDraggableShopItem(item);
     }
 
     public void SetUpShopTriggers(ShopItemData shopData, GameObject itemObj)
@@ -161,7 +168,7 @@ public class ShopContoller : MonoBehaviour
 
         EventTrigger.Entry entryEnter = new EventTrigger.Entry();
         entryEnter.eventID = EventTriggerType.PointerEnter;
-        entryEnter.callback.AddListener((data) => { ShowDiceDescription(shopData); });
+        entryEnter.callback.AddListener((data) => { ShowDiceDescription(itemObj); });
         trigger.triggers.Add(entryEnter);
 
         EventTrigger.Entry entryExit = new EventTrigger.Entry();
@@ -170,8 +177,10 @@ public class ShopContoller : MonoBehaviour
         trigger.triggers.Add(entryExit);
     }
 
-    public void ShowDiceDescription(ShopItemData data)
+    public void ShowDiceDescription(GameObject itemObj)
     {
+        if (!itemObj.activeSelf) return;
+        ShopItemData data = itemObj.GetComponent<ShopItem>().itemData;
         if (data == null) return;
 
         string currentButtonText = buysellButton.transform.GetChild(0).GetComponent<TMP_Text>().text;
@@ -243,7 +252,7 @@ public class ShopContoller : MonoBehaviour
 
         EventTrigger.Entry entryEnter = new EventTrigger.Entry();
         entryEnter.eventID = EventTriggerType.PointerEnter;
-        entryEnter.callback.AddListener((data) => { ShowDiceDescription(shopData); });
+        entryEnter.callback.AddListener((data) => { ShowDiceDescription(pipObject); });
         trigger.triggers.Add(entryEnter);
 
         EventTrigger.Entry entryExit = new EventTrigger.Entry();
@@ -339,7 +348,6 @@ public class ShopContoller : MonoBehaviour
             temp[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(xPos, 0);
 
 
-            //playerData.dice[i].GetComponent<Button>().onClick.AddListener(() => DiceClicked(diceIndex));
 
             EventTrigger trigger = playerData.dice[i].GetComponent<EventTrigger>();
             if (trigger == null)
@@ -356,6 +364,50 @@ public class ShopContoller : MonoBehaviour
             entryExit.eventID = EventTriggerType.PointerExit;
             entryExit.callback.AddListener((data) => { HideDiceDescription(); });
             trigger.triggers.Add(entryExit);
+
+            SetupDraggableDice(temp[i].gameObject);
+        }
+    }
+
+    void SetupDraggableDice(GameObject diceObj)
+    {
+        DiceDrag dragScript = diceObj.GetComponent<DiceDrag>();
+        if (dragScript == null)
+        {
+            dragScript = diceObj.AddComponent<DiceDrag>();
+        }
+
+        dragScript.OnDragStart += HandleDiceDragStart;
+        dragScript.OnDragEnd += HandleDiceDragEnd;
+        dragScript.OnDroppedOn += HandleDiceDropped;
+    }
+
+    void HandleDiceDragStart(DiceDrag draggedDice)
+    {
+        DiceData diceData = draggedDice.GetDiceData();
+        if (diceData != null && diceData.diceConfig != null && sellZone != null)
+        {
+            sellZone.SetActive(true);
+        }
+    }
+
+    void HandleDiceDragEnd(DiceDrag draggedDice)
+    {
+        if (sellZone != null)
+        {
+            sellZone.SetActive(false);
+        }
+    }
+
+    void HandleDiceDropped(DiceDrag draggedDice, GameObject dropZone)
+    {
+        if (dropZone.CompareTag("SellZone"))
+        {
+            DiceData diceData = draggedDice.GetDiceData();
+            if (diceData != null)
+            {
+                HandleDiceSell(diceData, dropZone);
+            }
         }
     }
 
@@ -416,6 +468,14 @@ public class ShopContoller : MonoBehaviour
 
         if (costObject != null && diceShopData != null)
             costObject.GetComponent<TMP_Text>().text = die.diceConfig != null ? diceShopData.cost.ToString() : "Cost: ?";
+
+
+        if (die.diceConfig.diceName == normalDiceConfig.diceName)
+        {
+            rarityObject.GetComponent<TMP_Text>().text = "Common";
+            costObject.GetComponent<TMP_Text>().text = "0";
+        }
+
     }
 
     public void HideDiceDescription()
@@ -444,32 +504,212 @@ public class ShopContoller : MonoBehaviour
     {
         for (int i = 0; i < DicePannel.transform.childCount; i++)
         {
-            DicePannel.transform.GetChild(0).GetComponent<Button>().onClick.RemoveAllListeners();
-            DicePannel.transform.GetChild(0).GetComponent<EventTrigger>().triggers.Clear();
-            DicePannel.transform.GetChild(0).SetParent(playerData.transform.GetChild(0));
+            Transform child = DicePannel.transform.GetChild(0);
+
+            Button btn = child.GetComponent<Button>();
+            if (btn != null) btn.onClick.RemoveAllListeners();
+
+            EventTrigger trigger = child.GetComponent<EventTrigger>();
+            if (trigger != null) trigger.triggers.Clear();
+
+            DiceDrag dragScript = child.GetComponent<DiceDrag>();
+            if (dragScript != null)
+            {
+                dragScript.OnDragStart -= HandleDiceDragStart;
+                dragScript.OnDragEnd -= HandleDiceDragEnd;
+                dragScript.OnDroppedOn -= HandleDiceDropped;
+            }
+
+            child.SetParent(playerData.transform.GetChild(0));
         }
     }
 
-    void SetupDraggableShopItem(GameObject item)
-    {
-        ShopItemDrag dragScript = item.AddComponent<ShopItemDrag>();
+    // ---------- Sell Dice ----------
 
-        dragScript.OnDroppedOn += HandleItemDropped;
+    public void HandleDiceSell(DiceData diceData, GameObject dropZone)
+    {
+        if (!dropZone.CompareTag("SellZone")) return;
+
+        if (diceData.diceConfig == null || diceData.diceConfig.diceName == "Normal Dice")
+        {
+            Debug.Log("Cannot sell a normal dice!");
+            return;
+        }
+
+        int sellPrice = GetSellPrice(diceData);
+
+        playerData.AddMoney(sellPrice);
+        Debug.Log($"Sold dice for {sellPrice} coins!");
+        
+        ConvertToNormalDice(diceData);
     }
 
-    void HandleItemDropped(ShopItemDrag draggedItem, GameObject dropZone)
+    public int GetSellPrice(DiceData diceData)
     {
-        if (dropZone.CompareTag("BuyZone"))
+        if (diceData.diceConfig == null) return 0;
+
+        List<ShopItemData> diceItems = GetItemsByType(ShopItemType.DiceType);
+        ShopItemData shopData = diceItems.Find(item => item.diceConfig == diceData.diceConfig);
+
+        if (shopData == null || diceData.diceConfig.name == normalDiceConfig.diceName) return 0;
+
+        return shopData.cost / 2;
+    }
+
+    public void ConvertToNormalDice(DiceData diceData)
+    {
+        if (normalDiceConfig == null)
         {
-            Debug.Log("Buying item!");
+            Debug.LogError("Normal Dice Config not assigned in ShopController!");
+            return;
         }
-        else if (dropZone.CompareTag("SellZone"))
+
+        diceData.diceConfig = normalDiceConfig;
+
+        Image diceImage = diceData.GetComponent<Image>();
+        if (diceImage != null && normalDiceConfig.diceSprite != null)
         {
-            Debug.Log("Selling item!");
+            diceImage.sprite = normalDiceConfig.diceSprite;
         }
-        else if (dropZone.CompareTag("SwapZone"))
+
+        if (normalDiceConfig.pipSprites != null && normalDiceConfig.pipSprites.Count >= 6)
         {
-            Debug.Log("Swapping!");
+            diceData.pipSprites = new List<GameObject>(normalDiceConfig.pipSprites);
         }
+
+        if (diceData.currentPip != null)
+        {
+            DestroyImmediate(diceData.currentPip);
+        }
+
+        diceData.ChangePipNow(diceData.currentFace);
+
+        Debug.Log("Dice converted to normal dice");
+    }
+
+    // ---------- Buy Dice ----------
+
+    void SetupDraggableShopItem(ShopItem shopItem)
+    {
+        shopItem.OnDragStart += HandleShopItemDragStart;
+        shopItem.OnDragEnd += HandleShopItemDragEnd;
+        shopItem.OnDroppedOn += HandleShopItemDropped;
+    }
+
+    void HandleShopItemDragStart(ShopItem shopItem)
+    {
+        if (shopItem.itemData != null && shopItem.itemData.itemType == ShopItemType.DiceType)
+        {
+            HighlightNormalDice(true);
+        }
+    }
+
+    void HandleShopItemDragEnd(ShopItem shopItem)
+    {
+        HighlightNormalDice(false);
+    }
+
+    void HandleShopItemDropped(ShopItem shopItem, GameObject dropTarget)
+    {
+        DiceData targetDice = dropTarget.GetComponent<DiceData>();
+        if (targetDice == null) return;
+
+        if (shopItem.itemData.itemType == ShopItemType.DiceType)
+        {
+            HandleDiceBuy(shopItem, targetDice);
+        }
+    }
+
+    void HighlightNormalDice(bool highlight)
+    {
+        foreach (DiceData dice in playerData.dice)
+        {
+            Image diceImage = dice.GetComponent<Image>();
+            if (diceImage != null)
+            {
+                if (highlight)
+                {
+                    if (dice.diceConfig == null || dice.diceConfig == normalDiceConfig)
+                    {
+                        diceImage.color = new Color(0.5f, 1f, 0.5f, 1f);
+                    }
+                }
+                else
+                {
+                    diceImage.color = Color.white;
+                }
+            }
+        }
+    }
+
+    public void HandleDiceBuy(ShopItem shopItem, DiceData targetDice)
+    {
+        ShopItemData itemData = shopItem.itemData;
+
+        if (targetDice.diceConfig != null && targetDice.diceConfig != normalDiceConfig)
+        {
+            Debug.Log("Can only place new dice on normal dice slots!");
+            return;
+        }
+
+        if (!playerData.CanAfford(itemData.cost))
+        {
+            Debug.Log($"Cannot afford! Need {itemData.cost}, have {playerData.money}");
+            return;
+        }
+
+        playerData.TrySpendMoney(itemData.cost);
+        Debug.Log($"Bought {itemData.diceConfig.diceName} for {itemData.cost} coins!");
+
+        ApplyDiceConfig(targetDice, itemData.diceConfig);
+
+        RefreshShopSlot(shopItem);
+    }
+
+    void ApplyDiceConfig(DiceData diceData, DiceConfig newConfig)
+    {
+        diceData.diceConfig = newConfig;
+
+        Image diceImage = diceData.GetComponent<Image>();
+        if (diceImage != null && newConfig.diceSprite != null)
+        {
+            diceImage.sprite = newConfig.diceSprite;
+        }
+
+        if (newConfig.pipSprites != null && newConfig.pipSprites.Count >= 6)
+        {
+            diceData.pipSprites = new List<GameObject>(newConfig.pipSprites);
+        }
+
+        if (newConfig.customPips != null && newConfig.customPips.Count > 0)
+        {
+            diceData.pips = new List<int>(newConfig.customPips);
+        }
+        else
+        {
+            diceData.pips = new List<int> { 1, 2, 3, 4, 5, 6 };
+        }
+
+        if (diceData.currentPip != null)
+        {
+            DestroyImmediate(diceData.currentPip);
+        }
+        diceData.ChangePipNow(diceData.currentFace);
+
+        Debug.Log($"Dice upgraded to {newConfig.diceName}");
+    }
+
+    void RefreshShopSlot(ShopItem shopItem)
+    {
+        shopItem.OnDragStart -= HandleShopItemDragStart;
+        shopItem.OnDragEnd -= HandleShopItemDragEnd;
+        shopItem.OnDroppedOn -= HandleShopItemDropped;
+
+        ShopItemData newData = GenerateDiceTypeShopItem();
+        shopItem.Init(newData);
+
+        shopItem.OnDragStart += HandleShopItemDragStart;
+        shopItem.OnDragEnd += HandleShopItemDragEnd;
+        shopItem.OnDroppedOn += HandleShopItemDropped;
     }
 }

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b102ea77a61d4d48ba984471d37322b, type: 3}
   m_Name: Dice
   m_EditorClassIdentifier: 
-  diceName: Nature Dice
-  description: Des
+  diceName: Normal Dice
+  description: It's a Normal Dice
   diceSprite: {fileID: -7044660306776900269, guid: 6d6b7a1361b873f45be5eec0743e1e39, type: 3}
   pipSprites:
   - {fileID: 1668003154139372888, guid: 167f0765f30041e4eaae37d1b5b9166e, type: 3}

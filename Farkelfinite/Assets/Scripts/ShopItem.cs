@@ -139,6 +139,12 @@ public class ShopItem : MonoBehaviour
             {
                 return result.gameObject;
             }
+
+            PipDropTarget pipTarget = result.gameObject.GetComponent<PipDropTarget>();
+            if (pipTarget != null)
+            {
+                return result.gameObject;
+            }
         }
 
         return null;

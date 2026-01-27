@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -57,6 +58,7 @@ public class ShopContoller : MonoBehaviour
         GenerateShopItems();
         SpawnPipBagDice();
         SpawnPipShopItems();
+        ShowDiceDescription(0);
     }
 
     public void FixedUpdate()
@@ -240,7 +242,10 @@ public class ShopContoller : MonoBehaviour
     {
         pipObject.transform.GetChild(0).gameObject.SetActive(true);
         pipObject.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = shopData.pipSprite;
-        pipObject.transform.GetComponent<ShopItem>().itemData = shopData;
+
+        ShopItem shopItem = pipObject.GetComponent<ShopItem>();
+        shopItem.itemData = shopData;
+        shopItem.item = ShopItemType.Pip;
 
         EventTrigger trigger = pipObject.GetComponent<EventTrigger>();
         if (trigger == null)
@@ -259,6 +264,8 @@ public class ShopContoller : MonoBehaviour
         entryExit.eventID = EventTriggerType.PointerExit;
         entryExit.callback.AddListener((data) => { HideDiceDescription(); });
         trigger.triggers.Add(entryExit);
+
+        SetupDraggableShopItem(shopItem);
     }
 
     private ShopItemData GeneratePipTypeShopItem()
@@ -306,6 +313,10 @@ public class ShopContoller : MonoBehaviour
             Button pipButton = pipDice.GetComponent<Button>();
             if (pipButton == null) pipButton = pipDice.AddComponent<Button>();
             //pipButton.onClick.AddListener(() => PipDiceClicked(pipIndex));
+
+            PipDropTarget dropTarget = pipDice.GetComponent<PipDropTarget>();
+            if (dropTarget == null) dropTarget = pipDice.AddComponent<PipDropTarget>();
+            dropTarget.faceIndex = i;
         }
         DisplayPipDice();
     }
@@ -319,6 +330,7 @@ public class ShopContoller : MonoBehaviour
     }
 
     /// ---------- dice bag description helper ----------
+    
     [Header("Helper Settings")]
     public GameObject nameObject;
     public GameObject descObject;
@@ -409,12 +421,16 @@ public class ShopContoller : MonoBehaviour
     }
 
     public GameObject highlightPanel;
+    public DiceData currentHighlightedDice;
 
     public void ShowDiceDescription(int diceIndex)
     {
         if (diceIndex < 0 || diceIndex >= playerData.dice.Count) return;
 
         DiceData die = playerData.dice[diceIndex];
+        currentHighlightedDice = die;
+
+        UpdatePipDropTargets(die);
 
         if (buysellButton.transform.GetChild(0).GetComponent<TMP_Text>().text == "Cancel")
         {
@@ -429,7 +445,7 @@ public class ShopContoller : MonoBehaviour
                         int pipValue = die.pips[i];
                         pipImage.sprite = die.pipSprites[pipValue - 1].GetComponent<Image>().sprite;
                     }
-                    
+
                 }
                 if (nameObject != null)
                     nameObject.GetComponent<TMP_Text>().text = die.diceConfig != null ? die.diceConfig.diceName : "Unknown Dice";
@@ -534,8 +550,9 @@ public class ShopContoller : MonoBehaviour
         int sellPrice = GetSellPrice(diceData);
 
         playerData.AddMoney(sellPrice);
+        ShowDiceDescription(diceData.ID);
         Debug.Log($"Sold dice for {sellPrice} coins!");
-        
+
         ConvertToNormalDice(diceData);
     }
 
@@ -597,22 +614,111 @@ public class ShopContoller : MonoBehaviour
         {
             HighlightNormalDice(true);
         }
+        else if (shopItem.itemData != null && shopItem.itemData.itemType == ShopItemType.Pip)
+        {
+            HighlightPipFaces(true, shopItem);
+        }
     }
 
     void HandleShopItemDragEnd(ShopItem shopItem)
     {
         HighlightNormalDice(false);
+        HighlightPipFaces(false, shopItem);
     }
 
     void HandleShopItemDropped(ShopItem shopItem, GameObject dropTarget)
     {
         DiceData targetDice = dropTarget.GetComponent<DiceData>();
-        if (targetDice == null) return;
-
-        if (shopItem.itemData.itemType == ShopItemType.DiceType)
+        if (targetDice != null)
         {
-            HandleDiceBuy(shopItem, targetDice);
+            if (shopItem.itemData.itemType == ShopItemType.DiceType)
+            {
+                HandleDiceBuy(shopItem, targetDice);
+            }
+            return;
         }
+
+        PipDropTarget pipTarget = dropTarget.GetComponent<PipDropTarget>();
+        if (pipTarget != null && shopItem.itemData.itemType == ShopItemType.Pip)
+        {
+            HandlePipBuy(shopItem, pipTarget);
+        }
+    }
+
+    void UpdatePipDropTargets(DiceData dice)
+    {
+        for (int i = 0; i < pipDiceItems.Count; i++)
+        {
+            PipDropTarget dropTarget = pipDiceItems[i].GetComponent<PipDropTarget>();
+            if (dropTarget != null)
+            {
+                dropTarget.associatedDice = dice;
+                dropTarget.faceIndex = i;
+            }
+        }
+    }
+
+    void HandlePipBuy(ShopItem shopItem, PipDropTarget pipTarget)
+    {
+        ShopItemData itemData = shopItem.itemData;
+        DiceData targetDice = pipTarget.associatedDice;
+
+        if (targetDice == null)
+        {
+            Debug.Log("No dice selected! Hover over a dice first.");
+            return;
+        }
+
+        if (!playerData.CanAfford(itemData.cost))
+        {
+            Debug.Log($"Cannot afford! Need {itemData.cost}, have {playerData.money}");
+            return;
+        }
+
+        int newPipValue = int.Parse(itemData.pipSprite.name.Substring(0, 1));
+        int faceIndex = pipTarget.faceIndex;
+
+        // Prevent buying the same pip value
+        if (targetDice.pips[faceIndex] == newPipValue)
+        {
+            Debug.Log($"They have the same face value. So can't be replaced.");
+            return;
+        }
+
+        playerData.TrySpendMoney(itemData.cost);
+        Debug.Log($"Bought pip {newPipValue} for face {faceIndex} for {itemData.cost} coins!");
+
+        targetDice.pips[faceIndex] = newPipValue;
+
+        UpdatePipDisplay(targetDice, faceIndex, newPipValue);
+
+        RefreshPipShopSlot(shopItem);
+    }
+
+    void UpdatePipDisplay(DiceData dice, int faceIndex, int newPipValue)
+    {
+        if (faceIndex < pipDiceItems.Count)
+        {
+            Image pipImage = pipDiceItems[faceIndex].transform.GetChild(0).GetComponent<Image>();
+            if (dice.pipSprites != null && newPipValue > 0 && newPipValue <= dice.pipSprites.Count)
+            {
+                pipImage.sprite = dice.pipSprites[newPipValue - 1].GetComponent<Image>().sprite;
+            }
+            else if (dice.diceConfig != null && dice.diceConfig.pipSprites != null &&
+                     newPipValue > 0 && newPipValue <= dice.diceConfig.pipSprites.Count)
+            {
+                pipImage.sprite = dice.diceConfig.pipSprites[newPipValue - 1].GetComponent<Image>().sprite;
+            }
+        }
+    }
+
+    void RefreshPipShopSlot(ShopItem shopItem)
+    {
+        ShopItemData newData = GeneratePipTypeShopItem();
+        GameObject pipObject = shopItem.gameObject;
+
+        pipObject.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = newData.pipSprite;
+        shopItem.itemData = newData;
     }
 
     void HighlightNormalDice(bool highlight)
@@ -632,6 +738,40 @@ public class ShopContoller : MonoBehaviour
                 else
                 {
                     diceImage.color = Color.white;
+                }
+            }
+        }
+    }
+
+    void HighlightPipFaces(bool highlight, ShopItem shopItem)
+    {
+        foreach (GameObject pipDice in pipDiceItems)
+        {
+            if (!pipDice.activeSelf) continue;
+
+            Image pipImage = pipDice.GetComponent<Image>();
+
+            if (highlight)
+            {
+                if (shopItem.itemData == null) continue;
+                DiceData associatedDice = pipDice.GetComponent<PipDropTarget>().associatedDice;
+                int faceIndex = pipDice.GetComponent<PipDropTarget>().faceIndex;
+                int newPipValue = int.Parse(shopItem.itemData.pipSprite.name.Substring(0, 1));
+                if (associatedDice != null && associatedDice.pips[faceIndex] == newPipValue)
+                {
+                    continue;
+                }
+            }
+
+            if (pipImage != null)
+            {
+                if (highlight)
+                {
+                    pipImage.color = new Color(0.5f, 1f, 0.5f, 1f);
+                }
+                else
+                {
+                    pipImage.color = Color.white;
                 }
             }
         }

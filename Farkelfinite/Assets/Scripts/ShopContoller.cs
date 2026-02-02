@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
@@ -44,6 +45,10 @@ public class ShopContoller : MonoBehaviour
     public DiceConfig normalDiceConfig;
     public GameObject sellZone;
 
+    [Header("Reroll Settings")]
+    public int rerollCost = 3;
+    public int rerollCostIncriment = 2;
+
     public void Start()
     {
         canvas = GetComponentInParent<Canvas>();
@@ -59,6 +64,8 @@ public class ShopContoller : MonoBehaviour
         SpawnPipBagDice();
         SpawnPipShopItems();
         ShowDiceDescription(0);
+        RerollButton.GetComponent<Button>().onClick.AddListener(() => RerollShop());
+        NextRoundButton.GetComponent<Button>().onClick.AddListener(() => NextRound());
     }
 
     public void FixedUpdate()
@@ -847,4 +854,106 @@ public class ShopContoller : MonoBehaviour
         shopItem.OnDragEnd += HandleShopItemDragEnd;
         shopItem.OnDroppedOn += HandleShopItemDropped;
     }
+
+    public void RerollShop()
+    {
+        if (!playerData.CanAfford(rerollCost))
+        {
+            return;
+        }
+
+        playerData.TrySpendMoney(rerollCost);
+
+        RefreshAllShopSlots();
+        rerollCost += rerollCostIncriment;
+    }
+
+    void RefreshAllShopSlots()
+    {
+        if (DiceTypePosition1 != null)
+        {
+            ShopItem shopItem = DiceTypePosition1.GetComponent<ShopItem>();
+            shopItem.OnDragStart -= HandleShopItemDragStart;
+            shopItem.OnDragEnd -= HandleShopItemDragEnd;
+            shopItem.OnDroppedOn -= HandleShopItemDropped;
+
+            ShopItemData newData = GenerateDiceTypeShopItem();
+            shopItem.Init(newData);
+
+            shopItem.OnDragStart += HandleShopItemDragStart;
+            shopItem.OnDragEnd += HandleShopItemDragEnd;
+            shopItem.OnDroppedOn += HandleShopItemDropped;
+        }
+
+        if (DiceTypePosition2 != null)
+        {
+            ShopItem shopItem = DiceTypePosition2.GetComponent<ShopItem>();
+            shopItem.OnDragStart -= HandleShopItemDragStart;
+            shopItem.OnDragEnd -= HandleShopItemDragEnd;
+            shopItem.OnDroppedOn -= HandleShopItemDropped;
+
+            ShopItemData newData = GenerateDiceTypeShopItem();
+            shopItem.Init(newData);
+
+            shopItem.OnDragStart += HandleShopItemDragStart;
+            shopItem.OnDragEnd += HandleShopItemDragEnd;
+            shopItem.OnDroppedOn += HandleShopItemDropped;
+        }
+
+        if (DiceTypePosition3 != null)
+        {
+            ShopItem shopItem = DiceTypePosition3.GetComponent<ShopItem>();
+            shopItem.OnDragStart -= HandleShopItemDragStart;
+            shopItem.OnDragEnd -= HandleShopItemDragEnd;
+            shopItem.OnDroppedOn -= HandleShopItemDropped;
+
+            ShopItemData newData = GenerateDiceTypeShopItem();
+            shopItem.Init(newData);
+
+            shopItem.OnDragStart += HandleShopItemDragStart;
+            shopItem.OnDragEnd += HandleShopItemDragEnd;
+            shopItem.OnDroppedOn += HandleShopItemDropped;
+        }
+
+        if (PipTypePosition1 != null)
+        {
+            RefreshPipShopSlot(PipTypePosition1.GetComponent<ShopItem>());
+        }
+        if (PipTypePosition2 != null)
+        {
+            RefreshPipShopSlot(PipTypePosition2.GetComponent<ShopItem>());
+        }
+        if (PipTypePosition3 != null)
+        {
+            RefreshPipShopSlot(PipTypePosition3.GetComponent<ShopItem>());
+        }
+    }
+
+    public void NextRound()
+    {
+        MapGenerator mapController = FindFirstObjectByType<MapGenerator>();
+
+        Canvas playerCanvas = PlayerData.Instance.transform.GetChild(0).GetComponent<Canvas>();
+
+        foreach (DiceData dice in PlayerData.Instance.dice)
+        {
+            if (dice != null && dice.gameObject != null)
+            {
+                dice.transform.SetParent(playerCanvas.transform, false);
+                dice.gameObject.SetActive(false);
+            }
+        }
+
+        for (int i = 0; i < mapController.transform.childCount; i++)
+        {
+            mapController.transform.GetChild(i).gameObject.SetActive(true);
+        }
+
+        UnityEngine.SceneManagement.SceneManager.SetActiveScene(
+            UnityEngine.SceneManagement.SceneManager.GetSceneByName("Map")
+        );
+
+        UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync("ShopScene");
+    }
+
 }

@@ -535,6 +535,8 @@ public class MapGenerator : MonoBehaviour
         stage += 1;
         Level = 0;
     }
+
+
 }
 
 public enum NodeType

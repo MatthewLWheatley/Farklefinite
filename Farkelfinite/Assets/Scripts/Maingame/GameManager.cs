@@ -12,10 +12,11 @@ public class GameManager : MonoBehaviour
     public List<GameObject> diceObjects = new List<GameObject>();
     public List<DiceData> diceDataList = new List<DiceData>();
 
-   [Header("Dice Randomization")]
+    [Header("Dice Randomization")]
     [SerializeField] private List<DiceConfig> diceConfigPool = new List<DiceConfig>();
     [SerializeField] private bool randomizeOnStart = true;
 
+    public TMP_Text GoalScoreText;
     public TMP_Text RunningScoreText;
     public TMP_Text TotalScoreText;
     public TMP_Text LivesText;
@@ -61,6 +62,12 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        MapGenerator mapController = FindFirstObjectByType<MapGenerator>();
+        if (mapController != null && GoalScoreText != null)
+        {
+            int goalScore = PlayerData.Instance.getNextLevelScoreThreshold(mapController.Level);
+            GoalScoreText.text = $"Goal: {goalScore}";
+        }
 
         diceDataList = PlayerData.Instance.dice;
         diceObjects = new List<GameObject>();
@@ -631,6 +638,8 @@ public class GameManager : MonoBehaviour
         ResetAllDice();
         UpdateScoreUI();
 
+        CheckForWin();
+
         if (!isHotDice)
         {
             lives -= 1;
@@ -857,6 +866,13 @@ public class GameManager : MonoBehaviour
             TotalScoreText.text = "Total: " + totalScore;
         if (LivesText != null)
             LivesText.text = "Lives: " + lives;
+
+        MapGenerator mapController = FindFirstObjectByType<MapGenerator>();
+        if (mapController != null && GoalScoreText != null)
+        {
+            int goalScore = PlayerData.Instance.getNextLevelScoreThreshold(mapController.Level);
+            GoalScoreText.text = $"Goal: {goalScore}";
+        }
     }
 
     public void Bust()
@@ -876,8 +892,14 @@ public class GameManager : MonoBehaviour
 
         if (lives <= 0)
         {
+            yield return new WaitForSeconds(1f);
             Game.SetActive(false);
             Dead.SetActive(true);
+
+            foreach (var dice in diceDataList)
+            {
+                dice.gameObject.SetActive(false);
+            }
         }
     }
 
@@ -932,7 +954,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
     public void updateCanvases()
     {
         List<Canvas> canvases = FindObjectsByType<Canvas>(FindObjectsSortMode.None).ToList();
@@ -953,4 +974,82 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void CheckForWin()
+    {
+        MapGenerator mapController = FindFirstObjectByType<MapGenerator>();
+        if (mapController == null) return;
+
+        int targetScore = PlayerData.Instance.getNextLevelScoreThreshold(mapController.Level);
+
+        if (totalScore >= targetScore)
+        {
+            Debug.Log($"YOU WIN THIS ROUND I GUESS. needed {targetScore}, got {totalScore}");
+            StartCoroutine(WinRound());
+        }
+    }
+
+    private IEnumerator WinRound()
+    {
+        yield return new WaitForSeconds(1f);
+
+        if (totalScore > PlayerData.Instance.bestScore)
+        {
+            PlayerData.Instance.bestScore = totalScore;
+        }
+
+        int moneyEarned = 50;
+        PlayerData.Instance.AddMoney(moneyEarned);
+
+        Game.SetActive(false);
+        Win.SetActive(true);
+    }
+
+    public GameObject Win;
+    public GameObject Lose;
+
+    public void ContinueToMap()
+    {
+        foreach (var dice in diceDataList)
+        {
+            dice.gameObject.SetActive(false);
+        }
+
+        Game.SetActive(true);
+        Win.SetActive(false);
+        totalScore = 0;
+        setAsideScore = 0;
+        selectedScore = 0;
+
+        MapGenerator mapController = FindFirstObjectByType<MapGenerator>();
+        if (mapController != null)
+        {
+            for (int i = 0; i < mapController.transform.childCount; i++)
+            {
+                mapController.transform.GetChild(i).gameObject.SetActive(true);
+            }
+
+            UnityEngine.SceneManagement.SceneManager.SetActiveScene(
+                UnityEngine.SceneManagement.SceneManager.GetSceneByName("Map")
+            );
+        }
+
+        UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync("FightScene");
+    }
+
+    public void ReturnToMainMenu()
+    {
+        if (PlayerData.Instance != null)
+        {
+            Destroy(PlayerData.Instance.gameObject);
+        }
+
+        if (Setting.Instance != null)
+        {
+            Destroy(Setting.Instance.gameObject);
+        }
+
+        Time.timeScale = 1f;
+
+        UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
+    }
 }

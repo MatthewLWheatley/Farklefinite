@@ -1,10 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using static UnityEngine.Rendering.DebugUI.Table;
 
 public class MapGenerator : MonoBehaviour
 {
@@ -24,7 +22,7 @@ public class MapGenerator : MonoBehaviour
 
     public int stage = 1;
     public int Level = 0;
-     
+
 
     [Header("Prefabs")]
     public GameObject nodePrefab;
@@ -43,6 +41,12 @@ public class MapGenerator : MonoBehaviour
     {
         GenerateMap();
         DontDestroyOnLoad(player);
+    }
+
+    private void Awake()
+    {
+        PlayerData.Instance.BossLevel = false;
+        PlayerData.Instance.EliteLevel = false;
     }
 
     [ContextMenu("Debug Test")]
@@ -490,14 +494,18 @@ public class MapGenerator : MonoBehaviour
                 setUpShop();
                 break;
             case NodeType.Money:
+                SceneManager.LoadScene("Money", LoadSceneMode.Additive);
                 break;
             case NodeType.Enemy:
                 SceneManager.LoadSceneAsync("FightScene", LoadSceneMode.Additive);
-                
                 break;
             case NodeType.EliteEnemy:
+                SceneManager.LoadSceneAsync("FightScene", LoadSceneMode.Additive);
+                PlayerData.Instance.EliteLevel = true;
                 break;
-            case NodeType.Boss: 
+            case NodeType.Boss:
+                SceneManager.LoadSceneAsync("FightScene", LoadSceneMode.Additive);
+                PlayerData.Instance.BossLevel = true;
                 break;
         }
         for (int x = 0; x < this.transform.childCount; x++) this.transform.GetChild(x).gameObject.SetActive(false);

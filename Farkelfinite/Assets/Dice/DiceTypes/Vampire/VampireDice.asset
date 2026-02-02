@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: VampireDice
   m_EditorClassIdentifier: 
   diceName: Vampire
-  description: 'Bank any score? Lose 50% of it from your total but gain 1.5x on running.
-    Steal from yourself.
+  description: 'Bank any score? Gain 50% of Goal score. Set lives to 1. Steal from
+    yourself.
 
 '
   diceSprite: {fileID: 6143228753421320664, guid: 95b6d3d792d3481488e6de7dd9d50545, type: 3}
@@ -33,23 +33,23 @@ MonoBehaviour:
     trigger: 1
     abilityAnimation: {fileID: 11400000, guid: 185d718c6f8bf40438cc15bc03a3583d, type: 2}
     conditions:
-    - leftVariable: 8
+    - leftVariable: 10
       leftVariableValue: 0
-      comparator: 4
+      comparator: 1
       rightVariable: 0
       rightVariableValue: 0
       useRightVariable: 0
     effects:
     - effectType: 0
       targetVariable: 8
-      sourceVariable: 10
+      sourceVariable: 9
       sourceValue: 0.5
       useSourceVariable: 1
       retriggerCount: 0
-    - effectType: 1
-      targetVariable: 10
-      sourceVariable: 8
-      sourceValue: 0.5
-      useSourceVariable: 1
+    - effectType: 4
+      targetVariable: 11
+      sourceVariable: 22
+      sourceValue: 0
+      useSourceVariable: 0
       retriggerCount: 0
     heldVariable: 0

@@ -60,9 +60,11 @@ public class GameManager : MonoBehaviour
     public bool descEnabled = false;
     public int diceDescId = -1;
 
+    public MapGenerator mapController;
+
     void Start()
     {
-        MapGenerator mapController = FindFirstObjectByType<MapGenerator>();
+        mapController = FindFirstObjectByType<MapGenerator>();
         if (mapController != null && GoalScoreText != null)
         {
             int goalScore = PlayerData.Instance.getNextLevelScoreThreshold(mapController.Level);
@@ -638,7 +640,10 @@ public class GameManager : MonoBehaviour
         ResetAllDice();
         UpdateScoreUI();
 
-        CheckForWin();
+        if (CheckForWin()) 
+        {
+            yield break;
+        }
 
         if (!isHotDice)
         {
@@ -648,6 +653,10 @@ public class GameManager : MonoBehaviour
             if (lives <= 0)
             {
                 Game.SetActive(false);
+                foreach (DiceData die in diceDataList)
+                {
+                    die.gameObject.SetActive(false);
+                }
                 Dead.SetActive(true);
                 yield break;
             }
@@ -894,6 +903,10 @@ public class GameManager : MonoBehaviour
         {
             yield return new WaitForSeconds(1f);
             Game.SetActive(false);
+            foreach (DiceData die in diceDataList)
+            {
+                die.gameObject.SetActive(false);
+            }
             Dead.SetActive(true);
 
             foreach (var dice in diceDataList)
@@ -956,17 +969,17 @@ public class GameManager : MonoBehaviour
 
     public void updateCanvases()
     {
-        List<Canvas> canvases = FindObjectsByType<Canvas>(FindObjectsSortMode.None).ToList();
+        List<Canvas> canvases = FindObjectsByType<Canvas>(FindObjectsInactive.Include, FindObjectsSortMode.None).ToList();
         foreach (var can in canvases)
         {
             can.worldCamera = Camera.main;
         }
-        List<CanvasScaler> scalers = FindObjectsByType<CanvasScaler>(FindObjectsSortMode.None).ToList();
+        List<CanvasScaler> scalers = FindObjectsByType<CanvasScaler>(FindObjectsInactive.Include, FindObjectsSortMode.None).ToList();
         foreach (var scaler in scalers)
         {
             scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
         }
-        List<Camera> cameras = FindObjectsByType<Camera>(FindObjectsSortMode.None).ToList();
+        List<Camera> cameras = FindObjectsByType<Camera>(FindObjectsInactive.Include, FindObjectsSortMode.None).ToList();
         foreach (var cam in cameras)
         {
             if (cam == Camera.main) continue;
@@ -974,18 +987,21 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void CheckForWin()
+    bool CheckForWin()
     {
         MapGenerator mapController = FindFirstObjectByType<MapGenerator>();
-        if (mapController == null) return;
+        if (mapController == null) return false;
 
         int targetScore = PlayerData.Instance.getNextLevelScoreThreshold(mapController.Level);
 
         if (totalScore >= targetScore)
         {
+            
             Debug.Log($"YOU WIN THIS ROUND I GUESS. needed {targetScore}, got {totalScore}");
             StartCoroutine(WinRound());
+            return true;
         }
+        return false;
     }
 
     private IEnumerator WinRound()
@@ -996,11 +1012,14 @@ public class GameManager : MonoBehaviour
         {
             PlayerData.Instance.bestScore = totalScore;
         }
-
-        int moneyEarned = 50;
-        PlayerData.Instance.AddMoney(moneyEarned);
+        int extramoney = (totalScore / PlayerData.Instance.getNextLevelScoreThreshold(mapController.Level - 1));
+        PlayerData.Instance.money += (lives*2 + extramoney);
 
         Game.SetActive(false);
+        foreach (DiceData die in diceDataList) 
+        {
+            die.gameObject.SetActive(false);
+        }
         Win.SetActive(true);
     }
 

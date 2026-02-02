@@ -23,6 +23,9 @@ public class PlayerData : MonoBehaviour
     public int currentRound = 1;
     public int bestScore = 0;
 
+    public bool EliteLevel = false;
+    public bool BossLevel = false;
+
     public static PlayerData Instance { get { return _instance; } }
 
     public void SetMoney(int amount)
@@ -56,7 +59,16 @@ public class PlayerData : MonoBehaviour
 
     public int getNextLevelScoreThreshold(int level)
     {
-        return level * 500 + (level - 1) * 250;
+        int mod = 1;
+        if (BossLevel)
+        {
+            mod += 2;
+        }
+        if (EliteLevel)
+        {
+            mod += 1;
+        }
+        return level * 500 + (level - 1) * (250 * mod);
     }
 
     private void Awake()

@@ -492,7 +492,8 @@ public class MapGenerator : MonoBehaviour
             case NodeType.Money:
                 break;
             case NodeType.Enemy:
-                SceneManager.LoadScene("FightScene", LoadSceneMode.Additive);
+                SceneManager.LoadSceneAsync("FightScene", LoadSceneMode.Additive);
+                
                 break;
             case NodeType.EliteEnemy:
                 break;
@@ -501,6 +502,7 @@ public class MapGenerator : MonoBehaviour
         }
         for (int x = 0; x < this.transform.childCount; x++) this.transform.GetChild(x).gameObject.SetActive(false);
         updateCanvases();
+        SceneManager.SetActiveScene(SceneManager.GetSceneAt(1));
     }
 
     public void setUpShop() 
@@ -519,6 +521,12 @@ public class MapGenerator : MonoBehaviour
         foreach (var scaler in scalers)
         {
             scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+        }
+        List<Camera> cameras = FindObjectsByType<Camera>(FindObjectsSortMode.None).ToList();
+        foreach (var cam in cameras) 
+        {
+            if (cam == Camera.main) continue;
+            cam.gameObject.SetActive(false);
         }
     }
 

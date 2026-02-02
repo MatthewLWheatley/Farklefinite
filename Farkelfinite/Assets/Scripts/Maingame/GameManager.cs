@@ -35,7 +35,6 @@ public class GameManager : MonoBehaviour
     public int setAsideScore = 0;
     public int totalScore = 0;
 
-    private bool isRolling = false;
     private List<bool> diceMoving = new List<bool>();
 
     [SerializeField] private float moveDuration = 0.3f;
@@ -62,17 +61,17 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+
         diceDataList = PlayerData.Instance.dice;
         diceObjects = new List<GameObject>();
         float startX = activeDiceCenter.x - (6 - 1) * activeDiceSpacing / 2f;
-        List<Canvas> can = FindObjectsByType<Canvas>(FindObjectsSortMode.None).ToList();
-        foreach (var c in can)
-        {
-            c.worldCamera = Camera.main;
-        }
+
+        updateCanvases();
+
         foreach (var die in diceDataList)
         {
             diceObjects.Add(die.gameObject);
+            die.gameObject.SetActive(true);
         }
 
 
@@ -92,6 +91,7 @@ public class GameManager : MonoBehaviour
             {
                 trigger = diceObjects[i].AddComponent<EventTrigger>();
             }
+            trigger.triggers.Clear();
 
             EventTrigger.Entry entryEnter = new EventTrigger.Entry();
             entryEnter.eventID = EventTriggerType.PointerEnter;
@@ -198,7 +198,7 @@ public class GameManager : MonoBehaviour
 
     public void DiceClicked(int diceIndex)
     {
-        if (isRolling) return;
+        if (diceDataList[diceIndex].rolling) return;
 
         DiceData hitData = diceDataList[diceIndex];
 
@@ -241,14 +241,13 @@ public class GameManager : MonoBehaviour
 
     public void ToggleSelectedDice(int DiceID)
     {
-        if (isRolling || diceMoving[DiceID] || setAsideDice[DiceID]) return;
+        if (diceDataList[DiceID].rolling || diceMoving[DiceID] || setAsideDice[DiceID]) return;
         selectedDice[DiceID] = !selectedDice[DiceID];
     }
 
     [ContextMenu("Debug Test")]
     void debugtest()
     {
-        if (isRolling) return;
 
         for (int i = 0; i < selectedDice.Count; i++)
         {
@@ -260,7 +259,6 @@ public class GameManager : MonoBehaviour
 
     public void StartNewTurn()
     {
-        if (isRolling) return;
         StartCoroutine(StartNewTurnAsync());
     }
 
@@ -275,10 +273,10 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator DebugRollCoroutine()
     {
-        isRolling = true;
 
         for (int i = 0; i < diceDataList.Count; i++)
         {
+            diceDataList[i].rolling = true;
             if (!setAsideDice[i])
             {
                 diceObjects[i].transform.position = new Vector3(diceObjects[i].transform.position.x, 0, 0);
@@ -297,20 +295,21 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
 
-        isRolling = false;
+        for (int i = 0; i < diceDataList.Count; i++)
+        {
+            diceDataList[i].rolling = false;
+        }
+
         CalculateScore(selectedDice);
     }
 
     public void RollDice(bool guaranteeValid = false)
     {
-        if (isRolling) return;
         StartCoroutine(RollSpecificDice(guaranteeValid));
     }
 
     private IEnumerator RollSpecificDice(bool guaranteeValid = false)
     {
-        isRolling = true;
-
         bool validRoll = false;
         int attempts = 0;
         int maxAttempts = guaranteeValid ? 1000 : 1;
@@ -354,8 +353,6 @@ public class GameManager : MonoBehaviour
 
         yield return StartCoroutine(abilityProcessor.ProcessAbilitiesAsync(TriggerType.OnRoll));
 
-        isRolling = false;
-
         if (!HasValidScore())
         {
             Debug.Log("FARKLE INCOMING...");
@@ -373,7 +370,7 @@ public class GameManager : MonoBehaviour
 
     public void SetAside()
     {
-        if (isRolling) return;
+        bool isRolling = diceDataList.Any(d => d.rolling);
 
         RemoveNonScoringDice();
 
@@ -594,7 +591,7 @@ public class GameManager : MonoBehaviour
 
     public void BankScore()
     {
-        if (isRolling) return;
+        bool isRolling = diceDataList.Any(d => d.rolling);
 
         RemoveNonScoringDice();
 
@@ -934,4 +931,26 @@ public class GameManager : MonoBehaviour
             Time.timeScale = 1f;
         }
     }
+
+
+    public void updateCanvases()
+    {
+        List<Canvas> canvases = FindObjectsByType<Canvas>(FindObjectsSortMode.None).ToList();
+        foreach (var can in canvases)
+        {
+            can.worldCamera = Camera.main;
+        }
+        List<CanvasScaler> scalers = FindObjectsByType<CanvasScaler>(FindObjectsSortMode.None).ToList();
+        foreach (var scaler in scalers)
+        {
+            scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+        }
+        List<Camera> cameras = FindObjectsByType<Camera>(FindObjectsSortMode.None).ToList();
+        foreach (var cam in cameras)
+        {
+            if (cam == Camera.main) continue;
+            cam.gameObject.SetActive(false);
+        }
+    }
+
 }

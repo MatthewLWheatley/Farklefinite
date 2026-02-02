@@ -7,6 +7,7 @@ TagManager:
   - SettingsMenu
   - SellZone
   - PipZone
+  - map
   layers:
   - Default
   - TransparentFX

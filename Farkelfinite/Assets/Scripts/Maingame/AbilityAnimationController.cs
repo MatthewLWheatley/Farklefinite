@@ -74,7 +74,7 @@ public class AbilityAnimationController : MonoBehaviour
 
         if (anim.popupTextPrefab != null || defaultPopupPrefab != null)
         {
-            popupCoroutine = StartCoroutine(ShowPopup(anim, sourceObject.transform.position));
+            popupCoroutine = StartCoroutine(ShowPopup(anim, sourceObject));
         }
 
         if (anim.soundEffect != null && audioSource != null)
@@ -123,7 +123,7 @@ public class AbilityAnimationController : MonoBehaviour
         mainCamera.transform.position = originalCameraPos;
     }
 
-    private IEnumerator ShowPopup(AbilityAnimation anim, Vector3 worldPosition)
+    private IEnumerator ShowPopup(AbilityAnimation anim, GameObject Dice)
     {
         GameObject popupPrefab = anim.popupTextPrefab != null ? anim.popupTextPrefab : defaultPopupPrefab;
         if (popupPrefab == null || uiCanvas == null) yield break;
@@ -133,12 +133,13 @@ public class AbilityAnimationController : MonoBehaviour
 
         if (rectTransform != null)
         {
-            Vector3 screenPos = mainCamera.WorldToScreenPoint(worldPosition);
-
-            screenPos.x += rectTransform.sizeDelta.x / 2;
-
-            rectTransform.anchoredPosition = screenPos; 
-            Debug.Log($"World: {worldPosition}, Screen: {screenPos}");
+            
+            Vector3 pos = Camera.main.ScreenToWorldPoint(Dice.GetComponent<RectTransform>().position);
+            pos.y += 1f;
+            Camera.main.WorldToScreenPoint(pos);
+            pos.z = 0;
+            popup.transform.position = pos;
+            Debug.Log("Popup position set to: " + pos);
         }
 
         TMP_Text text = popup.GetComponentInChildren<TMP_Text>();

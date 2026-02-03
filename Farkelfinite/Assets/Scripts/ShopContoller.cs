@@ -86,7 +86,8 @@ public class ShopContoller : MonoBehaviour
         levelTextObject.GetComponent<TMP_Text>().text = $"Level: {playerData.currentLevel}";
         stageTextObject.GetComponent<TMP_Text>().text = $"Stage: {playerData.currentRound}";
         livesTextObject.GetComponent<TMP_Text>().text = $"Lives: {playerData.lives}";
-        totalScoreTextObject.GetComponent<TMP_Text>().text = $"Next Level: {playerData.getNextLevelScoreThreshold(playerData.currentLevel + 1)}";
+        MapGenerator mapGen = FindFirstObjectByType<MapGenerator>();
+        totalScoreTextObject.GetComponent<TMP_Text>().text = $"Next Level: {playerData.getNextLevelScoreThreshold(mapGen.Level, mapGen.stage)}";
         runningScoreTextObject.GetComponent<TMP_Text>().text = $"";
         BankedScoreTextObject.GetComponent<TMP_Text>().text = $"Best Score: {playerData.bestScore}";
     }
@@ -680,7 +681,7 @@ public class ShopContoller : MonoBehaviour
             Debug.Log("No dice selected! Hover over a dice first.");
             return;
         }
-        int pipcost = itemData.cost * 2;
+        int pipcost = itemData.cost;
         if (!playerData.CanAfford(pipcost))
         {
             Debug.Log($"Cannot afford! Need {pipcost}, have {playerData.money}");
@@ -942,7 +943,7 @@ public class ShopContoller : MonoBehaviour
                 dice.gameObject.SetActive(false);
                 dice.GetComponent<DiceDrag>().enabled = false;
 
-                dice.gameObject.transform.GetChild(0).gameObject.SetActive(true);
+                if (dice.gameObject.transform.childCount > 0)dice.gameObject.transform.GetChild(0).gameObject.SetActive(true);
             }
         }
 

@@ -57,8 +57,11 @@ public class PlayerData : MonoBehaviour
         return false;
     }
 
-    public int getNextLevelScoreThreshold(int level)
+    public int getNextLevelScoreThreshold(int level, int stage)
     {
+        int sofarlevels = 0;
+        if (stage > 1) sofarlevels = 5 + (stage - 1)*2;
+
         int mod = 1;
         if (BossLevel)
         {
@@ -68,7 +71,11 @@ public class PlayerData : MonoBehaviour
         {
             mod += 1;
         }
-        return level * 100 + (level - 1) * (100 * mod);
+        // 1 * 100 + (1) * 100 * mod = 100 + 100 * mod
+        // 5 * 100 + (5) * 100 * mod = 500 + 500 * mod
+        // 5 * 100 + (5) * 100 * 3 = 500 + 1500 = 2000
+
+        return (level + sofarlevels) * 100 + (sofarlevels + level) * (100 * mod);
     }
 
     private void Awake()

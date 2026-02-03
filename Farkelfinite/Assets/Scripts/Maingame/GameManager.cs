@@ -68,7 +68,7 @@ public class GameManager : MonoBehaviour
         mapController = FindFirstObjectByType<MapGenerator>();
         if (mapController != null && GoalScoreText != null)
         {
-            int goalScore = PlayerData.Instance.getNextLevelScoreThreshold(mapController.Level);
+            int goalScore = PlayerData.Instance.getNextLevelScoreThreshold(mapController.Level, mapController.stage);
             GoalScoreText.text = $"Goal: {goalScore}";
         }
 
@@ -185,10 +185,10 @@ public class GameManager : MonoBehaviour
         DiceData die = diceDataList[diceIndex];
 
         if (nameObject != null)
-            nameObject.GetComponent<TMP_Text>().text = die.diceConfig != null ? die.diceConfig.diceName : "Unknown Dice";
+            nameObject.GetComponent<TMP_Text>().text = die.diceConfig != null ? die.diceConfig.diceName : "Normal Dice";
 
         if (descObject != null)
-            descObject.GetComponent<TMP_Text>().text = die.diceConfig != null ? die.diceConfig.description : "No description";
+            descObject.GetComponent<TMP_Text>().text = die.diceConfig != null ? die.diceConfig.description : "Normal Dice, does nothing special";
     }
 
     public void HideDiceDescription()
@@ -882,7 +882,7 @@ public class GameManager : MonoBehaviour
         MapGenerator mapController = FindFirstObjectByType<MapGenerator>();
         if (mapController != null && GoalScoreText != null)
         {
-            int goalScore = PlayerData.Instance.getNextLevelScoreThreshold(mapController.Level);
+            int goalScore = PlayerData.Instance.getNextLevelScoreThreshold(mapController.Level, mapController.stage);
             GoalScoreText.text = $"Goal: {goalScore}";
         }
     }
@@ -995,7 +995,7 @@ public class GameManager : MonoBehaviour
         MapGenerator mapController = FindFirstObjectByType<MapGenerator>();
         if (mapController == null) return false;
 
-        int targetScore = PlayerData.Instance.getNextLevelScoreThreshold(mapController.Level);
+        int targetScore = PlayerData.Instance.getNextLevelScoreThreshold(mapController.Level, mapController.stage);
 
         if (totalScore >= targetScore)
         {
@@ -1015,14 +1015,23 @@ public class GameManager : MonoBehaviour
         {
             PlayerData.Instance.bestScore = totalScore;
         }
-        int goalscore = PlayerData.Instance.getNextLevelScoreThreshold(mapController.Level);
+        int goalscore = PlayerData.Instance.getNextLevelScoreThreshold(mapController.Level, mapController.stage);
         int total = totalScore;
 
         float extramoney = total / (float)goalscore;
         extramoney = Mathf.Floor(extramoney);
         int intMoney = (int)extramoney;
         int Money = Mathf.Min(intMoney, 5);
-        PlayerData.Instance.money += (lives*2 + intMoney);
+        int mod = 1;
+        if (PlayerData.Instance.BossLevel)
+        {
+            mod += 2;
+        }
+        if (PlayerData.Instance.EliteLevel)
+        {
+            mod += 1;
+        }
+        PlayerData.Instance.AddMoney(lives + Money * mod);
 
         Game.SetActive(false);
         foreach (DiceData die in diceDataList) 

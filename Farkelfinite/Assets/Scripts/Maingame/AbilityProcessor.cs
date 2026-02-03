@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class AbilityProcessor
@@ -232,7 +233,7 @@ public class AbilityProcessor
                 return gameManager.setAsideScore;
 
             case VariableType.BankScore:
-                return PlayerData.Instance.getNextLevelScoreThreshold(gameManager.mapController.Level);
+                return PlayerData.Instance.getNextLevelScoreThreshold(gameManager.mapController.Level, gameManager.mapController.stage);
 
             case VariableType.TotalScore:
                 return gameManager.totalScore;

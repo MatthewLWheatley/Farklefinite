@@ -1,4 +1,6 @@
-using TMPro;using UnityEngine;
+using TMPro;
+using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -67,6 +69,21 @@ public class Setting : MonoBehaviour
         screenShakeSlider.GetComponent<Slider>().value = _screenShake;
         screenShakeSlider.GetComponent<Slider>().onValueChanged.AddListener((value) => AnimationSpeedChange());
         PlayerPrefs.Save();
+    }
+
+    private float lastToggleTime = 0f;
+
+    private void Update()
+    {
+        if (Keyboard.current.escapeKey.wasPressedThisFrame && Time.unscaledTime - lastToggleTime > 0.1f)
+        {
+            lastToggleTime = Time.unscaledTime;
+
+            if (SettingsPannel.activeSelf)
+                CloseSettingsMenu();
+            else
+                OpenSettingsMenu();
+        }
     }
 
     public void MainVolumeChange() 

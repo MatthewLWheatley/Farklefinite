@@ -42,9 +42,8 @@ public class MoneyReward : MonoBehaviour
                 mapController.transform.GetChild(i).gameObject.SetActive(true);
             }
 
-            SceneManager.SetActiveScene(SceneManager.GetSceneByName("Map"));
         }
 
-        SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
+        SceneManager.UnloadSceneAsync("Money");
     }
 }

@@ -54,13 +54,15 @@ MonoBehaviour:
   - {fileID: 6939023835645510834}
   - {fileID: 5033512893398423870}
   lives: 0
-  money: 100
+  money: 0
   lvl: 1
   currentBag: 0
   currentLevel: 1
   roundsPerLevel: 3
   currentRound: 1
   bestScore: 0
+  EliteLevel: 0
+  BossLevel: 0
   normalRoundImage: {fileID: 0}
   bossRoundImage: {fileID: 0}
 --- !u!1 &2054116298954678213
@@ -147,7 +149,7 @@ MonoBehaviour:
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0.5
+  m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -261,10 +263,14 @@ PrefabInstance:
     - target: {fileID: 1177060085309757565, guid: ee5cb7ccb9f53e9429dbb0633e630edb, type: 3}
       propertyPath: diceConfig
       value: 
-      objectReference: {fileID: 11400000, guid: 0026059f7294daf43b022906e02ba4ee, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 3975013729835992068, guid: ee5cb7ccb9f53e9429dbb0633e630edb, type: 3}
       propertyPath: m_Name
       value: Dice (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3975013729835992068, guid: ee5cb7ccb9f53e9429dbb0633e630edb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5577815845024151336, guid: ee5cb7ccb9f53e9429dbb0633e630edb, type: 3}
       propertyPath: m_TargetGraphic
@@ -450,12 +456,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1177060085309757565, guid: ee5cb7ccb9f53e9429dbb0633e630edb, type: 3}
       propertyPath: rolling
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1177060085309757565, guid: ee5cb7ccb9f53e9429dbb0633e630edb, type: 3}
       propertyPath: diceConfig
       value: 
-      objectReference: {fileID: 11400000, guid: b1715589547cbe9439adbf054a778f74, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 1177060085309757565, guid: ee5cb7ccb9f53e9429dbb0633e630edb, type: 3}
       propertyPath: currentFace
       value: 5
@@ -463,6 +469,10 @@ PrefabInstance:
     - target: {fileID: 3975013729835992068, guid: ee5cb7ccb9f53e9429dbb0633e630edb, type: 3}
       propertyPath: m_Name
       value: Dice
+      objectReference: {fileID: 0}
+    - target: {fileID: 3975013729835992068, guid: ee5cb7ccb9f53e9429dbb0633e630edb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5577815845024151336, guid: ee5cb7ccb9f53e9429dbb0633e630edb, type: 3}
       propertyPath: m_TargetGraphic
@@ -698,10 +708,14 @@ PrefabInstance:
     - target: {fileID: 1177060085309757565, guid: ee5cb7ccb9f53e9429dbb0633e630edb, type: 3}
       propertyPath: diceConfig
       value: 
-      objectReference: {fileID: 11400000, guid: 1819c888c5ff9294694dd147713cab1a, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 3975013729835992068, guid: ee5cb7ccb9f53e9429dbb0633e630edb, type: 3}
       propertyPath: m_Name
       value: Dice (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3975013729835992068, guid: ee5cb7ccb9f53e9429dbb0633e630edb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5577815845024151336, guid: ee5cb7ccb9f53e9429dbb0633e630edb, type: 3}
       propertyPath: m_TargetGraphic
@@ -937,10 +951,14 @@ PrefabInstance:
     - target: {fileID: 1177060085309757565, guid: ee5cb7ccb9f53e9429dbb0633e630edb, type: 3}
       propertyPath: diceConfig
       value: 
-      objectReference: {fileID: 11400000, guid: 0e423d3497faff2498f1ff967588386d, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 3975013729835992068, guid: ee5cb7ccb9f53e9429dbb0633e630edb, type: 3}
       propertyPath: m_Name
       value: Dice (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3975013729835992068, guid: ee5cb7ccb9f53e9429dbb0633e630edb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5577815845024151336, guid: ee5cb7ccb9f53e9429dbb0633e630edb, type: 3}
       propertyPath: m_TargetGraphic
@@ -1127,10 +1145,14 @@ PrefabInstance:
     - target: {fileID: 1177060085309757565, guid: ee5cb7ccb9f53e9429dbb0633e630edb, type: 3}
       propertyPath: diceConfig
       value: 
-      objectReference: {fileID: 11400000, guid: b68b70da6f8e1e5459546b414c524a25, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 3975013729835992068, guid: ee5cb7ccb9f53e9429dbb0633e630edb, type: 3}
       propertyPath: m_Name
       value: Dice (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3975013729835992068, guid: ee5cb7ccb9f53e9429dbb0633e630edb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5577815845024151336, guid: ee5cb7ccb9f53e9429dbb0633e630edb, type: 3}
       propertyPath: m_TargetGraphic
@@ -1317,10 +1339,14 @@ PrefabInstance:
     - target: {fileID: 1177060085309757565, guid: ee5cb7ccb9f53e9429dbb0633e630edb, type: 3}
       propertyPath: diceConfig
       value: 
-      objectReference: {fileID: 11400000, guid: e260cad47fd6e9248afa4af46aa74c6b, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 3975013729835992068, guid: ee5cb7ccb9f53e9429dbb0633e630edb, type: 3}
       propertyPath: m_Name
       value: Dice (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3975013729835992068, guid: ee5cb7ccb9f53e9429dbb0633e630edb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5577815845024151336, guid: ee5cb7ccb9f53e9429dbb0633e630edb, type: 3}
       propertyPath: m_TargetGraphic

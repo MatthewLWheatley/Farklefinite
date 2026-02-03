@@ -68,7 +68,7 @@ public class PlayerData : MonoBehaviour
         {
             mod += 1;
         }
-        return level * 500 + (level - 1) * (250 * mod);
+        return level * 100 + (level - 1) * (100 * mod);
     }
 
     private void Awake()

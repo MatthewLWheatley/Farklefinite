@@ -510,7 +510,6 @@ public class MapGenerator : MonoBehaviour
         }
         for (int x = 0; x < this.transform.childCount; x++) this.transform.GetChild(x).gameObject.SetActive(false);
         updateCanvases();
-        SceneManager.SetActiveScene(SceneManager.GetSceneAt(1));
     }
 
     public void setUpShop() 
@@ -538,10 +537,21 @@ public class MapGenerator : MonoBehaviour
         }
     }
 
-    void NextStage() 
+    public void NextStage() 
     {
+        for (int x = 0; x < this.transform.childCount; x++) Destroy(this.transform.GetChild(x).gameObject);
         stage += 1;
         Level = 0;
+        totalColumns += 2;
+        minPaths += 1;
+        maxPaths += 1;
+        maxEliteEnemies += 1;
+        minNodesPerColumn += 1;
+        maxNodesPerColumn += 1;
+        columns = new List<List<MapNode>>();
+        allNodes = new List<MapNode>();
+
+    GenerateMap();
     }
 
 

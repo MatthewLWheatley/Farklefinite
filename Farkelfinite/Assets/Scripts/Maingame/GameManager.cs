@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -92,6 +93,8 @@ public class GameManager : MonoBehaviour
             setAsideDice.Add(false);
             diceMoving.Add(false);
             diceDataList[i].ID = i + 1;
+
+            diceObjects[i].GetComponent<Button>().onClick.RemoveAllListeners();
 
             diceObjects[i].GetComponent<Button>().onClick.AddListener(() => DiceClicked(diceIndex));
 
@@ -1012,8 +1015,14 @@ public class GameManager : MonoBehaviour
         {
             PlayerData.Instance.bestScore = totalScore;
         }
-        int extramoney = (totalScore / PlayerData.Instance.getNextLevelScoreThreshold(mapController.Level - 1));
-        PlayerData.Instance.money += (lives*2 + extramoney);
+        int goalscore = PlayerData.Instance.getNextLevelScoreThreshold(mapController.Level);
+        int total = totalScore;
+
+        float extramoney = total / (float)goalscore;
+        extramoney = Mathf.Floor(extramoney);
+        int intMoney = (int)extramoney;
+        int Money = Mathf.Min(intMoney, 5);
+        PlayerData.Instance.money += (lives*2 + intMoney);
 
         Game.SetActive(false);
         foreach (DiceData die in diceDataList) 
@@ -1050,6 +1059,9 @@ public class GameManager : MonoBehaviour
             UnityEngine.SceneManagement.SceneManager.SetActiveScene(
                 UnityEngine.SceneManagement.SceneManager.GetSceneByName("Map")
             );
+
+            if(PlayerData.Instance.BossLevel == true) mapController.NextStage();
+
         }
 
         UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync("FightScene");

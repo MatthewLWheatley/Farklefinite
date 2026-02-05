@@ -923,7 +923,7 @@ public class GameManager : MonoBehaviour
     {
         RandomizeAllDiceConfigs();
 
-        lives = 3;
+        lives = 5;
         totalScore = 0;
         setAsideScore = 0;
         selectedScore = 0;
@@ -1014,6 +1014,12 @@ public class GameManager : MonoBehaviour
         if (totalScore > PlayerData.Instance.bestScore)
         {
             PlayerData.Instance.bestScore = totalScore;
+            if (PlayerData.Instance.bestScore > PlayerData.Instance.HighScore) 
+            { 
+                PlayerData.Instance.HighScore = PlayerData.Instance.bestScore;
+                PlayerPrefs.SetInt("HighScore", PlayerData.Instance.HighScore);
+                PlayerPrefs.Save();
+            }
         }
         int goalscore = PlayerData.Instance.getNextLevelScoreThreshold(mapController.Level, mapController.stage);
         int total = totalScore;

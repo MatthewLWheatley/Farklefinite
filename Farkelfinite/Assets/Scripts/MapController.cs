@@ -537,11 +537,26 @@ public class MapGenerator : MonoBehaviour
         }
     }
 
-    public void NextStage() 
+    public void NextStage()
     {
         for (int x = 0; x < this.transform.childCount; x++) Destroy(this.transform.GetChild(x).gameObject);
         stage += 1;
+        if (stage > PlayerPrefs.GetInt("BestStage", 0))
+        {
+            PlayerPrefs.SetInt("BestStage", stage);
+            PlayerPrefs.Save();
+        }
         Level = 0;
+
+
+        int sofarlevels = 0;
+        if (stage > 1) sofarlevels = 5 + (stage - 1) * 2;
+        int levelMath = sofarlevels + Level;
+        if (levelMath > PlayerPrefs.GetInt("BestLevel", 0))
+        {
+            PlayerPrefs.SetInt("BestStage", stage);
+            PlayerPrefs.Save();
+        }
         totalColumns += 2;
         minPaths += 1;
         maxPaths += 1;

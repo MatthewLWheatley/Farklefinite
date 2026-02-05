@@ -2248,7 +2248,7 @@ MonoBehaviour:
   diceMask:
     serializedVersion: 2
     m_Bits: 128
-  lives: 3
+  lives: 5
   Game: {fileID: 1871952476}
   Dead: {fileID: 366565077}
   selectedScore: 0

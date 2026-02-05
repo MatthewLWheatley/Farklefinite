@@ -1,4 +1,5 @@
 using TMPro;
+using Unity.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -7,6 +8,10 @@ using UnityEngine.UI;
 
 public class Setting : MonoBehaviour
 {
+    public GameObject mainMenuHighScoreText;
+    public GameObject settingsHighScoreText;
+
+
     public static Setting _instance;
 
     [SerializeField] float _mainVolume = 0.2f;
@@ -83,6 +88,22 @@ public class Setting : MonoBehaviour
                 CloseSettingsMenu();
             else
                 OpenSettingsMenu();
+        }
+
+        if (SceneManager.GetActiveScene().name == "MainMenu")
+        {
+            string highScoreText = $"High Score: {PlayerPrefs.GetInt("HighScore", 0)},\nBest Stage: {PlayerPrefs.GetInt("BestStage", 0)},\nBest Level: {PlayerPrefs.GetInt("BestLevel", 0)}";
+
+            mainMenuHighScoreText.GetComponent<TMP_Text>().text = highScoreText;
+            settingsHighScoreText.GetComponent<TMP_Text>().text = highScoreText;
+        }
+        else 
+        {
+            string highScoreText = "High Score: " + PlayerData.Instance.HighScore.ToString()
+                + "\nBest Stage: " + PlayerData.Instance.HighStage.ToString()
+                + "\nBest Level: " + PlayerData.Instance.HighLevel.ToString()
+                ;
+            settingsHighScoreText.GetComponent<TMP_Text>().text = highScoreText;
         }
     }
 

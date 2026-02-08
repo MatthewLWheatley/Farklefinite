@@ -483,6 +483,16 @@ public class MapGenerator : MonoBehaviour
 
         if (node == NodeType.Start) return;
         Level += 1;
+        PlayerData.Instance.currentLevel += 1;
+        //if on level 0 then its just equal to level,
+        // if on stage 2 then its 5 + level, stage 3 is 8 + level, stage 4 is 11 + level etc
+
+        if (PlayerData.Instance.currentLevel > PlayerData.Instance.HighLevel)
+        {
+            PlayerData.Instance.HighLevel = PlayerData.Instance.currentLevel;
+            PlayerPrefs.SetInt("BestLevel", PlayerData.Instance.currentLevel);
+            PlayerPrefs.Save();
+        }
 
         switch (node)
         {

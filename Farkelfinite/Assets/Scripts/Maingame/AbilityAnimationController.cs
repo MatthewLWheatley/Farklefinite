@@ -42,11 +42,13 @@ public class AbilityAnimationController : MonoBehaviour
         if (mainCamera != null)
             originalCameraPos = mainCamera.transform.position;
 
+        mainCanvas = PlayerData.Instance.gameObject.transform.GetChild(0).GetComponent<Canvas>();
+        canvasRect = PlayerData.Instance.gameObject.transform.GetChild(0).GetComponent<RectTransform>();
+        originalCanvasPos = canvasRect.anchoredPosition;
+
         if (mainCanvas != null)
         {
-            mainCanvas = PlayerData.Instance.gameObject.transform.GetChild(0).GetComponent<Canvas>();
-            canvasRect = PlayerData.Instance.gameObject.transform.GetChild(0).GetComponent<RectTransform>();
-            originalCanvasPos = canvasRect.anchoredPosition;
+            
         }
     }
 
@@ -126,20 +128,30 @@ public class AbilityAnimationController : MonoBehaviour
     private IEnumerator ShowPopup(AbilityAnimation anim, GameObject Dice)
     {
         GameObject popupPrefab = anim.popupTextPrefab != null ? anim.popupTextPrefab : defaultPopupPrefab;
-        if (popupPrefab == null || uiCanvas == null) yield break;
+        if (popupPrefab == null) yield break;
 
-        GameObject popup = Instantiate(popupPrefab, uiCanvas.transform);
-        RectTransform rectTransform = popup.GetComponent<RectTransform>();
+        RectTransform diceRect = Dice.GetComponent<RectTransform>();
+        if (diceRect == null) yield break;
 
-        if (rectTransform != null)
+        Canvas diceCanvas = diceRect.GetComponentInParent<Canvas>();
+        if (diceCanvas == null) yield break;
+
+        GameObject popup = Instantiate(popupPrefab, diceCanvas.transform);
+        RectTransform popupRect = popup.GetComponent<RectTransform>();
+
+        if (popupRect != null)
         {
-            
-            Vector3 pos = Camera.main.ScreenToWorldPoint(Dice.GetComponent<RectTransform>().position);
-            pos.y += 1f;
-            Camera.main.WorldToScreenPoint(pos);
-            pos.z = 0;
-            popup.transform.position = pos;
-            Debug.Log("Popup position set to: " + pos);
+            popupRect.anchorMin = new Vector2(0.5f, 0.5f);
+            popupRect.anchorMax = new Vector2(0.5f, 0.5f);
+            popupRect.pivot = new Vector2(0.5f, 0.5f);
+
+            Vector3 diceWorldPos = diceRect.position;
+
+            Vector3 localPos = diceCanvas.transform.InverseTransformPoint(diceWorldPos);
+
+            popupRect.localPosition = localPos + new Vector3(0, 100f, 0);
+
+            Debug.Log($"Dice world: {diceWorldPos}, Popup local: {localPos}");
         }
 
         TMP_Text text = popup.GetComponentInChildren<TMP_Text>();
@@ -163,8 +175,8 @@ public class AbilityAnimationController : MonoBehaviour
         if (canvasGroup == null)
             canvasGroup = popup.AddComponent<CanvasGroup>();
 
-        Vector3 startPos = rect.position;
-        Vector3 endPos = startPos + new Vector3(0, 1, 0);
+        Vector2 startPos = rect.anchoredPosition;
+        Vector2 endPos = startPos + new Vector2(0, 100f);
 
         float elapsed = 0f;
 
@@ -173,7 +185,7 @@ public class AbilityAnimationController : MonoBehaviour
             float t = elapsed / duration;
 
             if (rect != null)
-                rect.position = Vector3.Lerp(startPos, endPos, t);
+                rect.anchoredPosition = Vector2.Lerp(startPos, endPos, t);
 
             if (canvasGroup != null)
                 canvasGroup.alpha = 1f - t;

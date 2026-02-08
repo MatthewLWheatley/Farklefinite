@@ -19,7 +19,6 @@ public class PlayerData : MonoBehaviour
     public Bag currentBag;
 
     public int currentLevel = 1;
-    public int roundsPerLevel = 3;
     public int currentRound = 1;
     public int bestScore = 0;
     public int HighScore = 0;
@@ -95,7 +94,6 @@ public class PlayerData : MonoBehaviour
         //dice = new List<DiceData>();
         int bagint = PlayerPrefs.GetInt("CurrentBag", (int)Bag.DiceBag);
         currentBag = (Bag)bagint;
-        roundsPerLevel = 3 + (currentLevel * 2) - 2;
         HighScore = PlayerPrefs.GetInt("HighScore", 0);
         HighLevel = PlayerPrefs.GetInt("BestLevel", 0);
         HighStage = PlayerPrefs.GetInt("BestStage", 0);

@@ -83,10 +83,10 @@ public class ShopContoller : MonoBehaviour
     public void FixedUpdate()
     {
         moneyTextObject.GetComponent<TMP_Text>().text = $"Money: {playerData.money}";
-        levelTextObject.GetComponent<TMP_Text>().text = $"Level: {playerData.currentLevel}";
+        MapGenerator mapGen = FindFirstObjectByType<MapGenerator>();
+        levelTextObject.GetComponent<TMP_Text>().text = $"Level: {mapGen.Level}";
         stageTextObject.GetComponent<TMP_Text>().text = $"Stage: {playerData.currentRound}";
         livesTextObject.GetComponent<TMP_Text>().text = $"Lives: {playerData.lives}";
-        MapGenerator mapGen = FindFirstObjectByType<MapGenerator>();
         totalScoreTextObject.GetComponent<TMP_Text>().text = $"Next Level: {playerData.getNextLevelScoreThreshold(mapGen.Level, mapGen.stage)}";
         runningScoreTextObject.GetComponent<TMP_Text>().text = $"";
         BankedScoreTextObject.GetComponent<TMP_Text>().text = $"Best Score: {playerData.bestScore}";
@@ -365,7 +365,7 @@ public class ShopContoller : MonoBehaviour
             float xPos = startX + (i * (width / (temp.Count - 1)));
             temp[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(xPos, 0);
 
-            playerData.dice[i].gameObject.transform.GetChild(0).gameObject.SetActive(false);
+            if (playerData.dice[i].gameObject.transform.childCount > 0)playerData.dice[i].gameObject.transform.GetChild(0).gameObject.SetActive(false);
 
             EventTrigger trigger = playerData.dice[i].GetComponent<EventTrigger>();
             if (trigger == null)

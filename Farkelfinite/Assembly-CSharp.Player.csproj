@@ -68,6 +68,7 @@
     <Compile Include="Assets\Scripts\MapController.cs" />
     <Compile Include="Assets\Scripts\ShopItemDrag.cs" />
     <Compile Include="Assets\Scripts\Maingame\GameManager.cs" />
+    <Compile Include="Assets\Scripts\MoneyReward.cs" />
     <Compile Include="Assets\Scripts\ShopContoller.cs" />
     <Compile Include="Assets\Scripts\Maingame\AbilityAnimationController.cs" />
     <Compile Include="Assets\Scripts\Maingame\DiceData.cs" />

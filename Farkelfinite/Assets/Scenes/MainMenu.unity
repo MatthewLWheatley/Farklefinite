@@ -2094,7 +2094,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4327790895867582024, guid: 86ca1e0d25c8fd047a8d38b2744ca800, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5449442602227653002, guid: 86ca1e0d25c8fd047a8d38b2744ca800, type: 3}
       propertyPath: m_AnchorMax.y
@@ -2118,7 +2118,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5927182218264184215, guid: 86ca1e0d25c8fd047a8d38b2744ca800, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6781062111363777263, guid: 86ca1e0d25c8fd047a8d38b2744ca800, type: 3}
       propertyPath: m_fontSize

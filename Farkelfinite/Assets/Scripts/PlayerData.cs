@@ -77,7 +77,7 @@ public class PlayerData : MonoBehaviour
         // 5 * 100 + (5) * 100 * mod = 500 + 500 * mod
         // 5 * 100 + (5) * 100 * 3 = 500 + 1500 = 2000
 
-        return (level + sofarlevels) * 100 + (sofarlevels + level) * (100 * mod);
+        return currentLevel * 100 + currentLevel * (100 * mod);
     }
 
     private void Awake()

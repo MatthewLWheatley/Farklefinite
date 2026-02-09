@@ -1,0 +1,32 @@
+Explain How to win/lose
+
+
+Reach the goal score before you run out of lives.
+
+Each turn starts with rolling all 6 dice. After each roll, you must:
+Select dice that score points
+
+Choose to either:
+Set Aside: Lock in those dice, roll the remaining dice, and try to score more
+Bank: Take your current score and end your turn (costs 1 life unless you got Hot Dice)
+
+If you roll and nothing scores, you Farkle you lose everything you built up that turn AND lose a life.
+
+Scoring (the only part that matters):
+
+Straight 1-6 = 5000
+Straight 1-5 or 2-6 = 2500
+Three matching pairs = 1500
+Three of a kind: 1s give 1000, 
+everything else is pip × 100 (so three 4s = 400)
+Four/five/six of a kind multiply by 2 for each extra die
+Single 1s = 100 each
+Single 5s = 50 each
+
+Start with 5 lives
+Bank = lose a life 
+Farkle = lose running score AND a life
+Hot dice = if you set aside or bank all 6 dice scoring, you bank for free and roll all 6 again
+
+On Round end you will gain money equal to lives 
++ set a side score divided by goal score (capped at 5)

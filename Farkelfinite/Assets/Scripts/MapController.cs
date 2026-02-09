@@ -33,7 +33,6 @@ public class MapGenerator : MonoBehaviour
     private List<MapNode> allNodes = new List<MapNode>();
 
     [Header("Node Type Limits")]
-    public int maxShops = 3;
     public int maxMoney = 4;
     public int maxEliteEnemies = 2;
 
@@ -243,7 +242,6 @@ public class MapGenerator : MonoBehaviour
 
     void AssignNodeTypes()
     {
-        int shopCount = 0;
         int moneyCount = 0;
         int eliteCount = 0;
 
@@ -258,19 +256,10 @@ public class MapGenerator : MonoBehaviour
             {
                 node.type = NodeType.Boss;
             }
-            foreach (var node in columns[columns.Count - 2])
-            {
-                node.type = NodeType.Shop;
-            }
-            if(totalColumns > 5)
-            foreach (var node in columns[totalColumns/2])
-            {
-                node.type = NodeType.Shop;
-            }
         }
 
         List<MapNode> middleNodes = new List<MapNode>();
-        for (int col = 1; col < totalColumns - 2; col++)
+        for (int col = 1; col < totalColumns - 1; col++)
         {
             middleNodes.AddRange(columns[col]);
         }
@@ -293,11 +282,6 @@ public class MapGenerator : MonoBehaviour
             {
                 node.type = NodeType.Enemy;
             }
-            else if (rand < 0.7f && shopCount < maxShops)
-            {
-                node.type = NodeType.Enemy;
-                shopCount++;
-            }
             else if (rand < 0.85f && moneyCount < maxMoney)
             {
                 node.type = NodeType.Money;
@@ -314,7 +298,7 @@ public class MapGenerator : MonoBehaviour
             }
         }
 
-        Debug.Log($"Map types assigned - Shops: {shopCount}/{maxShops}, Money: {moneyCount}/{maxMoney}, Elites: {eliteCount}/{maxEliteEnemies}");
+        Debug.Log($"Map types assigned - Money: {moneyCount}/{maxMoney}, Elites: {eliteCount}/{maxEliteEnemies}");
     }
 
     void CreateVisuals()
@@ -469,7 +453,6 @@ public class MapGenerator : MonoBehaviour
         switch (type)
         {
             case NodeType.Start: return Color.green;
-            case NodeType.Shop: return Color.yellow;
             case NodeType.Money: return Color.cyan;
             case NodeType.Enemy: return Color.red;
             case NodeType.EliteEnemy: return new Color(1f, 0.3f, 0.3f);
@@ -523,8 +506,8 @@ public class MapGenerator : MonoBehaviour
     }
 
     public void setUpShop() 
-    { 
-        
+    {
+        SceneManager.LoadScene("ShopScene", LoadSceneMode.Additive);
     }
 
     public void updateCanvases() 
@@ -576,7 +559,7 @@ public class MapGenerator : MonoBehaviour
         columns = new List<List<MapNode>>();
         allNodes = new List<MapNode>();
 
-    GenerateMap();
+        GenerateMap();
     }
 
 

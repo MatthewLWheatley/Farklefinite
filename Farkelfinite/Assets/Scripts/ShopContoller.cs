@@ -934,7 +934,7 @@ public class ShopContoller : MonoBehaviour
         MapGenerator mapController = FindFirstObjectByType<MapGenerator>();
 
         Canvas playerCanvas = PlayerData.Instance.transform.GetChild(0).GetComponent<Canvas>();
-
+        Destroy(highlightPanel);
         foreach (DiceData dice in PlayerData.Instance.dice)
         {
             if (dice != null && dice.gameObject != null)

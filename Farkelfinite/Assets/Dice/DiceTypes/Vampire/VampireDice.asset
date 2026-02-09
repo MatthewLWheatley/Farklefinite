@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: VampireDice
   m_EditorClassIdentifier: 
   diceName: Vampire
-  description: 'Bank any score? Gain 50% of Goal score. Set lives to 1. Steal from
-    yourself.
+  description: 'Bank for the first time? Gain 50% of Goal score. Set lives to 1.
+    Steal from yourself.
 
 '
   diceSprite: {fileID: 6143228753421320664, guid: 95b6d3d792d3481488e6de7dd9d50545, type: 3}

@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour
     public TMP_Text RunningScoreText;
     public TMP_Text TotalScoreText;
     public TMP_Text LivesText;
+    public TMP_Text LevelText;
+    public TMP_Text StageText;
 
     public Transform setAsidePositionAnchor;
 
@@ -873,13 +875,18 @@ public class GameManager : MonoBehaviour
     public void UpdateScoreUI()
     {
         int runningScore = setAsideScore + selectedScore;
-        RunningScoreText.text = "Running: " + runningScore;
+        RunningScoreText.text = "Set A Side: " + runningScore;
         if (TotalScoreText != null)
-            TotalScoreText.text = "Total: " + totalScore;
+            TotalScoreText.text = "Banked: " + totalScore;
         if (LivesText != null)
             LivesText.text = "Lives: " + lives;
 
+
         MapGenerator mapController = FindFirstObjectByType<MapGenerator>();
+
+        LevelText.GetComponent<TMP_Text>().text = $"Level: {mapController.Level}";
+        StageText.GetComponent<TMP_Text>().text = $"Stage: {PlayerData.Instance.currentRound}";
+
         if (mapController != null && GoalScoreText != null)
         {
             int goalScore = PlayerData.Instance.getNextLevelScoreThreshold(mapController.Level, mapController.stage);
@@ -1045,10 +1052,47 @@ public class GameManager : MonoBehaviour
             die.gameObject.SetActive(false);
         }
         Win.SetActive(true);
+
+        Win.transform.GetChild(1).GetComponent<TMP_Text>().text += $"\n +{lives + Money * mod} Coins";
     }
 
     public GameObject Win;
     public GameObject Lose;
+
+    public void ContinueToShop()
+    {
+        foreach (var dice in diceDataList)
+        {
+            dice.gameObject.SetActive(false);
+        }
+
+        Game.SetActive(true);
+        Win.SetActive(false);
+
+        totalScore = 0;
+        setAsideScore = 0;
+        selectedScore = 0;
+
+        MapGenerator mapController = FindFirstObjectByType<MapGenerator>();
+        if (mapController != null)
+        {
+            for (int i = 0; i < mapController.transform.childCount; i++)
+            {
+                mapController.transform.GetChild(i).gameObject.SetActive(true);
+            }
+
+            UnityEngine.SceneManagement.SceneManager.SetActiveScene(
+                UnityEngine.SceneManagement.SceneManager.GetSceneByName("Map")
+            );
+
+            if (PlayerData.Instance.BossLevel == true) mapController.NextStage();
+
+        }
+        PlayerData.Instance.BossLevel = false;
+        PlayerData.Instance.EliteLevel = false;
+        mapController.setUpShop();
+        UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync("FightScene");
+    }
 
     public void ContinueToMap()
     {
@@ -1078,7 +1122,8 @@ public class GameManager : MonoBehaviour
             if(PlayerData.Instance.BossLevel == true) mapController.NextStage();
 
         }
-
+        PlayerData.Instance.BossLevel = false;
+        PlayerData.Instance.EliteLevel = false;
         UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync("FightScene");
     }
 

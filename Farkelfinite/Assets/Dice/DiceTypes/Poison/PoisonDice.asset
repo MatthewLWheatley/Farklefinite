@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PoisonDice
   m_EditorClassIdentifier: 
   diceName: Poison
-  description: 'Bank with any set-aside dice? Gain 10% per die but lose 1 life. Risk
+  description: 'When banking Gain 10% running score per die but lose 1 life. Risk
     your health for wealth.
 
 '

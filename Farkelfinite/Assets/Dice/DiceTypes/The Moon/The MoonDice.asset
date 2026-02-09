@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: The MoonDice
   m_EditorClassIdentifier: 
   diceName: The Moon
-  description: Bank in exactly 1 group? 5x multiplier Banked Score. Total domination.
+  description: Bank all dice in exactly 1 group? 5x multiplier Banked Score. Total
+    domination.
   diceSprite: {fileID: -4513025157028777925, guid: 300bbc3b90eae684490c29cbc206c2f3, type: 3}
   pipSprites:
   - {fileID: 1668003154139372888, guid: 167f0765f30041e4eaae37d1b5b9166e, type: 3}

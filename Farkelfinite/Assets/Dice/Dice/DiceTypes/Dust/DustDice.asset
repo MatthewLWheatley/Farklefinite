@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b102ea77a61d4d48ba984471d37322b, type: 3}
+  m_Name: DustDice
+  m_EditorClassIdentifier: 
+  diceName: Dust
+  description: 'Start your turn with only 1 active die? Gain 100 points immediately.
+    Barely scraping by pays off.
+
+'
+  diceSprite: {fileID: -126421554054031118, guid: 0a8d84ea85e9a2044886309620afc8ee, type: 3}
+  pipSprites:
+  - {fileID: 1668003154139372888, guid: 167f0765f30041e4eaae37d1b5b9166e, type: 3}
+  - {fileID: 1668003154139372888, guid: 3c471bb815d1f0047b769840feffa248, type: 3}
+  - {fileID: 1668003154139372888, guid: f6882489d83bbbe4e896c53e9f16181f, type: 3}
+  - {fileID: 1668003154139372888, guid: a033f219bae3c624cba4aaaf3bfffc47, type: 3}
+  - {fileID: 1668003154139372888, guid: 4b918b5b7a9dca84192e6ad695af653d, type: 3}
+  - {fileID: 1668003154139372888, guid: 1a18326044f326040bfe0b5e46a21ee5, type: 3}
+  canChangeFaces: 1
+  customPips: 
+  abilities:
+  - abilityName: Settled Bonus
+    abilityDescription: Settled Bonus
+    trigger: 2
+    abilityAnimation: {fileID: 11400000, guid: 3204c98cda980884e8d8ea0044c46c79, type: 2}
+    conditions:
+    - leftVariable: 13
+      leftVariableValue: 1
+      comparator: 1
+      rightVariable: 0
+      rightVariableValue: 1
+      useRightVariable: 0
+    effects:
+    - effectType: 0
+      targetVariable: 10
+      sourceVariable: 0
+      sourceValue: 100
+      useSourceVariable: 0
+      retriggerCount: 0
+    heldVariable: 0

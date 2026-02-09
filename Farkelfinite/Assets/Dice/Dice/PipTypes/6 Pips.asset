@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 704fad54f364ace469609d11a7c810b3, type: 3}
+  m_Name: 6 Pips
+  m_EditorClassIdentifier: 
+  itemName: 6 PIP
+  itemType: 1
+  itemSprite: {fileID: -7044660306776900269, guid: 348d837d14c03a349af96a455e5086fd, type: 3}
+  pipSprite: {fileID: 3465286685962602723, guid: a5cc9604f250cd240b49acc4d16b0820, type: 3}
+  cost: 4
+  weight: 4
+  diceConfig: {fileID: 0}

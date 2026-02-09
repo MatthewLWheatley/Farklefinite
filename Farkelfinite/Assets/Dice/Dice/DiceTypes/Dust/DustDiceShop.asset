@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 704fad54f364ace469609d11a7c810b3, type: 3}
+  m_Name: DustDiceShop
+  m_EditorClassIdentifier: 
+  itemName: DustDice
+  itemType: 0
+  itemSprite: {fileID: -126421554054031118, guid: 0a8d84ea85e9a2044886309620afc8ee, type: 3}
+  pipSprite: {fileID: -855298285791758126, guid: 6c1c4024c5495e14686c20b44385f404, type: 3}
+  cost: 1
+  weight: 1
+  diceConfig: {fileID: 11400000, guid: 1819c888c5ff9294694dd147713cab1a, type: 2}

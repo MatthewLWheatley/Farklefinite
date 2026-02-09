@@ -30,3 +30,46 @@ Hot dice = if you set aside or bank all 6 dice scoring, you bank for free and ro
 
 On Round end you will gain money equal to lives 
 + set a side score divided by goal score (capped at 5)
+
+Chapter 1: 
+1. this is the map,
+2. node types
+3. how it expands.
+
+Chapter 2: dice scene.
+1. start with 6 dice and 5 lives.
+2. get a total score
+3. get to that total score
+4. Roll the dice.
+
+Chapter 3: explain game
+1. explain dice faces and abelites
+2. explain how to select dice
+3. explain scoreing and the difference between setting aside and banking.
+
+Chapter 4: dice abilites
+1. explain triggers
+2. look at common dice and their conditions/effects
+3. show a full "round"
+
+Chapter 5: full rounds recap
+1. Full round recap
+2. how winning works/rewards
+3. how losing works
+
+Chapter 6: The shop
+1. show shop interface
+2. explain buying dice
+3. explain buying pips
+4. explain selling
+5. explain rerolling and next Round steps
+
+Chapter 7: Tressure
+1. Show what it looks like.
+
+Chapter 8: Cheat Sheet
+1. single
+2. straight
+3. 3/4/5/6 of a kind
+4. Thee pairs
+

@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b102ea77a61d4d48ba984471d37322b, type: 3}
+  m_Name: EnvyDice
+  m_EditorClassIdentifier: 
+  diceName: Envy
+  description: Bank with exactly 5 dice set aside in one group while you're not included?
+    10x multiplier. Watch from the sidelines and profit.
+  diceSprite: {fileID: 3633879674100428713, guid: 9fe5e886f3457ac4b80f3a2458a498bf, type: 3}
+  pipSprites:
+  - {fileID: 1668003154139372888, guid: 167f0765f30041e4eaae37d1b5b9166e, type: 3}
+  - {fileID: 1668003154139372888, guid: 3c471bb815d1f0047b769840feffa248, type: 3}
+  - {fileID: 1668003154139372888, guid: f6882489d83bbbe4e896c53e9f16181f, type: 3}
+  - {fileID: 1668003154139372888, guid: a033f219bae3c624cba4aaaf3bfffc47, type: 3}
+  - {fileID: 1668003154139372888, guid: 4b918b5b7a9dca84192e6ad695af653d, type: 3}
+  - {fileID: 1668003154139372888, guid: 1a18326044f326040bfe0b5e46a21ee5, type: 3}
+  canChangeFaces: 1
+  customPips: 
+  abilities:
+  - abilityName: The Only One
+    abilityDescription: The Only One
+    trigger: 1
+    abilityAnimation: {fileID: 11400000, guid: faa635052f558574fa2db85a4c9e7393, type: 2}
+    conditions:
+    - leftVariable: 15
+      leftVariableValue: 0
+      comparator: 2
+      rightVariable: 0
+      rightVariableValue: 1
+      useRightVariable: 0
+    - leftVariable: 14
+      leftVariableValue: 0
+      comparator: 2
+      rightVariable: 0
+      rightVariableValue: 5
+      useRightVariable: 0
+    - leftVariable: 3
+      leftVariableValue: 0
+      comparator: 2
+      rightVariable: 0
+      rightVariableValue: 0
+      useRightVariable: 0
+    effects:
+    - effectType: 2
+      targetVariable: 8
+      sourceVariable: 0
+      sourceValue: 10
+      useSourceVariable: 0
+      retriggerCount: 0
+    heldVariable: 0

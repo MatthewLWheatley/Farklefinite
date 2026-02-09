@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b102ea77a61d4d48ba984471d37322b, type: 3}
+  m_Name: PaperDice
+  m_EditorClassIdentifier: 
+  diceName: Paper
+  description: 'Bank without being set aside while active dice remain? Gain 50 points
+    per pip on active dice. Fold in the value.
+
+'
+  diceSprite: {fileID: 4586044219576704100, guid: da84e78a526252d48b0fe12395f4eebd, type: 3}
+  pipSprites:
+  - {fileID: 1668003154139372888, guid: 167f0765f30041e4eaae37d1b5b9166e, type: 3}
+  - {fileID: 1668003154139372888, guid: 3c471bb815d1f0047b769840feffa248, type: 3}
+  - {fileID: 1668003154139372888, guid: f6882489d83bbbe4e896c53e9f16181f, type: 3}
+  - {fileID: 1668003154139372888, guid: a033f219bae3c624cba4aaaf3bfffc47, type: 3}
+  - {fileID: 1668003154139372888, guid: 4b918b5b7a9dca84192e6ad695af653d, type: 3}
+  - {fileID: 1668003154139372888, guid: 1a18326044f326040bfe0b5e46a21ee5, type: 3}
+  canChangeFaces: 1
+  customPips: 
+  abilities:
+  - abilityName: Origami Fortune
+    abilityDescription: Origami Fortune
+    trigger: 1
+    abilityAnimation: {fileID: 11400000, guid: 465e745a3b7651a47a50dc94b2231451, type: 2}
+    conditions:
+    - leftVariable: 3
+      leftVariableValue: 0
+      comparator: 2
+      rightVariable: 0
+      rightVariableValue: 0
+      useRightVariable: 0
+    - leftVariable: 24
+      leftVariableValue: 0
+      comparator: 3
+      rightVariable: 0
+      rightVariableValue: 0
+      useRightVariable: 0
+    effects:
+    - effectType: 0
+      targetVariable: 8
+      sourceVariable: 24
+      sourceValue: 50
+      useSourceVariable: 1
+      retriggerCount: 0
+    heldVariable: 0

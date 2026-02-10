@@ -76,6 +76,7 @@ public class Setting : MonoBehaviour
         screenShakeSlider.GetComponent<Slider>().value = _screenShake;
         screenShakeSlider.GetComponent<Slider>().onValueChanged.AddListener((value) => AnimationSpeedChange());
         PlayerPrefs.Save();
+
     }
 
     private float lastToggleTime = 0f;
@@ -107,6 +108,8 @@ public class Setting : MonoBehaviour
                 ;
             settingsHighScoreText.GetComponent<TMP_Text>().text = highScoreText;
         }
+
+        this.GetComponent<Canvas>().worldCamera = Camera.main;
     }
 
     public void MainVolumeChange() 

@@ -40,10 +40,10 @@ MonoBehaviour:
       rightVariableValue: 0
       useRightVariable: 0
     effects:
-    - effectType: 0
+    - effectType: 2
       targetVariable: 8
-      sourceVariable: 5
-      sourceValue: 100
-      useSourceVariable: 1
+      sourceVariable: 22
+      sourceValue: 2
+      useSourceVariable: 0
       retriggerCount: 0
     heldVariable: 0

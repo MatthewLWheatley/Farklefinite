@@ -209,7 +209,7 @@ Canvas:
   serializedVersion: 3
   m_RenderMode: 1
   m_Camera: {fileID: 501594823}
-  m_PlaneDistance: 10
+  m_PlaneDistance: 5
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -254,7 +254,6 @@ MonoBehaviour:
   - {fileID: -1727270389006743443, guid: 068c886c1ad9e2349b95119b375d3943, type: 3}
   - {fileID: -7189895235512639589, guid: cc9325b3b56c4044386a6111d0be20a2, type: 3}
   - {fileID: 3889139618678349257, guid: 767aba82664ce1349a6fc0de6550f241, type: 3}
-  maxShops: 0
   maxMoney: 2
   maxEliteEnemies: 2
 --- !u!1 &453017679 stripped
@@ -408,6 +407,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1224915856640378134, guid: 1f77a8715a6d48e4993be5b58cdacf9d, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 501594823}
+    - target: {fileID: 1224915856640378134, guid: 1f77a8715a6d48e4993be5b58cdacf9d, type: 3}
+      propertyPath: m_SortingOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1224915856640378134, guid: 1f77a8715a6d48e4993be5b58cdacf9d, type: 3}
+      propertyPath: m_PlaneDistance
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 1727559231909316157, guid: 1f77a8715a6d48e4993be5b58cdacf9d, type: 3}
       propertyPath: m_Name
       value: PlayerData

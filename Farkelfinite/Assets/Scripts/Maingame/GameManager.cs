@@ -1003,6 +1003,7 @@ public class GameManager : MonoBehaviour
             if (cam == Camera.main) continue;
             cam.gameObject.SetActive(false);
         }
+        PlayerData.Instance.gameObject.transform.GetChild(0).GetComponent<Canvas>().planeDistance = 1;
     }
 
     bool CheckForWin()

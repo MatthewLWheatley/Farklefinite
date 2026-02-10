@@ -146,7 +146,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        
+
     }
 
     private void RandomizeAllDiceConfigs()
@@ -384,7 +384,11 @@ public class GameManager : MonoBehaviour
 
     public void SetAside()
     {
-        bool isRolling = diceDataList.Any(d => d.rolling);
+        if (diceDataList.Any(d => d.rolling))
+        {
+            Debug.Log("Wait for dice to finish rolling before setting aside!");
+            return;
+        }
 
         RemoveNonScoringDice();
 
@@ -605,7 +609,11 @@ public class GameManager : MonoBehaviour
 
     public void BankScore()
     {
-        bool isRolling = diceDataList.Any(d => d.rolling);
+        if (diceDataList.Any(d => d.rolling))
+        {
+            Debug.Log("Wait for dice to finish rolling before banking!");
+            return;
+        }
 
         RemoveNonScoringDice();
 
@@ -645,7 +653,7 @@ public class GameManager : MonoBehaviour
         ResetAllDice();
         UpdateScoreUI();
 
-        if (CheckForWin()) 
+        if (CheckForWin())
         {
             yield break;
         }
@@ -1006,7 +1014,7 @@ public class GameManager : MonoBehaviour
 
         if (totalScore >= targetScore)
         {
-            
+
             Debug.Log($"YOU WIN THIS ROUND I GUESS. needed {targetScore}, got {totalScore}");
             StartCoroutine(WinRound());
             return true;
@@ -1021,8 +1029,8 @@ public class GameManager : MonoBehaviour
         if (totalScore > PlayerData.Instance.bestScore)
         {
             PlayerData.Instance.bestScore = totalScore;
-            if (PlayerData.Instance.bestScore > PlayerData.Instance.HighScore) 
-            { 
+            if (PlayerData.Instance.bestScore > PlayerData.Instance.HighScore)
+            {
                 PlayerData.Instance.HighScore = PlayerData.Instance.bestScore;
                 PlayerPrefs.SetInt("HighScore", PlayerData.Instance.HighScore);
                 PlayerPrefs.Save();
@@ -1047,7 +1055,7 @@ public class GameManager : MonoBehaviour
         PlayerData.Instance.AddMoney(lives + Money * mod);
 
         Game.SetActive(false);
-        foreach (DiceData die in diceDataList) 
+        foreach (DiceData die in diceDataList)
         {
             die.gameObject.SetActive(false);
         }
@@ -1076,11 +1084,6 @@ public class GameManager : MonoBehaviour
         MapGenerator mapController = FindFirstObjectByType<MapGenerator>();
         if (mapController != null)
         {
-            for (int i = 0; i < mapController.transform.childCount; i++)
-            {
-                mapController.transform.GetChild(i).gameObject.SetActive(true);
-            }
-
             UnityEngine.SceneManagement.SceneManager.SetActiveScene(
                 UnityEngine.SceneManagement.SceneManager.GetSceneByName("Map")
             );
@@ -1119,7 +1122,7 @@ public class GameManager : MonoBehaviour
                 UnityEngine.SceneManagement.SceneManager.GetSceneByName("Map")
             );
 
-            if(PlayerData.Instance.BossLevel == true) mapController.NextStage();
+            if (PlayerData.Instance.BossLevel == true) mapController.NextStage();
 
         }
         PlayerData.Instance.BossLevel = false;

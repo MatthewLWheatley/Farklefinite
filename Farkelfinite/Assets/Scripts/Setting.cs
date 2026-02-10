@@ -36,6 +36,8 @@ public class Setting : MonoBehaviour
 
     public static Setting Instance { get { return _instance; } }
 
+    public GameObject TutBookPanel;
+
     private void Awake()
     {
         if (_instance != null && _instance != this)
@@ -213,5 +215,10 @@ public class Setting : MonoBehaviour
         PlayerData playerData = FindFirstObjectByType<PlayerData>();
         GameObject player = playerData.gameObject;
         SceneManager.MoveGameObjectToScene(player, SceneManager.GetActiveScene());
+    }
+
+    public void ToggelTut() 
+    {
+        TutBookPanel.SetActive(!TutBookPanel.activeSelf);
     }
 }

@@ -14,7 +14,7 @@ public class DiceDrag : MonoBehaviour
     [SerializeField] private LayerMask dropZoneLayer;
 
     private Camera mainCam;
-    private Canvas canvas;
+    public Canvas canvas;
     private RectTransform rectTransform;
     private Vector3 dragOffset;
     private Vector2 originalAnchoredPosition;
@@ -104,16 +104,20 @@ public class DiceDrag : MonoBehaviour
     void EndDrag()
     {
         isDragging = false;
-
         GameObject dropZone = FindDropZoneAtPosition();
 
         if (dropZone != null)
         {
             OnDroppedOn?.Invoke(this, dropZone);
+
+            if (this == null || gameObject == null)
+            {
+                OnDragEnd?.Invoke(this);
+                return;
+            }
         }
 
         StartCoroutine(SnapBack());
-
         OnDragEnd?.Invoke(this);
     }
 

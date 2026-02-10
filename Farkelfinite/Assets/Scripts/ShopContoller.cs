@@ -40,7 +40,7 @@ public class ShopContoller : MonoBehaviour
     public GameObject buysellButton;
 
     public GameObject PipDicePrefab;
-    public List<GameObject> pipDiceItems = new List<GameObject>();
+    [System.NonSerialized] public List<GameObject> pipDiceItems = new List<GameObject>();
 
     [Header("Sell Settings")]
     public DiceConfig normalDiceConfig;
@@ -312,6 +312,8 @@ public class ShopContoller : MonoBehaviour
 
     public void SpawnPipBagDice()
     {
+        pipDiceItems.Clear();
+
         RectTransform panelRect = PipPannel.GetComponent<RectTransform>();
 
         float width = panelRect.sizeDelta.x - activeDiceSpacing;
@@ -329,7 +331,6 @@ public class ShopContoller : MonoBehaviour
             int pipIndex = i;
             Button pipButton = pipDice.GetComponent<Button>();
             if (pipButton == null) pipButton = pipDice.AddComponent<Button>();
-            //pipButton.onClick.AddListener(() => PipDiceClicked(pipIndex));
 
             PipDropTarget dropTarget = pipDice.GetComponent<PipDropTarget>();
             if (dropTarget == null) dropTarget = pipDice.AddComponent<PipDropTarget>();
@@ -347,7 +348,7 @@ public class ShopContoller : MonoBehaviour
     }
 
     /// ---------- dice bag description helper ----------
-    
+
 
     void positonDice()
     {
@@ -365,8 +366,9 @@ public class ShopContoller : MonoBehaviour
             float xPos = startX + (i * (width / (temp.Count - 1)));
             temp[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(xPos, 0);
 
-            if (playerData.dice[i].gameObject.transform.childCount > 0)playerData.dice[i].gameObject.transform.GetChild(0).gameObject.SetActive(false);
+            if (playerData.dice[i].gameObject.transform.childCount > 0) playerData.dice[i].gameObject.transform.GetChild(0).gameObject.SetActive(false);
 
+            playerData.dice[i].GetComponent<Button>().onClick.RemoveAllListeners();
             EventTrigger trigger = playerData.dice[i].GetComponent<EventTrigger>();
             if (trigger == null)
             {
@@ -395,7 +397,11 @@ public class ShopContoller : MonoBehaviour
         {
             dragScript = diceObj.AddComponent<DiceDrag>();
         }
-
+        else
+        {
+            dragScript.enabled = true;
+        }
+        dragScript.canvas = this.GetComponent<Canvas>();
         dragScript.OnDragStart += HandleDiceDragStart;
         dragScript.OnDragEnd += HandleDiceDragEnd;
         dragScript.OnDroppedOn += HandleDiceDropped;
@@ -437,33 +443,13 @@ public class ShopContoller : MonoBehaviour
     {
         if (diceIndex < 0 || diceIndex >= playerData.dice.Count) return;
 
+        pipDiceItems.RemoveAll(item => item == null || !item);
+
         DiceData die = playerData.dice[diceIndex];
         currentHighlightedDice = die;
 
         UpdatePipDropTargets(die);
 
-        //if (buysellButton.transform.GetChild(0).GetComponent<TMP_Text>().text == "Cancel")
-        //{
-        //    if (itemSelected != null && itemSelected.GetComponent<ShopItem>() != null && itemSelected.GetComponent<ShopItem>().item == ShopItemType.Pip)
-        //    {
-        //        if (die != null)
-        //        {
-        //            for (int i = 0; i < pipDiceItems.Count && i < die.pips.Count; i++)
-        //            {
-        //                pipDiceItems[i].SetActive(true);
-        //                Image pipImage = pipDiceItems[i].transform.GetChild(0).GetComponent<Image>();
-        //                int pipValue = die.pips[i];
-        //                pipImage.sprite = die.pipSprites[pipValue - 1].GetComponent<Image>().sprite;
-        //            }
-
-        //        }
-        //        if (nameObject != null)
-        //            nameObject.GetComponent<TMP_Text>().text = die.diceConfig != null ? die.diceConfig.diceName : "Unknown Dice";
-        //        if (descObject != null)
-        //            descObject.GetComponent<TMP_Text>().text = "Click a pip to replace";
-        //    }
-        //    return;
-        //}
 
         descEnabled = false;
         itemSelected = null;
@@ -472,14 +458,23 @@ public class ShopContoller : MonoBehaviour
 
         for (int i = 0; i < pipDiceItems.Count && i < die.pips.Count; i++)
         {
-            pipDiceItems[i].SetActive(true);
-            Image pipImage = pipDiceItems[i].transform.GetChild(0).GetComponent<Image>();
-            int pipValue = die.pips[i];
-            if (die.diceConfig != null)
+            if (pipDiceItems[i] == null || !pipDiceItems[i]) continue;
+
+            try
             {
-                pipImage.sprite = die.diceConfig.pipSprites[pipValue - 1].GetComponent<Image>().sprite;
+                pipDiceItems[i].SetActive(true);
+                Image pipImage = pipDiceItems[i].transform.GetChild(0).GetComponent<Image>();
+                int pipValue = die.pips[i];
+                if (die.diceConfig != null)
+                {
+                    pipImage.sprite = die.diceConfig.pipSprites[pipValue - 1].GetComponent<Image>().sprite;
+                }
+                else pipImage.sprite = normalDiceConfig.pipSprites[pipValue - 1].GetComponent<Image>().sprite;
             }
-            else pipImage.sprite = normalDiceConfig.pipSprites[pipValue - 1].GetComponent<Image>().sprite;
+            catch (MissingReferenceException)
+            {
+                continue;
+            }
         }
         highlightPanel.transform.position = die.transform.position;
         if (nameObject != null)
@@ -488,22 +483,29 @@ public class ShopContoller : MonoBehaviour
         if (descObject != null)
             descObject.GetComponent<TMP_Text>().text = die.diceConfig != null ? die.diceConfig.description : "No description";
 
-        List<ShopItemData> diceItems = GetItemsByType(ShopItemType.DiceType);
-        diceItems.RemoveAll(item => item.diceConfig != null && die.diceConfig != null && item.diceConfig.diceName != die.diceConfig.diceName);
-        ShopItemData diceShopData = diceItems[0];
-        if (rarityObject != null && diceShopData != null)
-            rarityObject.GetComponent<TMP_Text>().text = die.diceConfig != null ? diceShopData.weight.ToString() : "Rarity: ?";
-
-        if (costObject != null && diceShopData != null)
-            costObject.GetComponent<TMP_Text>().text = die.diceConfig != null ? diceShopData.cost.ToString() : "Cost: ?";
-
-        if (die.diceConfig == null)
+        if (die.diceConfig == null || die.diceConfig == normalDiceConfig)
         {
             nameObject.GetComponent<TMP_Text>().text = "Common Dice";
             descObject.GetComponent<TMP_Text>().text = "A standard dice with no special abilities.";
             rarityObject.GetComponent<TMP_Text>().text = "Common";
             costObject.GetComponent<TMP_Text>().text = "0";
         }
+        else
+        {
+            List<ShopItemData> diceItems = GetItemsByType(ShopItemType.DiceType);
+            diceItems.RemoveAll(item => item.diceConfig != null && die.diceConfig != null && item.diceConfig.diceName != die.diceConfig.diceName);
+
+            if (diceItems.Count > 0)
+            {
+                ShopItemData diceShopData = diceItems[0];
+                if (rarityObject != null && diceShopData != null)
+                    rarityObject.GetComponent<TMP_Text>().text = diceShopData.weight.ToString();
+
+                if (costObject != null && diceShopData != null)
+                    costObject.GetComponent<TMP_Text>().text = diceShopData.cost.ToString();
+            }
+        }
+
 
     }
 
@@ -563,7 +565,7 @@ public class ShopContoller : MonoBehaviour
         int sellPrice = GetSellPrice(diceData);
 
         playerData.AddMoney(sellPrice);
-        ShowDiceDescription(diceData.ID);
+        //ShowDiceDescription(diceData.ID);
         Debug.Log($"Sold dice for {sellPrice} coins!");
 
         ConvertToNormalDice(diceData);
@@ -662,6 +664,17 @@ public class ShopContoller : MonoBehaviour
     {
         for (int i = 0; i < pipDiceItems.Count; i++)
         {
+            if (pipDiceItems[i] == null || !pipDiceItems[i]) continue;
+
+            try
+            {
+                var _ = pipDiceItems[i].name;
+            }
+            catch
+            {
+                continue;
+            }
+
             PipDropTarget dropTarget = pipDiceItems[i].GetComponent<PipDropTarget>();
             if (dropTarget != null)
             {
@@ -691,7 +704,6 @@ public class ShopContoller : MonoBehaviour
         int newPipValue = int.Parse(itemData.pipSprite.name.Substring(0, 1));
         int faceIndex = pipTarget.faceIndex;
 
-        // Prevent buying the same pip value
         if (targetDice.pips[faceIndex] == newPipValue)
         {
             Debug.Log($"They have the same face value. So can't be replaced.");
@@ -943,7 +955,7 @@ public class ShopContoller : MonoBehaviour
                 dice.gameObject.SetActive(false);
                 dice.GetComponent<DiceDrag>().enabled = false;
 
-                if (dice.gameObject.transform.childCount > 0)dice.gameObject.transform.GetChild(0).gameObject.SetActive(true);
+                if (dice.gameObject.transform.childCount > 0) dice.gameObject.transform.GetChild(0).gameObject.SetActive(true);
             }
         }
 

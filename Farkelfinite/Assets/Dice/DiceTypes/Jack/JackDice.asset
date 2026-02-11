@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: JackDice
   m_EditorClassIdentifier: 
   diceName: Jack
-  description: 'Set aside dice until none remain active? Gain 25 points per pip showing
+  description: 'Set aside dice until none remain active? Gain 50 points per pip showing
     on set-aside dice. Finish strong.
 
 '
@@ -43,7 +43,7 @@ MonoBehaviour:
     - effectType: 0
       targetVariable: 8
       sourceVariable: 25
-      sourceValue: 25
+      sourceValue: 50
       useSourceVariable: 1
       retriggerCount: 0
     heldVariable: 0

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: QueenDice
   m_EditorClassIdentifier: 
   diceName: Queen
-  description: 'Bank when your group''s pip sum is even? Double the score. Even better
-    than odd.
+  description: 'Bank when with pip count of set a side dice is even? Double the score.
+    Even better than odd.
 
 '
   diceSprite: {fileID: -2505175415179087835, guid: b1d301c9a5e17754a8ae72d2d39757c2, type: 3}
@@ -33,11 +33,11 @@ MonoBehaviour:
     trigger: 1
     abilityAnimation: {fileID: 11400000, guid: 3c112d3741f4b534a8739dc57b871912, type: 2}
     conditions:
-    - leftVariable: 5
+    - leftVariable: 25
       leftVariableValue: 0
       comparator: 6
-      rightVariable: 0
-      rightVariableValue: 0
+      rightVariable: 22
+      rightVariableValue: 1
       useRightVariable: 0
     effects:
     - effectType: 2

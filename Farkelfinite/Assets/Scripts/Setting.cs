@@ -40,6 +40,8 @@ public class Setting : MonoBehaviour
 
     private void Awake()
     {
+        Screen.fullScreen = true;
+
         if (_instance != null && _instance != this)
         {
             Destroy(this.gameObject);

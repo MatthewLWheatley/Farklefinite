@@ -561,8 +561,6 @@ public class MapGenerator : MonoBehaviour
 
         GenerateMap();
     }
-
-
 }
 
 public enum NodeType

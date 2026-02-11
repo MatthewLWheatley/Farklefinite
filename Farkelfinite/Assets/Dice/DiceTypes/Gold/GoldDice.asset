@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GoldDice
   m_EditorClassIdentifier: 
   diceName: Gold
-  description: 'Whenever you bank without being set aside, earn 1 gold currency.
+  description: 'Whenever you bank without this being set aside, earn 2 gold currency.
     Passive income vibes.
 
 '
@@ -43,7 +43,7 @@ MonoBehaviour:
     - effectType: 0
       targetVariable: 26
       sourceVariable: 0
-      sourceValue: 1
+      sourceValue: 2
       useSourceVariable: 0
       retriggerCount: 0
     heldVariable: 0

@@ -24,6 +24,6 @@ public class MainMenuManager : MonoBehaviour
     public void LoadGameScene()
     {
         Debug.Log("LOAD!");
-        SceneManager.LoadScene("Map");
+        SceneManager.LoadScene(1);
     }
 }

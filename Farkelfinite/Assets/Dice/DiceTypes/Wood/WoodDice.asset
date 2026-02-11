@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: WoodDice
   m_EditorClassIdentifier: 
   diceName: Wood
-  description: 'Set aside any group of dice? Gain 50 points. Reliable and boring.
+  description: 'Set aside this dice? Gain 50 points. Reliable and boring.
 
 '
   diceSprite: {fileID: 7370358061562332332, guid: 8e63ea7d18fcd59469534eb77f0d59a4, type: 3}
@@ -32,17 +32,17 @@ MonoBehaviour:
     trigger: 0
     abilityAnimation: {fileID: 11400000, guid: bb65e5b2e11061b4a81b240b7ad226a2, type: 2}
     conditions:
-    - leftVariable: 1
+    - leftVariable: 6
       leftVariableValue: 0
-      comparator: 1
+      comparator: 3
       rightVariable: 0
-      rightVariableValue: 3
+      rightVariableValue: 1
       useRightVariable: 0
     effects:
     - effectType: 0
       targetVariable: 8
       sourceVariable: 0
       sourceValue: 50
-      useSourceVariable: 0
+      useSourceVariable: 1
       retriggerCount: 0
     heldVariable: 0

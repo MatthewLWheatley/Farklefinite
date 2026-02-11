@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: WaterDice
   m_EditorClassIdentifier: 
   diceName: Water
-  description: 'Set aside 3+ dice together? Gain 75 points. Go with the flow.
+  description: 'Set aside 2 or more dice together including this? Gain 75 points
+    per dice. Go with the flow.
 
 '
   diceSprite: {fileID: -6585862283101203094, guid: cc733ef92ca8af942ac94ef180b76f75, type: 3}
@@ -30,19 +31,19 @@ MonoBehaviour:
   - abilityName: Flowing Bonus
     abilityDescription: Flowing Bonus
     trigger: 0
-    abilityAnimation: {fileID: 11400000, guid: cbdaa497b78026b41b893d221a2e6f6a, type: 2}
+    abilityAnimation: {fileID: 11400000, guid: 6681484dbf7374846880047b16450f12, type: 2}
     conditions:
     - leftVariable: 1
       leftVariableValue: 0
       comparator: 4
       rightVariable: 0
-      rightVariableValue: 4
+      rightVariableValue: 2
       useRightVariable: 0
     effects:
     - effectType: 0
       targetVariable: 8
-      sourceVariable: 0
+      sourceVariable: 14
       sourceValue: 75
-      useSourceVariable: 0
+      useSourceVariable: 1
       retriggerCount: 0
     heldVariable: 0

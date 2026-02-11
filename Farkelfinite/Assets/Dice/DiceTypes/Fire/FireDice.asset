@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: FireDice
   m_EditorClassIdentifier: 
   diceName: Fire
-  description: 'Set aside a single 1 or 5? Multiply that score by 1.5x. Burns so
-    good.
+  description: 'Set aside with a face of 1 or 5? Multiply that score by 1.5x. Burns
+    so good.
 
 '
   diceSprite: {fileID: 3127820951454730706, guid: 0af0653bb2d53cc49845303bd253d32f, type: 3}

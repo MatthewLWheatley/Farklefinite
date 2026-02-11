@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: GearDice
   m_EditorClassIdentifier: 
   diceName: Gear
-  description: Roll with multiple ability dice still active and 10+ running score?
-    Gain 10% per ability die. Synergy stonks.
+  description: 'Roll with other ability dice. Increase Set a side by 10% for each. '
   diceSprite: {fileID: 7035268565721489098, guid: c3447ae9b7d612a45b8605563ce167fd, type: 3}
   pipSprites:
   - {fileID: 1668003154139372888, guid: 167f0765f30041e4eaae37d1b5b9166e, type: 3}

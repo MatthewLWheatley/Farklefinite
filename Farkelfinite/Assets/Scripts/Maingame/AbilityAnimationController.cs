@@ -176,6 +176,7 @@ public class AbilityAnimationController : MonoBehaviour
             canvasGroup = popup.AddComponent<CanvasGroup>();
 
         Vector2 startPos = rect.anchoredPosition;
+        startPos.y -= 150.0f;
         Vector2 endPos = startPos + new Vector2(0, 100f);
 
         float elapsed = 0f;

@@ -1,6 +1,7 @@
 using TMPro;
 using Unity.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -14,10 +15,10 @@ public class Setting : MonoBehaviour
 
     public static Setting _instance;
 
-    [SerializeField] float _mainVolume = 0.2f;
-    [SerializeField] float _sfxVolume = 1.0f;
-    [SerializeField] float _ambientVolume = 1.0f;
-    [SerializeField] float _musicVolume = 1.0f;
+    [SerializeField] public float _mainVolume = 0.2f;
+    [SerializeField] public float _sfxVolume = 1.0f;
+    [SerializeField] public float _ambientVolume = 1.0f;
+    [SerializeField] public float _musicVolume = 1.0f;
 
     public GameObject mainVolumeSlider;
     public GameObject sfxVolumeSlider;
@@ -37,6 +38,8 @@ public class Setting : MonoBehaviour
     public static Setting Instance { get { return _instance; } }
 
     public GameObject TutBookPanel;
+
+    public audioController audioManager;
 
     private void Awake()
     {
@@ -119,6 +122,8 @@ public class Setting : MonoBehaviour
         _mainVolume = mainVolumeSlider.GetComponent<Slider>().value;
         PlayerPrefs.SetFloat("_mainVolume", _mainVolume);
         PlayerPrefs.Save();
+        audioManager.ChangeVolume();
+
     }
 
     public void SfxVolumeChange()
@@ -126,6 +131,7 @@ public class Setting : MonoBehaviour
         _sfxVolume = sfxVolumeSlider.GetComponent<Slider>().value;
         PlayerPrefs.SetFloat("_sfxVolume", _sfxVolume);
         PlayerPrefs.Save();
+        audioManager.ChangeVolume();
     }
     
     public void AmbientVolumeChange()
@@ -133,6 +139,7 @@ public class Setting : MonoBehaviour
         _ambientVolume = ambientVolumeSlider.GetComponent<Slider>().value;
         PlayerPrefs.SetFloat("_ambientVolume", _ambientVolume);
         PlayerPrefs.Save();
+        audioManager.ChangeVolume();
     }
 
     public void MusicVolumeChange()
@@ -140,6 +147,7 @@ public class Setting : MonoBehaviour
         _musicVolume = musicVolumeSlider.GetComponent<Slider>().value;
         PlayerPrefs.SetFloat("_musicVolume", _musicVolume);
         PlayerPrefs.Save();
+        audioManager.ChangeVolume();
     }
 
     public void ChangeSpeed()

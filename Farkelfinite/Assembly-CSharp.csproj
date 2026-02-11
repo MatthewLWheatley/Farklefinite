@@ -79,6 +79,7 @@
     <Compile Include="Assets\Scripts\Maingame\AbilityAnimation.cs" />
     <Compile Include="Assets\Scripts\PipHelperScript.cs" />
     <Compile Include="Assets\Scripts\LevelSelector.cs" />
+    <Compile Include="Assets\Scripts\audioController.cs" />
     <Compile Include="Assets\Scripts\Maingame\AbilityProcessor.cs" />
     <Compile Include="Assets\Scripts\DiceDrag.cs" />
     <Compile Include="Assets\Scripts\Maingame\AbilityEnums.cs" />

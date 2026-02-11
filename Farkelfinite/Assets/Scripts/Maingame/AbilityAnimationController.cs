@@ -9,6 +9,8 @@ public class AbilityAnimationController : MonoBehaviour
     public Canvas uiCanvas;
     public AudioSource audioSource;
 
+    public audioController audioController;
+
     [Header("Popup Settings")]
     public GameObject defaultPopupPrefab;
 
@@ -50,6 +52,8 @@ public class AbilityAnimationController : MonoBehaviour
         {
             
         }
+
+        audioController = GameObject.FindAnyObjectByType<audioController>();
     }
 
     public IEnumerator PlayAbilityAnimation(DiceAbility ability, GameObject sourceObject)
@@ -150,8 +154,8 @@ public class AbilityAnimationController : MonoBehaviour
             Vector3 localPos = diceCanvas.transform.InverseTransformPoint(diceWorldPos);
 
             popupRect.localPosition = localPos + new Vector3(0, 100f, 0);
-
-            Debug.Log($"Dice world: {diceWorldPos}, Popup local: {localPos}");
+            audioController.PlayAudio(0);
+            //Debug.Log($"Dice world: {diceWorldPos}, Popup local: {localPos}");
         }
 
         TMP_Text text = popup.GetComponentInChildren<TMP_Text>();

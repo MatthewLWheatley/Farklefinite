@@ -505,8 +505,12 @@ public class MapGenerator : MonoBehaviour
         updateCanvases();
     }
 
-    public void setUpShop() 
+    public void setUpShop()
     {
+        foreach (Transform child in this.transform)
+        {
+            child.gameObject.SetActive(false);
+        }
         SceneManager.LoadScene("ShopScene", LoadSceneMode.Additive);
     }
 

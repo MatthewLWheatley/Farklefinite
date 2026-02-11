@@ -337,6 +337,7 @@ public class GameManager : MonoBehaviour
                     selectedDice[i] = false;
                     diceObjects[i].transform.position = new Vector3(diceObjects[i].transform.position.x, 0, 0);
                     int pip = Random.Range(0, 6);
+                    yield return Random.Range(0.0f, 0.25f);
                     diceDataList[i].ChangePipNow(pip);
                 }
             }
@@ -1092,9 +1093,12 @@ public class GameManager : MonoBehaviour
             if (PlayerData.Instance.BossLevel == true) mapController.NextStage();
 
         }
+
         PlayerData.Instance.BossLevel = false;
         PlayerData.Instance.EliteLevel = false;
+        
         mapController.setUpShop();
+        
         UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync("FightScene");
     }
 

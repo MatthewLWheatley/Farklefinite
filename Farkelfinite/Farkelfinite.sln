@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unity.PlayerPrefsEditor.EditorResources", "Unity.PlayerPrefsEditor.EditorResources.csproj", "{D7BFAD76-4187-D32E-857C-B852ED035713}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-Editor", "Assembly-CSharp-Editor.csproj", "{4A64C4D4-C167-D383-B114-BCE103EDB5A2}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unity.PlayerPrefsEditor.Samples.SampleScene", "Unity.PlayerPrefsEditor.Samples.SampleScene.csproj", "{82B738C7-2F07-6F57-3F16-677952AA7664}"
 EndProject
 Global
@@ -27,6 +29,10 @@ Global
 		{D7BFAD76-4187-D32E-857C-B852ED035713}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D7BFAD76-4187-D32E-857C-B852ED035713}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D7BFAD76-4187-D32E-857C-B852ED035713}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A64C4D4-C167-D383-B114-BCE103EDB5A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A64C4D4-C167-D383-B114-BCE103EDB5A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A64C4D4-C167-D383-B114-BCE103EDB5A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A64C4D4-C167-D383-B114-BCE103EDB5A2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{82B738C7-2F07-6F57-3F16-677952AA7664}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{82B738C7-2F07-6F57-3F16-677952AA7664}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{82B738C7-2F07-6F57-3F16-677952AA7664}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -105,16 +105,18 @@ public class DiceData : MonoBehaviour
         {
             current++;
             if (current >= 6) current = 0;
-
             if (currentPip != null)
                 DestroyImmediate(currentPip);
             currentPip = Instantiate(pipSprites[pips[current] - 1], transform.position, Quaternion.identity, transform);
+
 
             float t = (float)step / totalSteps;
             float curveValue = speedCurve.Evaluate(t);
             float currentSpeed = Mathf.Lerp(fastSpeed, slowSpeed, curveValue);
 
-            yield return new WaitForSeconds(currentSpeed);
+            FindAnyObjectByType<audioController>().PlayAudio(0, (fastSpeed - currentSpeed)*3);
+
+            yield return new WaitForSeconds(currentSpeed+ Random.Range(0.01f, 0.3f));
         }
 
         if (currentPip != null)

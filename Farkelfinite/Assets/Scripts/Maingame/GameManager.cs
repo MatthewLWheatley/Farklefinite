@@ -539,6 +539,8 @@ public class GameManager : MonoBehaviour
 
             float elapsed = 0f;
 
+            FindAnyObjectByType<audioController>().PlayAudio(2);
+
             while (elapsed < moveDuration)
             {
                 elapsed += Time.deltaTime;
@@ -581,6 +583,8 @@ public class GameManager : MonoBehaviour
         GameObject die = diceObjects[diceIndex];
         Vector3 startPos = die.transform.position;
         float elapsed = 0f;
+
+        FindAnyObjectByType<audioController>().PlayAudio(2);
 
         while (elapsed < moveDuration)
         {

@@ -44,8 +44,8 @@ public class MapGenerator : MonoBehaviour
 
     private void Awake()
     {
-        PlayerData.Instance.BossLevel = false;
-        PlayerData.Instance.EliteLevel = false;
+        if (PlayerData.Instance != null) PlayerData.Instance.BossLevel = false;
+        if (PlayerData.Instance != null) PlayerData.Instance.EliteLevel = false;
     }
 
     [ContextMenu("Debug Test")]

@@ -55,6 +55,19 @@ public class audioController : MonoBehaviour
         }
     }
 
+    public void PlayAudio(int id, float pitchRange)
+    {
+        if (id >= 0 && id < audioClips.Length && audioClips[id] != null)
+        {
+            sfxSource.pitch = Random.Range(0.9f - pitchRange, 1.1f + pitchRange);
+            sfxSource.PlayOneShot(audioClips[id]);
+        }
+        else
+        {
+            Debug.LogWarning($"Invalid audio clip id: {id}");
+        }
+    }
+
     public void PlayAudio(string name)
     {
         for (int i = 0; i < audioNames.Length; i++)

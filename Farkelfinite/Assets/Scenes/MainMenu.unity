@@ -3152,9 +3152,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 062454140e83f5442a918136c7e9a1c6, type: 3}
   ambient:
   - {fileID: 8300000, guid: 4a857331d81ebb4469cc815929a2adb4, type: 3}
-  musicSource: {fileID: 0}
-  ambientSource: {fileID: 0}
-  sfxSource: {fileID: 0}
+  musicSource: {fileID: 588098990}
+  ambientSource: {fileID: 588098989}
+  sfxSource: {fileID: 588098988}
   masterVolume: 0
   settingsManager: {fileID: 1021144614}
 --- !u!82 &588098988

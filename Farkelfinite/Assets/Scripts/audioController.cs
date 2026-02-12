@@ -1,3 +1,5 @@
+using NUnit.Framework;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,7 +48,7 @@ public class audioController : MonoBehaviour
     {
         if (id >= 0 && id < audioClips.Length && audioClips[id] != null)
         {
-            sfxSource.pitch = Random.Range(0.9f, 1.1f);
+            sfxSource.pitch = UnityEngine.Random.Range(0.9f, 1.1f);
             sfxSource.PlayOneShot(audioClips[id]);
         }
         else
@@ -59,7 +61,7 @@ public class audioController : MonoBehaviour
     {
         if (id >= 0 && id < audioClips.Length && audioClips[id] != null)
         {
-            sfxSource.pitch = Random.Range(0.9f - pitchRange, 1.1f + pitchRange);
+            sfxSource.pitch = UnityEngine.Random.Range(0.9f - pitchRange, 1.1f + pitchRange);
             sfxSource.PlayOneShot(audioClips[id]);
         }
         else
@@ -85,6 +87,12 @@ public class audioController : MonoBehaviour
     {
         int musicIndex = 0;
         int ambientIndex = 0;
+        List<AudioClip> musiclist = new List<AudioClip>();
+        musiclist = music.ToList();
+
+        int n = musiclist.Count;
+        System.Random rand = new System.Random();
+        music = musiclist.OrderBy(x => rand.Next()).ToArray();
 
         while (true)
         {

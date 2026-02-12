@@ -44,6 +44,7 @@ public class Setting : MonoBehaviour
     private void Awake()
     {
         Screen.fullScreen = true;
+        Application.targetFrameRate = 60;
 
         if (_instance != null && _instance != this)
         {

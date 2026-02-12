@@ -63,7 +63,9 @@ public class ShopContoller : MonoBehaviour
 
     public void Start()
     {
-        canvas = GetComponentInParent<Canvas>();
+        canvas = GetComponent<Canvas>();
+        canvas.worldCamera = Camera.main;
+        canvas.planeDistance = 10;
 
         if (sellZone != null)
         {
@@ -364,8 +366,7 @@ public class ShopContoller : MonoBehaviour
             playerData.dice[i].gameObject.SetActive(true);
             temp[i].transform.SetParent(DicePannel.transform, false);
             float xPos = startX + (i * (width / (temp.Count - 1)));
-            temp[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(xPos, 0);
-
+            temp[i].GetComponent<RectTransform>().anchoredPosition = new Vector3(xPos, 0,0);
             if (playerData.dice[i].gameObject.transform.childCount > 0) playerData.dice[i].gameObject.transform.GetChild(0).gameObject.SetActive(false);
 
             playerData.dice[i].GetComponent<Button>().onClick.RemoveAllListeners();

@@ -68,6 +68,9 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         mapController = FindFirstObjectByType<MapGenerator>();
+        PlayerData.Instance.gameObject.transform.GetChild(0).GetComponent<Canvas>().worldCamera = Camera.main;
+        PlayerData.Instance.gameObject.transform.GetChild(0).GetComponent<Canvas>().planeDistance = 10;
+        
         if (mapController != null && GoalScoreText != null)
         {
             int goalScore = PlayerData.Instance.getNextLevelScoreThreshold(mapController.Level, mapController.stage);
@@ -1008,7 +1011,6 @@ public class GameManager : MonoBehaviour
             if (cam == Camera.main) continue;
             cam.gameObject.SetActive(false);
         }
-        PlayerData.Instance.gameObject.transform.GetChild(0).GetComponent<Canvas>().planeDistance = 1;
     }
 
     bool CheckForWin()

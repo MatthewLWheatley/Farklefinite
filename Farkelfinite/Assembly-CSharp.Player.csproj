@@ -70,6 +70,7 @@
     <Compile Include="Assets\Scripts\Maingame\GameManager.cs" />
     <Compile Include="Assets\Scripts\MoneyReward.cs" />
     <Compile Include="Assets\Scripts\ShopContoller.cs" />
+    <Compile Include="Assets\Scripts\TutBook.cs" />
     <Compile Include="Assets\Scripts\Maingame\AbilityAnimationController.cs" />
     <Compile Include="Assets\Scripts\Maingame\DiceData.cs" />
     <Compile Include="Assets\Scripts\PipDropTarget.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="Assets\Scripts\Maingame\AbilityAnimation.cs" />
     <Compile Include="Assets\Scripts\PipHelperScript.cs" />
     <Compile Include="Assets\Scripts\LevelSelector.cs" />
+    <Compile Include="Assets\Scripts\audioController.cs" />
     <Compile Include="Assets\Scripts\Maingame\AbilityProcessor.cs" />
     <Compile Include="Assets\Scripts\DiceDrag.cs" />
     <Compile Include="Assets\Scripts\Maingame\AbilityEnums.cs" />

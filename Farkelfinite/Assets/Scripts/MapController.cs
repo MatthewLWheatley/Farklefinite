@@ -46,6 +46,7 @@ public class MapGenerator : MonoBehaviour
     {
         if (PlayerData.Instance != null) PlayerData.Instance.BossLevel = false;
         if (PlayerData.Instance != null) PlayerData.Instance.EliteLevel = false;
+        mainCamera = Camera.main;
     }
 
     [ContextMenu("Debug Test")]

@@ -235,11 +235,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 0}
   player: {fileID: 453017679}
-  totalColumns: 5
+  totalColumns: 10
   minNodesPerColumn: 5
-  maxNodesPerColumn: 5
-  minPaths: 5
-  maxPaths: 5
+  maxNodesPerColumn: 8
+  minPaths: 3
+  maxPaths: 4
   columnSpacing: 200
   nodeSpacing: 200
   SidePadding: 0.035

@@ -116,7 +116,7 @@ public class DiceData : MonoBehaviour
 
             FindAnyObjectByType<audioController>().PlayAudio(0, (fastSpeed - currentSpeed)*3);
 
-            yield return new WaitForSeconds(currentSpeed+ Random.Range(0.01f, 0.3f));
+            yield return new WaitForSeconds(currentSpeed+ Random.Range(0.01f, 0.1f));
         }
 
         if (currentPip != null)

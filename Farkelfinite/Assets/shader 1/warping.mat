@@ -58,14 +58,14 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ZWrite: 0
-    - _dither: 0
+    - _dither: 1
     - _speed: 0.1
-    - _twirls_str: 10
+    - _twirls_str: 3
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Colour1: {r: 0.39215687, g: 0, b: 0, a: 1}
-    - _Colour2: {r: 0, g: 0.39215687, b: 0, a: 1}
-    - _Colour3: {r: 0.008547783, g: 0, b: 0.39215687, a: 1}
+    - _Colour1: {r: 0.78431374, g: 0, b: 0, a: 1}
+    - _Colour2: {r: 0, g: 0.78431374, b: 0, a: 1}
+    - _Colour3: {r: 0.01999998, g: 0, b: 0.78431374, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
     - _dir1: {r: 1, g: 0.1, b: 0, a: 0}
     - _dir2: {r: -0.5, g: 0.866, b: 0, a: 0}

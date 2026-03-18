@@ -1,7 +1,8 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using System;
+using UnityEngine.InputSystem.EnhancedTouch;
 
 public class ShopItemDrag : MonoBehaviour
 {
@@ -54,17 +55,19 @@ public class ShopItemDrag : MonoBehaviour
 
     void HandleInput()
     {
-        if (Mouse.current.leftButton.wasPressedThisFrame && !isDragging)
+        UnityEngine.Touch touch = Input.GetTouch(0);
+
+        if ((Mouse.current.leftButton.wasPressedThisFrame || touch.phase == UnityEngine.TouchPhase.Began) && !isDragging)
         {
             TryStartDrag();
         }
 
-        if (isDragging && Mouse.current.leftButton.isPressed)
+        if (isDragging && (Mouse.current.leftButton.isPressed || touch.phase == UnityEngine.TouchPhase.Moved))
         {
             UpdateDragPosition();
         }
 
-        if (Mouse.current.leftButton.wasReleasedThisFrame && isDragging)
+        if ((Mouse.current.leftButton.wasReleasedThisFrame || touch.phase == UnityEngine.TouchPhase.Ended) && isDragging)
         {
             EndDrag();
         }
@@ -72,7 +75,26 @@ public class ShopItemDrag : MonoBehaviour
 
     void TryStartDrag()
     {
-        Vector2 mousePos = Mouse.current.position.ReadValue();
+        var mouse = Mouse.current;
+        var touch = Touchscreen.current?.primaryTouch;
+
+        bool mousetouched = (mouse != null && mouse.leftButton.wasPressedThisFrame);
+        bool touchPrssed = (touch != null && touch.press.wasPressedThisFrame);
+
+        Vector2 mousePos;
+        if (mousetouched)
+        {
+            mousePos = Mouse.current.position.ReadValue();
+        }
+        else if (touchPrssed)
+        {
+            mousePos = touch.position.ReadValue();
+        }
+        else
+        {
+            return;
+        }
+
         Vector3 worldPos = mainCam.ScreenToWorldPoint(mousePos);
         worldPos.z = 0;
 
@@ -95,7 +117,26 @@ public class ShopItemDrag : MonoBehaviour
 
     void UpdateDragPosition()
     {
-        Vector2 mousePos = Mouse.current.position.ReadValue();
+        var mouse = Mouse.current;
+        var touch = Touchscreen.current?.primaryTouch;
+
+        bool mousetouched = (mouse != null && mouse.leftButton.wasPressedThisFrame);
+        bool touchPrssed = (touch != null && touch.press.wasPressedThisFrame);
+
+        Vector2 mousePos;
+        if (mousetouched)
+        {
+            mousePos = Mouse.current.position.ReadValue();
+        }
+        else if (touchPrssed)
+        {
+            mousePos = touch.position.ReadValue();
+        }
+        else
+        {
+            return;
+        }
+
         Vector3 worldPos = mainCam.ScreenToWorldPoint(mousePos);
         worldPos.z = originalPosition.z + dragZOffset;
 

@@ -43,6 +43,8 @@ public class Setting : MonoBehaviour
 
     private void Awake()
     {
+
+        Input.simulateMouseWithTouches = true;
         Screen.fullScreen = true;
         Application.targetFrameRate = 60;
 

@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using System;
+using UnityEngine.InputSystem.EnhancedTouch;
+using TouchPhase = UnityEngine.TouchPhase;
 
 public class DiceDrag : MonoBehaviour
 {
@@ -49,17 +51,33 @@ public class DiceDrag : MonoBehaviour
 
     void HandleInput()
     {
-        if (Mouse.current.leftButton.wasPressedThisFrame && !isDragging)
+        var mouse = Mouse.current;
+        var touch = Touchscreen.current?.primaryTouch;
+
+        bool started = (mouse != null && mouse.leftButton.wasPressedThisFrame) ||
+                       (touch != null && touch.press.wasPressedThisFrame);
+
+        if ((started) && !isDragging)
         {
             TryStartDrag();
         }
 
-        if (isDragging && Mouse.current.leftButton.isPressed)
+        if (isDragging && (Mouse.current.leftButton.isPressed || touch.press.IsPressed()))
         {
             UpdateDragPosition();
         }
 
-        if (Mouse.current.leftButton.wasReleasedThisFrame && isDragging)
+        if (Mouse.current != null && isDragging && Mouse.current.leftButton.wasReleasedThisFrame)
+        {
+            EndDrag();
+        }
+
+        if (Mouse.current != null && isDragging && !touch.press.isPressed)
+        {
+            EndDrag();
+        }
+
+        if ((Mouse.current.leftButton.wasReleasedThisFrame || touch.press.IsPressed()) && isDragging)
         {
             EndDrag();
         }
@@ -67,10 +85,28 @@ public class DiceDrag : MonoBehaviour
 
     void TryStartDrag()
     {
-        Vector2 mousePos = Mouse.current.position.ReadValue();
+        var mouse = Mouse.current;
+        var touch = Touchscreen.current?.primaryTouch;
+
+        bool mousetouched = (mouse != null && mouse.leftButton.wasPressedThisFrame);
+        bool touchPrssed = (touch != null && touch.press.wasPressedThisFrame);
+
+        Vector2 mousePos;
+        if (mousetouched)
+        {
+            mousePos = Mouse.current.position.ReadValue();
+        }
+        else if (touchPrssed)
+        {
+            mousePos = touch.position.ReadValue();
+        }
+        else
+        {
+            return;
+        }
 
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            rectTransform, mousePos, mainCam, out Vector2 localPoint);
+                rectTransform, mousePos, mainCam, out Vector2 localPoint);
 
         if (rectTransform.rect.Contains(localPoint) && !isSnapingBack)
         {
@@ -93,7 +129,25 @@ public class DiceDrag : MonoBehaviour
 
     void UpdateDragPosition()
     {
-        Vector2 mousePos = Mouse.current.position.ReadValue();
+        var mouse = Mouse.current;
+        var touch = Touchscreen.current?.primaryTouch;
+
+        bool mousetouched = (mouse != null && mouse.leftButton.wasPressedThisFrame);
+        bool touchPrssed = (touch != null && touch.press.wasPressedThisFrame);
+
+        Vector2 mousePos;
+        if (mousetouched)
+        {
+            mousePos = Mouse.current.position.ReadValue();
+        }
+        else if (touchPrssed)
+        {
+            mousePos = touch.position.ReadValue();
+        }
+        else
+        {
+            return;
+        }
 
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
             canvas.transform as RectTransform, mousePos, mainCam, out Vector2 canvasPoint);
@@ -123,7 +177,25 @@ public class DiceDrag : MonoBehaviour
 
     GameObject FindDropZoneAtPosition()
     {
-        Vector2 mousePos = Mouse.current.position.ReadValue();
+        var mouse = Mouse.current;
+        var touch = Touchscreen.current?.primaryTouch;
+
+        bool mousetouched = (mouse != null && mouse.leftButton.wasPressedThisFrame);
+        bool touchPrssed = (touch != null && touch.press.wasPressedThisFrame);
+
+        Vector2 mousePos;
+        if (mousetouched)
+        {
+            mousePos = Mouse.current.position.ReadValue();
+        }
+        else if (touchPrssed)
+        {
+            mousePos = touch.position.ReadValue();
+        }
+        else
+        {
+            return null;
+        }
 
         var pointerEventData = new UnityEngine.EventSystems.PointerEventData(UnityEngine.EventSystems.EventSystem.current);
         pointerEventData.position = mousePos;
